@@ -16,7 +16,7 @@ class LoginTest extends TestCase
     /** @test */
     public function can_view_login_page()
     {
-        $this->get(route('login'))
+        $this->get('/auth/login')
             ->assertSuccessful()
             ->assertSeeLivewire('auth.login');
     }
@@ -28,7 +28,7 @@ class LoginTest extends TestCase
 
         $this->be($user);
 
-        $this->get(route('login'))
+        $this->get('/auth/login')
             ->assertRedirect(route('home'));
     }
 

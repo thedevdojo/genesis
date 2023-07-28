@@ -27,7 +27,7 @@ class LogoutTest extends TestCase
     public function an_unauthenticated_user_can_not_log_out()
     {
         $this->post(route('logout'))
-            ->assertRedirect(route('login'));
+            ->assertRedirect('/auth/login');
 
         $this->assertFalse(Auth::check());
     }
