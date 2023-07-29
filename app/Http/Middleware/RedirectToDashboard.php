@@ -18,7 +18,7 @@ class RedirectToDashboard
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::guest()) {
-            return redirect(route('dashboard'));
+            return redirect('/dashboard');
         }
 
         return $next($request);

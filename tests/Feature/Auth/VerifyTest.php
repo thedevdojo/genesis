@@ -26,7 +26,7 @@ class VerifyTest extends TestCase
 
         Auth::login($user);
 
-        $this->get(route('verification.notice'))
+        $this->get('/auth/verify')
             ->assertSuccessful()
             ->assertSeeLivewire('auth.verify');
     }

@@ -14,7 +14,7 @@ class EmailTest extends TestCase
     /** @test */
     public function can_view_password_request_page()
     {
-        $this->get(route('password.request'))
+        $this->get('/auth/reset-password')
             ->assertSuccessful()
             ->assertSeeLivewire('auth.passwords.email');
     }

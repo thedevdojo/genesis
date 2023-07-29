@@ -1,4 +1,12 @@
-<x-layouts.app>
+<?php
+
+use function Laravel\Folio\{middleware};
+
+middleware(['auth', 'verified']);
+
+?>
+
+<x-layouts.dashboard>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
             {{ __('Dashboard') }}
@@ -14,4 +22,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+</x-layouts.dashboard>

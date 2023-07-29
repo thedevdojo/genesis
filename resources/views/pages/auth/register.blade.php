@@ -25,7 +25,7 @@ $register = function(){
 
     Auth::login($user, true);
 
-    return redirect()->intended(route('home'));
+    return redirect()->intended('/');
 }
 
 ?>
@@ -34,20 +34,20 @@ $register = function(){
 
     <div class="flex flex-col items-center justify-center w-screen h-screen">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <a href="{{ route('home') }}">
+            <x-ui.link href="/">
                 <x-logo class="w-auto h-12 mx-auto text-indigo-600 fill-current" />
-            </a>
+            </x-ui.link>
 
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
                 Create a new account
             </h2>
 
-            <p class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">
+            <div class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">
                 Or
-                <a href="/auth/login" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline">
+                <x-ui.link href="/auth/login" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline">
                     sign in to your account
-                </a>
-            </p>
+                </x-ui.link>
+            </div>
         </div>
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

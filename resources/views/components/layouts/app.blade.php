@@ -13,18 +13,8 @@
         <title>{{ $title ?? 'Genesis' }}</title>
     </head>
     <body class="antialiased bg-gray-50">
-        @auth
-            @include('partials.nav')
-        @endauth
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow dark:bg-gray-800">
-                    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
         {{ $slot }}
+
+        <livewire:toast />
     </body>
 </html>
