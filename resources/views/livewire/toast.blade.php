@@ -61,7 +61,7 @@
             }
         });
     "
-    class="fixed top-0 right-0 block w-full mt-6 mr-6 duration-300 ease-out bg-pink-300 group sm:max-w-xs" x-cloak>
+    class="fixed top-0 right-0 block w-full mt-6 mr-6 duration-300 ease-out group sm:max-w-xs" x-cloak>
 
     <template x-for="(toast, index) in toasts" :key="toast.id">
         <li
@@ -74,17 +74,17 @@
                         this.$el.firstElementChild.classList.add('scale-100', 'translate-y-0');
                     }
                     // Middle Toast
-                    if((toasts.length - (index+1)) == 1){
+                    else if((toasts.length - (index+1)) == 1){
                         this.$el.firstElementChild.classList.remove('scale-100', 'translate-y-0');
                         this.$el.firstElementChild.classList.add('scale-[94%]', 'translate-y-4');
                     }
                     // Bottom Toast
-                    if((toasts.length - (index+1)) == 2){
-                        this.$el.firstElementChild.classList.remove('scale-100', 'translate-y-0', 'scale-[94%]', 'translate-y-4');
+                    else if((toasts.length - (index+1)) == 2){
+                        this.$el.firstElementChild.classList.remove('scale-[94%]', 'translate-y-4');
                         this.$el.firstElementChild.classList.add('scale-[88%]', 'translate-y-8');
                     }
                     // Toast To Burn 🔥 (remove)
-                    if((toasts.length - (index+1)) > 2){
+                    else if((toasts.length - (index+1)) > 2){
                         this.$el.firstElementChild.classList.remove('scale-[88%]', 'translate-y-8');
                         this.$el.firstElementChild.classList.add('scale-[82%]', 'translate-y-12');
                         
@@ -104,6 +104,7 @@
             }"
             x-show="toast.show"
             x-init="
+            console.log('initialized index: ' + index);
                 //setTimeout(() => toast.show = true, 1); 
                 setTimeout(function(){
                     toast.show=true;
@@ -133,7 +134,9 @@
             >
             <span class="
                 relative flex flex-col items-start shadow-[0_10px_15px_-3px_rgb(0_0_0_/_0.08)] w-full p-4 transition-all duration-300 ease-in-out bg-white border border-gray-100 rounded-md sm:max-w-xs group 
-            ">
+                
+            "
+            >
                 <p class="text-sm font-medium leading-none" x-text="toast.message"></p>
                 <p x-show="toast.description" class="mt-1.5 text-xs leading-none opacity-90" x-text="toast.description"></p>
                 <span @click="toast.show=false;"
