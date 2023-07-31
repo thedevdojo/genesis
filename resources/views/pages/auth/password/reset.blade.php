@@ -35,6 +35,12 @@ $sendResetPasswordLink = function(){
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
                 Reset password
             </h2>
+            <div class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">
+                Or
+                <x-ui.link href="/auth/login" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline">
+                    return to login
+                </x-ui.link>
+            </div>
         </div>
 
         @volt('auth.password.reset')
