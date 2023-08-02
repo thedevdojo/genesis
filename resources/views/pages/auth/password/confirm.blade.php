@@ -2,7 +2,7 @@
     <div>
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
-                <x-logo class="w-auto h-12 mx-auto text-indigo-600 fill-current" />
+                <x-logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
             </x-ui.link>
 
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
@@ -14,7 +14,7 @@
         </div>
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+            <div class="px-4 py-8 bg-white border shadow-sm sm:rounded-lg border-gray-200/60 sm:px-10">
                 <form wire:submit="confirm">
                     <div>
                         <label for="password" class="block text-sm font-medium leading-5 text-gray-700">
@@ -32,7 +32,7 @@
 
                     <div class="flex items-center justify-end mt-6">
                         <div class="text-sm leading-5">
-                            <x-ui.link href="/auth/reset-password" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline">
+                            <x-ui.link href="/auth/reset-password" class="font-medium text-gray-600 transition duration-150 ease-in-out hover:text-gray-500 focus:outline-none focus:underline">
                                 Forgot your password?
                             </x-ui.link>
                         </div>
@@ -40,7 +40,7 @@
 
                     <div class="mt-6">
                         <span class="block w-full rounded-md shadow-sm">
-                            <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring-indigo active:bg-indigo-700">
+                            <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-gray-600 border border-transparent rounded-md hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:ring-indigo active:bg-gray-700">
                                 Confirm password
                             </button>
                         </span>

@@ -29,7 +29,7 @@ $sendResetPasswordLink = function(){
     <div class="flex flex-col items-center justify-center w-screen h-screen">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
-                <x-logo class="w-auto h-12 mx-auto text-indigo-600 fill-current" />
+                <x-logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
             </x-ui.link>
 
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
@@ -37,15 +37,15 @@ $sendResetPasswordLink = function(){
             </h2>
             <div class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">
                 Or
-                <x-ui.link href="/auth/login" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline">
+                <x-ui.text-link href="/auth/login">
                     return to login
-                </x-ui.link>
+                </x-ui.text-link>
             </div>
         </div>
 
         @volt('auth.password.reset')
             <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+                <div class="px-4 py-8 bg-white border shadow-sm sm:rounded-lg border-gray-200/60 sm:px-10">
                     @if ($emailSentMessage)
                         <div class="p-4 rounded-md bg-green-50">
                             <div class="flex">
@@ -80,7 +80,7 @@ $sendResetPasswordLink = function(){
 
                             <div class="mt-6">
                                 <span class="block w-full rounded-md shadow-sm">
-                                    <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring-indigo active:bg-indigo-700">
+                                    <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-gray-600 border border-transparent rounded-md hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:ring-indigo active:bg-gray-700">
                                         Send password reset link
                                     </button>
                                 </span>

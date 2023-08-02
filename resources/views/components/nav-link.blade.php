@@ -2,10 +2,12 @@
 
 @php
 $classes = ($active ?? false)
-            ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 dark:border-indigo-600 text-sm font-medium leading-5 text-gray-900 dark:text-gray-100 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out'
-            : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-700 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-700 transition duration-150 ease-in-out';
+            ? 'rounded-md py-0.5 text-sm font-semibold text-gray-600 group relative hover:text-gray-800'
+            : 'rounded-md py-0.5 text-sm font-semibold text-gray-600 group relative text-gray-800';
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>
-    {{ $slot }}
+    <span>{{ $slot }}</span>
+    
+    <span class="absolute bottom-0 ease-out duration-300 h-0.5 bg-gray-800 group-hover:w-full @if($active ?? false){{ 'w-full left-0' }}@else{{ 'w-0 group-hover:w-full left-1/2 group-hover:left-0' }}@endif"></span>
 </a>

@@ -24,7 +24,7 @@
     <div class="flex flex-col items-center justify-center w-screen h-screen">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
-                <x-logo class="w-auto h-16 mx-auto text-indigo-600" />
+                <x-logo class="w-auto h-16 mx-auto text-gray-800" />
             </x-ui.link>
 
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900">
@@ -33,9 +33,9 @@
 
             <div class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">
                 Or
-                <x-link href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="font-medium text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:outline-none focus:underline">
+                <x-ui.link href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="font-medium text-gray-600 transition duration-150 ease-in-out hover:text-gray-500 focus:outline-none focus:underline">
                     sign out
-                </x-link>
+                </x-ui.link>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
@@ -46,7 +46,7 @@
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 
             @volt('auth.verify')
-                <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+                <div class="px-4 py-8 bg-white border shadow-sm sm:rounded-lg border-gray-200/60 sm:px-10">
                     @if (session('resent'))
                         <div class="flex items-center px-4 py-3 mb-6 text-sm text-white bg-green-500 rounded shadow" role="alert">
                             <svg class="w-4 h-4 mr-3 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -61,7 +61,7 @@
                         <p>Before proceeding, please check your email for a verification link.</p>
 
                         <p class="mt-3">
-                            If you did not receive the email, <a wire:click="resend" class="text-indigo-700 transition duration-150 ease-in-out cursor-pointer hover:text-indigo-600 focus:outline-none focus:underline">click here to request another</a>.
+                            If you did not receive the email, <a wire:click="resend" class="text-gray-700 transition duration-150 ease-in-out cursor-pointer hover:text-gray-600 focus:outline-none focus:underline">click here to request another</a>.
                         </p>
                     </div>
                 </div>

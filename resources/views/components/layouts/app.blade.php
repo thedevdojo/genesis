@@ -12,7 +12,7 @@
 
         <title>{{ $title ?? 'Genesis' }}</title>
     </head>
-    <body class="antialiased bg-gray-50">
+    <body class="antialiased">
         {{ $slot }}
 
         <livewire:toast />
