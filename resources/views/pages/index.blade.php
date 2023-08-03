@@ -30,17 +30,23 @@ middleware(['redirect-to-dashboard']);
                 </div>
             </div>
 
-            <div class="mt-8 overflow-hidden border rounded-md shadow-sm border-gray-200/70 sm:mx-auto sm:w-full sm:max-w-md">
+            <div x-data="{ showMoreInfo: $persist(true).as('genesis.show-more-info') }" class="mt-8 overflow-hidden border rounded-md shadow-sm border-gray-200/70 sm:mx-auto sm:w-full sm:max-w-md">
                 <div class="flex px-4 py-8 space-x-5 bg-white border-b border-gray-200/70 sm:rounded-t-lg sm:px-10">
             
                     <x-ui.button type="secondary" tag="a" href="https://github.com/thedevdojo/genesis" target="_blank" class="px-5 py-2.5 text-sm text-center font-medium bg-gray-600 text-white/90 duration-200 ease-out rounded hover:text-white">View the Docs</x-ui.button>
                     <x-ui.button type="primary" tag="a" href="https://github.com/thedevdojo/genesis" target="_blank" class="px-5 py-2.5 text-sm text-center font-medium bg-gray-800 hover:bg-gray-900 text-white rounded text-white/90 duration-200 ease-out hover:text-white">View Github Repo</x-ui.button>
                 </div>
 
-                <div class="bg-gray-200 bg-opacity-25">
+                <div @click="showMoreInfo=!showMoreInfo" class="flex items-center justify-between w-full px-10 py-3 text-xs font-medium text-left text-gray-400 border-b cursor-pointer hover:bg-gray-100/40 group bg-white/30 border-gray-200/70">
+                    <p><span x-show="showMoreInfo">Hide</span><span x-show="!showMoreInfo" x-cloak>Show</span> additional info</p>
+                    <svg 
+                        :class="{ '-rotate-180' : !showMoreInfo }"
+                        class="w-4 h-4 ml-1 duration-300 ease-out opacity-50 group-hover:opacity-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" x-cloak><path fill-rule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z" clip-rule="evenodd" /></svg>
+                </div>
+                <div x-show="showMoreInfo" class="bg-gray-200 bg-opacity-25" x-collapse>
                     <div class="col-span-2 p-6 pb-0 lg:pb-0 lg:p-8">
-                         <p class="text-xs leading-relaxed text-center text-gray-500 -translate-y-2">
-                            Genesis Starter Kit is built using the following technologies.
+                         <p class="text-xs leading-relaxed text-left text-gray-500 -translate-y-2">
+                            The Genesis starter kit gives you a jumpstart on creating your app! Bundled with all these awesome technologies.
                         </p>
                     </div>
                     <div class="grid grid-cols-1 gap-2 p-6 bg-opacity-25 lg:pt-0 md:grid-cols-2 lg:gap-4 lg:gap-y-1 lg:p-8">
@@ -151,7 +157,14 @@ middleware(['redirect-to-dashboard']);
 
                     </div>
 
+                    
+
                 </div>
+                <div class="col-span-2 p-6 bg-white/30 lg:px-8 lx:py-5">
+                         <p class="text-xs leading-relaxed text-left text-gray-500">
+                            Hit the ground running with built-in features like <x-ui.text-link href="#_">authentication</x-ui.text-link>, <x-ui.text-link href="#_">components</x-ui.text-link>, and more.
+                        </p>
+                    </div>
 
 
                 {{--  --}}
