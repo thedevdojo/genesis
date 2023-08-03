@@ -6,13 +6,13 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800&amp;display=swap" rel="stylesheet">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <title>{{ $title ?? 'Genesis' }}</title>
     </head>
-    <body class="antialiased">
+    <body class="antialiased bg-gray-50">
         {{ $slot }}
 
         <livewire:toast />
