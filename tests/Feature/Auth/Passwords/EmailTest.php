@@ -2,10 +2,11 @@
 
 namespace Tests\Feature\Auth\Passwords;
 
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Livewire\Livewire;
 use Tests\TestCase;
+use App\Models\User;
+use Livewire\Volt\Volt;
+use Livewire\Volt\FragmentAlias;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class EmailTest extends TestCase
 {
@@ -14,26 +15,25 @@ class EmailTest extends TestCase
     /** @test */
     public function can_view_password_request_page()
     {
-        $this->get('/auth/reset-password')
+        $this->get('/auth/password/reset')
             ->assertSuccessful()
-            ->assertSeeLivewire('auth.passwords.email');
+            ->assertSeeLivewire(
+                FragmentAlias::encode(
+                    componentName: 'auth.password.reset',
+                    path: resource_path('views/pages/auth/password/reset.blade.php')
+                )
+            );
     }
 
     /** @test */
-    public function a_user_must_enter_an_email_address()
+    public function an_email_is_required_and_must_be_valid()
     {
-        Livewire::test('auth.passwords.email')
+        Volt::test('auth.password.reset')
             ->call('sendResetPasswordLink')
-            ->assertHasErrors(['email' => 'required']);
-    }
-
-    /** @test */
-    public function a_user_must_enter_a_valid_email_address()
-    {
-        Livewire::test('auth.passwords.email')
+            ->assertHasErrors(['email' => ['required']])
             ->set('email', 'email')
             ->call('sendResetPasswordLink')
-            ->assertHasErrors(['email' => 'email']);
+            ->assertHasErrors(['email' => ['email']]);
     }
 
     /** @test */
@@ -41,7 +41,7 @@ class EmailTest extends TestCase
     {
         $user = User::factory()->create();
 
-        Livewire::test('auth.passwords.email')
+        Volt::test('auth.password.reset')
             ->set('email', $user->email)
             ->call('sendResetPasswordLink')
             ->assertNotSet('emailSentMessage', false);

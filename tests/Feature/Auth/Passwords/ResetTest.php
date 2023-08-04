@@ -2,15 +2,16 @@
 
 namespace Tests\Feature\Auth\Passwords;
 
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Livewire\Livewire;
 use Tests\TestCase;
+use App\Models\User;
+use Livewire\Volt\Volt;
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Volt\FragmentAlias;
 
 class ResetTest extends TestCase
 {
@@ -29,13 +30,17 @@ class ResetTest extends TestCase
             'created_at' => Carbon::now(),
         ]);
 
-        $this->get(route('password.reset', [
-            'email' => $user->email,
+        $this->get(url('/auth/password', [
             'token' => $token,
-        ]))
+        ]).'?email='.$user->email)
             ->assertSuccessful()
             ->assertSee($user->email)
-            ->assertSeeLivewire('auth.passwords.reset');
+            ->assertSeeLivewire(
+                FragmentAlias::encode(
+                    componentName: 'auth.password.token',
+                    path: resource_path('views/pages/auth/password/[token].blade.php')
+                )
+            );
     }
 
     /** @test */
@@ -51,7 +56,7 @@ class ResetTest extends TestCase
             'created_at' => Carbon::now(),
         ]);
 
-        Livewire::test('auth.passwords.reset', [
+        Volt::test('auth.password.token', [
             'token' => $token,
         ])
             ->set('email', $user->email)
@@ -68,7 +73,7 @@ class ResetTest extends TestCase
     /** @test */
     public function token_is_required()
     {
-        Livewire::test('auth.passwords.reset', [
+        Volt::test('auth.password.token', [
             'token' => null,
         ])
             ->call('resetPassword')
@@ -78,7 +83,7 @@ class ResetTest extends TestCase
     /** @test */
     public function email_is_required()
     {
-        Livewire::test('auth.passwords.reset', [
+        Volt::test('auth.password.token', [
             'token' => Str::random(16),
         ])
             ->set('email', null)
@@ -89,7 +94,7 @@ class ResetTest extends TestCase
     /** @test */
     public function email_is_valid_email()
     {
-        Livewire::test('auth.passwords.reset', [
+        Volt::test('auth.password.token', [
             'token' => Str::random(16),
         ])
             ->set('email', 'email')
@@ -100,7 +105,7 @@ class ResetTest extends TestCase
     /** @test */
     function password_is_required()
     {
-        Livewire::test('auth.passwords.reset', [
+        Volt::test('auth.password.token', [
             'token' => Str::random(16),
         ])
             ->set('password', '')
@@ -111,7 +116,7 @@ class ResetTest extends TestCase
     /** @test */
     function password_is_minimum_of_eight_characters()
     {
-        Livewire::test('auth.passwords.reset', [
+        Volt::test('auth.password.token', [
             'token' => Str::random(16),
         ])
             ->set('password', 'secret')
@@ -122,7 +127,7 @@ class ResetTest extends TestCase
     /** @test */
     function password_matches_password_confirmation()
     {
-        Livewire::test('auth.passwords.reset', [
+        Volt::test('auth.password.token', [
             'token' => Str::random(16),
         ])
             ->set('password', 'new-password')
