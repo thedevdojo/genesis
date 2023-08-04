@@ -2,10 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-[x-cloak] {
-    display: none;
-}
+@layer base {
+    [x-cloak] {
+        display: none;
+    }
 
-html{
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
+    html {
+        font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui,
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+            "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+            "Noto Color Emoji"; /* 4 */
+    }
+
+    /**
+    * Remove the default box-shadow for invalid elements to prevent
+    * inputs in Livewire components showing with a
+    * red border by default in Firefox.
+    *
+    * See: https://github.com/laravel-frontend-presets/tall/issues/7
+    */
+    input:invalid,
+    textarea:invalid,
+    select:invalid {
+        box-shadow: none;
+    }
 }
