@@ -2,16 +2,15 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\User;
 use Tests\TestCase;
-use Livewire\Livewire;
-use Illuminate\Support\Facades\Hash;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
+use App\Models\User;
+use Illuminate\Auth\Events\Verified;
+use Livewire\Volt\Volt;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 
 class VerifyTest extends TestCase
 {
@@ -24,23 +23,26 @@ class VerifyTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        Auth::login($user);
-
-        $this->get('/auth/verify')
-            ->assertSuccessful()
-            ->assertSeeLivewire('auth.verify');
+        $this
+            ->be($user)
+            ->get('/auth/verify')
+            ->assertSuccessful();
     }
 
     /** @test */
     public function can_resend_verification_email()
     {
+        Notification::fake();
+
         $user = User::factory()->create();
 
-        Livewire::actingAs($user);
+        $this->be($user);
 
-        Livewire::test('auth.verify')
+        Volt::test('auth.verify')
             ->call('resend')
             ->assertDispatched('resent');
+
+        Notification::assertSentTo($user, VerifyEmail::class);
     }
 
     /** @test */
@@ -50,16 +52,41 @@ class VerifyTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        Auth::login($user);
+        Event::fake();
 
-        $url = URL::temporarySignedRoute('verification.verify', Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)), [
-            'id' => $user->getKey(),
-            'hash' => sha1($user->getEmailForVerification()),
-        ]);
+        $url = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(config('auth.verification.expire', 60)),
+            ['id' => $user->getKey(), 'hash' => sha1($user->getEmailForVerification())]
+        );
 
-        $this->get($url)
+        $this
+            ->be($user)
+            ->get($url)
             ->assertRedirect(route('home'));
 
-        $this->assertTrue($user->hasVerifiedEmail());
+        Event::assertDispatched(Verified::class);
+        $this->assertTrue($user->fresh()->hasVerifiedEmail());
+    }
+
+    /** @test */
+    public function can_not_verify_invalid_hash()
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => null,
+        ]);
+
+        $url = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(config('auth.verification.expire', 60)),
+            ['id' => $user->getKey(), 'hash' => sha1('invalid-email')]
+        );
+
+        $this
+            ->be($user)
+            ->get($url)
+            ->assertForbidden();
+
+        $this->assertFalse($user->fresh()->hasVerifiedEmail());
     }
 }
