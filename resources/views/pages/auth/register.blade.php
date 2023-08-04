@@ -9,8 +9,8 @@ use function Laravel\Folio\{middleware};
 use function Livewire\Volt\{state, rules};
 
 middleware(['guest']);
-state(['name' => '', 'email' => '', 'password' => '', 'passwordConfirmation' => '']);
-rules(['name' => 'required', 'email' => 'required|email|unique:users', 'password' => 'required|min:8|same:passwordConfirmation']);
+state(['name' => '', 'email' => '', 'password' => '', 'password_confirmation' => '']);
+rules(['name' => 'required', 'email' => 'required|email|unique:users', 'password' => 'required|min:8|confirmed']);
 
 $register = function(){
     $this->validate();
@@ -33,7 +33,7 @@ $register = function(){
 <x-layouts.app>
 
     <div class="flex flex-col items-center justify-center w-screen h-screen">
-        
+
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
                 <x-logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
@@ -52,13 +52,13 @@ $register = function(){
                         <x-ui.input label="Name" type="name" id="name" name="name" wire:model="name" />
                         <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
                         <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
-                        <x-ui.input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" />
+                        <x-ui.input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="password_confirmation" />
                         <x-ui.button type="primary" submit="true">Register</x-ui.button>
                     </form>
                 @endvolt
             </div>
         </div>
-        
+
     </div>
 
 </x-layouts.app>
