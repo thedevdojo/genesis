@@ -20,6 +20,10 @@ class ConfirmTest extends TestCase
         Route::get('/must-be-confirmed', function () {
             return 'You must be confirmed to see this page.';
         })->middleware(['web', 'password.confirm']);
+
+        $this->markTestSkipped(
+            'Until Folio support named routes or middleware is moved from vendor to app.'
+        );
     }
 
     /** @test */
