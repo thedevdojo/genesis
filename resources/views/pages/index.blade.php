@@ -32,14 +32,14 @@ middleware(['redirect-to-dashboard']);
 
             <div x-data="{ showMoreInfo: $persist(true).as('genesis.show-more-info') }" class="mt-8 overflow-hidden border rounded-md shadow-sm border-gray-200/70 sm:mx-auto sm:w-full sm:max-w-md">
                 <div class="flex px-4 py-8 space-x-5 bg-white border-b border-gray-200/70 sm:rounded-t-lg sm:px-10">
-            
+
                     <x-ui.button type="secondary" tag="a" href="https://github.com/thedevdojo/genesis" target="_blank" class="px-5 py-2.5 text-sm text-center font-medium bg-gray-600 text-white/90 duration-200 ease-out rounded hover:text-white">View the Docs</x-ui.button>
                     <x-ui.button type="primary" tag="a" href="https://github.com/thedevdojo/genesis" target="_blank" class="px-5 py-2.5 text-sm text-center font-medium bg-gray-800 hover:bg-gray-900 text-white rounded text-white/90 duration-200 ease-out hover:text-white">View Github Repo</x-ui.button>
                 </div>
 
                 <div @click="showMoreInfo=!showMoreInfo" class="flex items-center justify-between w-full px-10 py-3 text-xs font-medium text-left text-gray-400 border-b cursor-pointer hover:bg-gray-100/40 group bg-white/30 border-gray-200/70">
                     <p><span x-show="showMoreInfo">Hide</span><span x-show="!showMoreInfo" x-cloak>Show</span> additional info</p>
-                    <svg 
+                    <svg
                         :class="{ '-rotate-180' : !showMoreInfo }"
                         class="w-4 h-4 ml-1 duration-300 ease-out opacity-50 group-hover:opacity-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" x-cloak><path fill-rule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z" clip-rule="evenodd" /></svg>
                 </div>
@@ -50,7 +50,7 @@ middleware(['redirect-to-dashboard']);
                         </p>
                     </div>
                     <div class="grid grid-cols-1 gap-2 p-6 bg-opacity-25 lg:pt-0 md:grid-cols-2 lg:gap-4 lg:gap-y-1 lg:p-8">
-                        
+
 
                         <div>
                             <a href="https://laravel.com/docs" target="_blank" class="relative flex items-center px-4 py-3 mt-3 border border-gray-200 rounded-lg bg-gray-50 group gap-x-2.5 hover:bg-white">
@@ -64,7 +64,7 @@ middleware(['redirect-to-dashboard']);
                                     <span href="https://laravel.com/docs" class="inline-flex items-center font-normal leading-none text-gray-700">
                                         View the Docs
 
-                                        
+
                                     </span>
                                 </span>
                             </a>
@@ -81,7 +81,7 @@ middleware(['redirect-to-dashboard']);
                                     <span href="https://laravel.com/docs" class="inline-flex items-center font-normal leading-none text-gray-700">
                                         View the Docs
 
-                                        
+
                                     </span>
                                 </span>
                             </a>
@@ -98,7 +98,7 @@ middleware(['redirect-to-dashboard']);
                                     <span href="https://laravel.com/docs" class="inline-flex items-center font-normal leading-none text-gray-700">
                                         View the Docs
 
-                                        
+
                                     </span>
                                 </span>
                             </a>
@@ -106,7 +106,7 @@ middleware(['redirect-to-dashboard']);
                         <div>
                             <a href="https://tailwindcss.com/docs" target="_blank" class="relative flex items-center px-4 py-3 mt-3 border border-gray-200 rounded-lg bg-gray-50 group gap-x-2.5 hover:bg-white">
                                 <span class="flex items-center justify-center flex-none w-8 h-8">
-                                    <svg class="w-7 h-7" viewBox="0 0 50 31" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M25 0c-6.667 0-10.833 3.382-12.5 10.146 2.5-3.382 5.417-4.65 8.75-3.805 1.902.482 3.261 1.882 4.766 3.432 2.45 2.524 5.288 5.445 11.484 5.445 6.667 0 10.833-3.382 12.5-10.145-2.5 3.382-5.417 4.65-8.75 3.804-1.902-.482-3.261-1.882-4.766-3.431C34.034 2.922 31.196 0 25 0ZM12.5 15.218C5.833 15.218 1.667 18.6 0 25.364c2.5-3.382 5.417-4.65 8.75-3.805 1.902.483 3.261 1.883 4.766 3.432 2.45 2.524 5.288 5.445 11.484 5.445 6.667 0 10.833-3.381 12.5-10.145-2.5 3.382-5.417 4.65-8.75 3.805-1.902-.483-3.261-1.883-4.766-3.432-2.45-2.524-5.288-5.446-11.484-5.446Z" fill="#38BDF8"/></g><defs><clipPath id="a"><rect width="50" height="31" fill="white"/></clipPath></defs></svg>
+                                    <svg class="w-7 h-7" viewBox="0 0 50 31" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M25 0c-6.667 0-10.833 3.382-12.5 10.146 2.5-3.382 5.417-4.65 8.75-3.805 1.902.482 3.261 1.882 4.766 3.432 2.45 2.524 5.288 5.445 11.484 5.445 6.667 0 10.833-3.382 12.5-10.145-2.5 3.382-5.417 4.65-8.75 3.804-1.902-.482-3.261-1.882-4.766-3.431C34.034 2.922 31.196 0 25 0ZM12.5 15.218C5.833 15.218 1.667 18.6 0 25.364c2.5-3.382 5.417-4.65 8.75-3.805 1.902.483 3.261 1.883 4.766 3.432 2.45 2.524 5.288 5.445 11.484 5.445 6.667 0 10.833-3.381 12.5-10.145-2.5 3.382-5.417 4.65-8.75 3.805-1.902-.483-3.261-1.883-4.766-3.432-2.45-2.524-5.288-5.446-11.484-5.446Z" fill="#38BDF8"/><defs><clipPath id="a"><rect width="50" height="31" fill="white"/></clipPath></defs></svg>
                                 </span>
                                 <span class="flex flex-col justify-center h-full opacity-70 group-hover:opacity-100 text-[0.65rem]">
                                     <span class="relative flex items-center mt-0 mb-0.5 text-sm font-semibold leading-none text-gray-900">
@@ -115,7 +115,7 @@ middleware(['redirect-to-dashboard']);
                                     <span href="https://laravel.com/docs" class="inline-flex items-center font-normal leading-none text-gray-700">
                                         View the Docs
 
-                                        
+
                                     </span>
                                 </span>
                             </a>
@@ -132,7 +132,7 @@ middleware(['redirect-to-dashboard']);
                                     <span href="https://laravel.com/docs" class="inline-flex items-center font-normal leading-none text-gray-700">
                                         View the Docs
 
-                                        
+
                                     </span>
                                 </span>
                             </a>
@@ -149,7 +149,7 @@ middleware(['redirect-to-dashboard']);
                                     <span href="https://laravel.com/docs" class="inline-flex items-center font-normal leading-none text-gray-700">
                                         View the Docs
 
-                                        
+
                                     </span>
                                 </span>
                             </a>
@@ -157,7 +157,7 @@ middleware(['redirect-to-dashboard']);
 
                     </div>
 
-                    
+
 
                 </div>
                 <div class="col-span-2 p-6 bg-white/30 lg:px-8 lx:py-5">
