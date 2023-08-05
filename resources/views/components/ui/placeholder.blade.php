@@ -1,5 +1,5 @@
 <div class="absolute inset-0 h-full">
-    <div class="relative h-full overflow-hidden border border-gray-400 border-dashed opacity-75 rounded-xl">
+    <div class="relative h-full overflow-hidden border border-gray-400 border-dashed opacity-75 sm:rounded-xl">
         <svg class="absolute inset-0 w-full h-full stroke-gray-900/10" fill="none">
         <defs>
             <pattern id="pattern-b55d3ce5-d478-4029-95b9-44c415d04f63" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">

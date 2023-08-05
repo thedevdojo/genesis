@@ -17,7 +17,7 @@
 ?>
 
 <x-layouts.app>
-    <div class="flex flex-col items-center justify-center w-screen h-screen">
+    <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
                 <x-logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
@@ -32,7 +32,7 @@
         </div>
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="px-4 py-8 bg-white border shadow-sm sm:rounded-lg border-gray-200/60 sm:px-10">
+            <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white sm:border sm:rounded-lg border-gray-200/60">
                 @volt('auth.password.confirm')
                     <form wire:submit="confirm" class="space-y-6">
                         <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
