@@ -10,7 +10,7 @@ middleware(['redirect-to-dashboard']);
 <x-layouts.app>
 
     @volt('home')
-        <div class="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 dark:bg-gray-900">
+        <div class="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 dark:bg-gray-900" x-cloak>
             <div class="sm:mx-auto sm:w-full sm:max-w-md">
                 <x-ui.link href="/">
                     <x-logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
@@ -162,7 +162,7 @@ middleware(['redirect-to-dashboard']);
                 </div>
                 <div class="col-span-2 p-6 bg-white/30 lg:px-8 lx:py-5">
                          <p class="text-xs leading-relaxed text-left text-gray-500">
-                            Hit the ground running with built-in features like <x-ui.text-link href="#_">authentication</x-ui.text-link>, <x-ui.text-link href="#_">components</x-ui.text-link>, and more.
+                            Hit the ground running with the Genesis starter kit, which contains <x-ui.text-link href="#_">authentication</x-ui.text-link>, <x-ui.text-link href="#_">dashboard</x-ui.text-link>, <x-ui.text-link href="#_">user profiles</x-ui.text-link>, and  <x-ui.text-link href="#_">UI components</x-ui.text-link>.
                         </p>
                     </div>
 

@@ -1,27 +1,115 @@
 <?php
+
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use function Laravel\Folio\{middleware};
 use function Livewire\Volt\{with, state, rules, mount};
+use Illuminate\Validation\Rule;
 
 middleware(['auth', 'verified']);
 
-state(['user' => fn () => auth()->user()]);
-
-/*with(fn () => [
-    'user' => auth()->user()
+state([
+    'user' => auth()->user(),
+    'name' => '',
+    'email' => '',
+    'current_password' => '',
+    'new_password' => '',
+    'new_password_confirmation' => ''
 ]);
 
-mount(function (Request $request){
-    $this->user = $request->user();
-});*/
+mount(function(){
+    $this->name = $this->user->name;
+    $this->email = $this->user->email;
+});
 
+$updateProfile = function()
+{
+    $validated = $this->validate([ 
+        'name' => 'required|string|min:3',
+        'email' => 'required|min:3|email|max:255|unique:users,email,' . $this->user->id . ',id'
+    ]);
+
+    if($this->user->name == $this->name && $this->user->email == $this->email){
+        $this->dispatch('toast', message: 'Nothing to update.', data: [ 'position' => 'top-right', 'type' => 'info' ]);
+        return;
+    }
+
+    $this->user->fill(['email' => $this->email, 'name' => $this->name])->save();
+    
+    $this->dispatch('toast', message: 'Successfully updated profile.', data: [ 'position' => 'top-right', 'type' => 'success' ]);
+};
+
+$updatePassword = function(){
+
+    $validated = $this->validate([ 
+        'new_password' => 'required|confirmed|min:6',
+    ]);
+
+    if (!Hash::check($this->current_password, $this->user->password)) {
+        $this->dispatch('toast', message: 'Current Password Incorrect', data: [ 'position' => 'top-right', 'type' => 'danger' ]);
+        return;
+    }
+
+    $this->dispatch('toast', message: 'Successfully updated password.', data: [ 'position' => 'top-right', 'type' => 'success' ]);
+    // The passwords match...
+    $this->user->fill(['password' => Hash::make($this->new_password), 'remember_token' => Str::random(60) ])->save();
+
+    $this->reset(['current_password', 'new_password', 'new_password_confirmation']);
+    
+
+    // Here we will attempt to reset the user's password. If it is successful we
+    // will update the password on an actual user model and persist it to the
+    // database. Otherwise we will parse the error and return the response.
+    /*$status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function ($user) use ($request) {
+            $user->forceFill([
+                'password' => Hash::make($request->password),
+                'remember_token' => Str::random(60),
+            ])->save();
+
+            event(new PasswordReset($user));
+        }
+    );*/
+
+    // If the password was successfully reset, we will redirect the user back to
+    // the application's home authenticated view. If there is an error we can
+    // redirect them back to where they came from with their error message.
+    /*return $status == Password::PASSWORD_RESET
+                ? redirect()->route('login')->with('status', __($status))
+                : back()->withInput($request->only('email'))
+                        ->withErrors(['email' => __($status)]);*/
+};
+
+/**
+    * Delete the user's account.
+    */
+$destroy = function(Request $request)
+{
+    $request->validateWithBag('userDeletion', [
+        'password' => ['required', 'current_password'],
+    ]);
+
+    $user = $request->user();
+
+    Auth::logout();
+
+    $user->delete();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return Redirect::to('/');
+}
 ?>
 
 
 <x-layouts.dashboard>
 
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+        <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
             {{ __('Profile') }}
         </h2>
     </x-slot>
@@ -29,129 +117,49 @@ mount(function (Request $request){
     @volt('profile.edit')
         <div class="py-12">
             <div class="mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8">
-                <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
+                
+                {{-- Update Profile Section --}}
+                <section class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
                     <div class="max-w-xl">
-                        
-                        {{-- Update Profile Information --}}
-                        <section>
-                            <header>
-                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                    {{ __('Profile Information') }}
-                                </h2>
-
-                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                    {{ __("Update your account's profile information and email address.") }}
-                                </p>
-                            </header>
-
-                            <form method="post" action="/profile/update" class="mt-6 space-y-6">
-                                @csrf
-                                @method('patch')
-
+                        <header>
+                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Profile Information') }}</h2>
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ __("Update your account's profile information and email address.") }}</p>
+                        </header>
+                        <form wire:submit="updateProfile" class="mt-6 space-y-6">
+                            <x-ui.input label="Name" type="text" id="name" name="name" wire:model="name" />
+                            <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
+                            <div class="flex items-start">
                                 <div>
-                                    <x-input-label for="name" :value="__('Name')" />
-                                    <x-text-input id="name" name="name" type="text" class="block w-full mt-1" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                                    <x-ui.button type="primary" submit="true">{{ __('Update') }}</x-ui.button>
                                 </div>
-
-                                <div>
-                                    <x-input-label for="email" :value="__('Email')" />
-                                    <x-text-input id="email" name="email" type="email" class="block w-full mt-1" :value="old('email', $user->email)" required autocomplete="username" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
-                                    @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                                        <div>
-                                            <p class="mt-2 text-sm text-gray-800 dark:text-gray-200">
-                                                {{ __('Your email address is unverified.') }}
-
-                                                <button form="send-verification" class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                                                    {{ __('Click here to re-send the verification email.') }}
-                                                </button>
-                                            </p>
-
-                                            @if (session('status') === 'verification-link-sent')
-                                                <p class="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
-                                                    {{ __('A new verification link has been sent to your email address.') }}
-                                                </p>
-                                            @endif
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <div class="flex items-center gap-4">
-                                    <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-                                    @if (session('status') === 'profile-updated')
-                                        <p
-                                            x-data="{ show: true }"
-                                            x-show="show"
-                                            x-transition
-                                            x-init="setTimeout(() => show = false, 2000)"
-                                            class="text-sm text-gray-600 dark:text-gray-400"
-                                        >{{ __('Saved.') }}</p>
-                                    @endif
-                                </div>
-                            </form>
-                        </section>
-                        {{-- End Update Profile Information --}}
-
+                            </div>
+                        </form>
                     </div>
-                </div>
+                </section>
+                {{-- End Update Profile Information --}}
 
-                <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
+                {{-- Update Password Section --}}
+                <section class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
                     <div class="max-w-xl">
+                        <header>
+                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Update Password') }}</h2>
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ __('Ensure your account is using a long, random password to stay secure.') }}</p>
+                        </header>
+                        <form wire:submit="updatePassword" class="mt-6 space-y-6">
 
-                        {{-- Update Password Form --}}
-                        <section>
-                            <header>
-                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                    {{ __('Update Password') }}
-                                </h2>
+                            <x-ui.input label="Current Password" type="password" id="current_password" name="current_password" wire:model="current_password" />
+                            <x-ui.input label="New Password" type="password" id="new_password" name="new_password" wire:model="new_password" />
+                            <x-ui.input label="Confirm New Password" type="password" id="new_password_confirmation" name="new_password_confirmation" wire:model="new_password_confirmation" />
 
-                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                    {{ __('Ensure your account is using a long, random password to stay secure.') }}
-                                </p>
-                            </header>
-
-                            <form method="post" action="/password/update" class="mt-6 space-y-6">
-                                @csrf
-                                @method('put')
-
+                            <div class="flex items-start">
                                 <div>
-                                    <x-input-label for="current_password" :value="__('Current Password')" />
-                                    <x-text-input id="current_password" name="current_password" type="password" class="block w-full mt-1" autocomplete="current-password" />
-                                    <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
+                                    <x-ui.button type="primary" submit="true">{{ __('Update') }}</x-ui.button>
                                 </div>
-
-                                <div>
-                                    <x-input-label for="password" :value="__('New Password')" />
-                                    <x-text-input id="password" name="password" type="password" class="block w-full mt-1" autocomplete="new-password" />
-                                    <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
-                                </div>
-
-                                <div>
-                                    <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-                                    <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="block w-full mt-1" autocomplete="new-password" />
-                                    <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
-                                </div>
-
-                                <div class="flex items-center gap-4">
-                                    <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-                                    @if (session('status') === 'password-updated')
-                                        <p
-                                            x-data="{ show: true }"
-                                            x-show="show"
-                                            x-transition
-                                            x-init="setTimeout(() => show = false, 2000)"
-                                            class="text-sm text-gray-600 dark:text-gray-400"
-                                        >{{ __('Saved.') }}</p>
-                                    @endif
-                                </div>
-                            </form>
-                        </section>
+                            </div>
+                        </form>
                     </div>
-                </div>
+                </section>
+                {{-- End Update Password Section --}}
 
                 <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
                     <div class="max-w-xl">

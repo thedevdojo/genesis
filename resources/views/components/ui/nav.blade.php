@@ -15,8 +15,8 @@
                     <x-nav-link href="/dashboard" :active="request()->is('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="/learn" :active="request()->is('learn')">
-                        {{ __('Learn More') }}
+                    <x-nav-link href="#_" :active="request()->is('learn')">
+                        {{ __('Example Menu Item') }}
                     </x-nav-link>
                 </div>
             </div>
