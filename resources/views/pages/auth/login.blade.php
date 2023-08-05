@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Auth\Events\Login;
 use function Laravel\Folio\{middleware};
 use function Livewire\Volt\{state, rules};
 
@@ -15,6 +17,8 @@ $authenticate = function(){
 
         return;
     }
+    
+    event(new Login(auth()->guard('web'), User::where('email', $this->email)->first(), $this->remember));
 
     return redirect()->intended('/');
 }

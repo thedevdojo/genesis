@@ -9,14 +9,17 @@ use function Livewire\Volt\{with, state, rules, mount};
 use Illuminate\Validation\Rule;
 
 middleware(['auth', 'verified']);
+rules(['new_password' => 'required|confirmed|min:6']);
+
+state(['user' => auth()->user()])->locked();
 
 state([
-    'user' => auth()->user(),
     'name' => '',
     'email' => '',
     'current_password' => '',
     'new_password' => '',
-    'new_password_confirmation' => ''
+    'new_password_confirmation' => '',
+    'delete_confirm_password' => '',
 ]);
 
 mount(function(){
@@ -26,11 +29,13 @@ mount(function(){
 
 $updateProfile = function()
 {
+    // performing validation manually to use dynamic email rule.
     $validated = $this->validate([ 
         'name' => 'required|string|min:3',
         'email' => 'required|min:3|email|max:255|unique:users,email,' . $this->user->id . ',id'
     ]);
 
+    // if the user hasn't changed their name or email and we also want to make, don't update and show error
     if($this->user->name == $this->name && $this->user->email == $this->email){
         $this->dispatch('toast', message: 'Nothing to update.', data: [ 'position' => 'top-right', 'type' => 'info' ]);
         return;
@@ -43,9 +48,7 @@ $updateProfile = function()
 
 $updatePassword = function(){
 
-    $validated = $this->validate([ 
-        'new_password' => 'required|confirmed|min:6',
-    ]);
+    $validated = $this->validate();
 
     if (!Hash::check($this->current_password, $this->user->password)) {
         $this->dispatch('toast', message: 'Current Password Incorrect', data: [ 'position' => 'top-right', 'type' => 'danger' ]);
@@ -53,34 +56,9 @@ $updatePassword = function(){
     }
 
     $this->dispatch('toast', message: 'Successfully updated password.', data: [ 'position' => 'top-right', 'type' => 'success' ]);
-    // The passwords match...
     $this->user->fill(['password' => Hash::make($this->new_password), 'remember_token' => Str::random(60) ])->save();
 
     $this->reset(['current_password', 'new_password', 'new_password_confirmation']);
-    
-
-    // Here we will attempt to reset the user's password. If it is successful we
-    // will update the password on an actual user model and persist it to the
-    // database. Otherwise we will parse the error and return the response.
-    /*$status = Password::reset(
-        $request->only('email', 'password', 'password_confirmation', 'token'),
-        function ($user) use ($request) {
-            $user->forceFill([
-                'password' => Hash::make($request->password),
-                'remember_token' => Str::random(60),
-            ])->save();
-
-            event(new PasswordReset($user));
-        }
-    );*/
-
-    // If the password was successfully reset, we will redirect the user back to
-    // the application's home authenticated view. If there is an error we can
-    // redirect them back to where they came from with their error message.
-    /*return $status == Password::PASSWORD_RESET
-                ? redirect()->route('login')->with('status', __($status))
-                : back()->withInput($request->only('email'))
-                        ->withErrors(['email' => __($status)]);*/
 };
 
 /**
@@ -88,18 +66,21 @@ $updatePassword = function(){
     */
 $destroy = function(Request $request)
 {
-    $request->validateWithBag('userDeletion', [
-        'password' => ['required', 'current_password'],
-    ]);
+    
+    if (!Hash::check($this->delete_confirm_password, $this->user->password)) {
+        $this->dispatch('toast', message: 'The Password you entered is incorrect', data: [ 'position' => 'top-right', 'type' => 'danger' ]);
+        $this->reset(['delete_confirm_password']);
+        return;
+    }
 
-    $user = $request->user();
+    $user = auth()->user();
 
     Auth::logout();
 
     $user->delete();
 
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
 
     return Redirect::to('/');
 }
@@ -167,58 +148,41 @@ $destroy = function(Request $request)
                         {{-- Delete User Form --}}
                         <section class="space-y-6">
                             <header>
-                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                    {{ __('Delete Account') }}
-                                </h2>
-
-                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                    {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
-                                </p>
+                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Delete Account') }}</h2>
+                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ __('After deleting your account, all data and resources are permanently removed. Enter your password to confirm deletion.') }}</p>
                             </header>
 
-                            <x-danger-button
-                                x-data=""
-                                x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-                            >{{ __('Delete Account') }}</x-danger-button>
+                            <div class="flex items-start justify-start w-auto text-left">
+                                <div>
+                                    <x-ui.button type="danger" x-data @click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">
+                                        {{ __('Delete Account') }}
+                                    </x-ui.button>
+                                </div>
+                            </div>
 
-                            <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-                                <form method="post" action="/profile/delete" class="p-6">
-                                    @csrf
-                                    @method('delete')
+                            <x-ui.modal name="confirm-user-deletion" maxWidth="lg" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                                <form wire:submit="destroy" class="p-6">
 
-                                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                        {{ __('Are you sure you want to delete your account?') }}
-                                    </h2>
+                                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Are you sure you want to delete your account?') }}</h2>
+                                    <p class="mt-1 mb-6 text-sm text-gray-600 dark:text-gray-400">{{ __('After deleting your account, all data and resources are permanently removed. Enter your password to confirm deletion.') }}</p>
 
-                                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                        {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
-                                    </p>
-
-                                    <div class="mt-6">
-                                        <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
-
-                                        <x-text-input
-                                            id="password"
-                                            name="password"
-                                            type="password"
-                                            class="block w-3/4 mt-1"
-                                            placeholder="{{ __('Password') }}"
-                                        />
-
-                                        <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
-                                    </div>
+                                    <x-ui.input label="Password" type="password" id="delete_confirm_password" name="delete_confirm_password" wire:model="delete_confirm_password" />
 
                                     <div class="flex justify-end mt-6">
-                                        <x-secondary-button x-on:click="$dispatch('close')">
-                                            {{ __('Cancel') }}
-                                        </x-secondary-button>
+                                        <div>
+                                            <x-ui.button type="secondary" x-on:click="$dispatch('close')">
+                                                {{ __('Cancel') }}
+                                            </x-ui.button>
+                                        </div>
 
-                                        <x-danger-button class="ml-3">
-                                            {{ __('Delete Account') }}
-                                        </x-danger-button>
+                                        <div class="ml-3">
+                                            <x-ui.button type="danger" submit="true">
+                                                {{ __('Delete Account') }}
+                                            </x-ui.button>
+                                        </div>
                                     </div>
                                 </form>
-                            </x-modal>
+                            </x-ui.modal>
                         </section>
                         {{-- End Delete User Form --}}
 
