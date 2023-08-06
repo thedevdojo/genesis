@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/thedevdojo/genesis" target="_blank"><img src="https://raw.githubusercontent.com/thedevdojo/genesis/main/art/logo2.svg?logo=true" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://github.com/thedevdojo/genesis" target="_blank"><img src="https://raw.githubusercontent.com/thedevdojo/genesis/main/art/logo2.svg?logo=true" width="300" alt="Laravel Logo"></a></p>
 
 <p align="center">
 <a href="https://github.com/thedevdojo/genesis/actions"><img src="https://github.com/thedevdojo/genesis/actions/workflows/main.yml/badge.svg" alt="Build Status"></a>
