@@ -1,53 +1,38 @@
 <?php
 
-namespace Tests\Feature\Auth\Passwords;
-
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Tests\TestCase;
+use Livewire\Volt\Volt;
 
-class EmailTest extends TestCase
-{
-    use RefreshDatabase;
+uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-    /** @test */
-    public function can_view_password_request_page()
-    {
-        $this->get('/auth/reset-password')
-            ->assertSuccessful()
-            ->assertSeeLivewire('auth.passwords.email');
-    }
+test('can view password request page', function () {
+    $this->get('/auth/password/reset')
+        ->assertSuccessful();
+});
 
-    /** @test */
-    public function a_user_must_enter_an_email_address()
-    {
-        Livewire::test('auth.passwords.email')
-            ->call('sendResetPasswordLink')
-            ->assertHasErrors(['email' => 'required']);
-    }
+test('a user must enter an email address', function () {
+    Volt::test('auth.password.reset')
+        ->call('sendResetPasswordLink')
+        ->assertHasErrors(['email' => 'required']);
+});
 
-    /** @test */
-    public function a_user_must_enter_a_valid_email_address()
-    {
-        Livewire::test('auth.passwords.email')
-            ->set('email', 'email')
-            ->call('sendResetPasswordLink')
-            ->assertHasErrors(['email' => 'email']);
-    }
+test('a user must enter a valid email address', function () {
+    Volt::test('auth.password.reset')
+        ->set('email', 'email')
+        ->call('sendResetPasswordLink')
+        ->assertHasErrors(['email' => 'email']);
+});
 
-    /** @test */
-    public function a_user_who_enters_a_valid_email_address_will_get_sent_an_email()
-    {
-        $user = User::factory()->create();
+test('a user who enters a valid email address will get sent an email', function () {
+    $user = User::factory()->create();
 
-        Livewire::test('auth.passwords.email')
-            ->set('email', $user->email)
-            ->call('sendResetPasswordLink')
-            ->assertNotSet('emailSentMessage', false);
+    Volt::test('auth.password.reset')
+        ->set('email', $user->email)
+        ->call('sendResetPasswordLink')
+        ->assertNotSet('emailSentMessage', false);
 
-        $this->assertDatabaseHas('password_reset_tokens', [
-            'email' => $user->email,
-        ]);
-    }
-}
+    $this->assertDatabaseHas('password_reset_tokens', [
+        'email' => $user->email,
+    ]);
+});
