@@ -1,5 +1,23 @@
+<?php
+
+    namespace App\Http\Livewire\Auth\Passwords;
+
+    use function Livewire\Volt\{state, rules};
+
+    state(['password' => '']);
+    rules(['password' => 'required|current_password']);
+
+    $confirm = function(){
+        $this->validate();
+
+        session()->put('auth.password_confirmed_at', time());
+
+        return redirect()->intended('/');
+    }
+?>
+
 <x-layouts.app>
-    <div>
+    <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
                 <x-logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
@@ -14,38 +32,16 @@
         </div>
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="px-4 py-8 bg-white border shadow-sm sm:rounded-lg border-gray-200/60 sm:px-10">
-                <form wire:submit="confirm">
-                    <div>
-                        <label for="password" class="block text-sm font-medium leading-5 text-gray-700">
-                            Password
-                        </label>
-
-                        <div class="mt-1 rounded-md shadow-sm">
-                            <input wire:model.blur="password" id="password" name="password" type="password" required autofocus class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('password') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red @enderror" />
+            <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white sm:border sm:rounded-lg border-gray-200/60">
+                @volt('auth.password.confirm')
+                    <form wire:submit="confirm" class="space-y-6">
+                        <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
+                        <div class="flex items-center justify-end text-sm">
+                            <x-ui.text-link href="/auth/password/reset">Forgot your password?</x-ui.text-link>
                         </div>
-
-                        @error('password')
-                            <p class="mt-2 text-sm text-red-600" id="password-error">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="flex items-center justify-end mt-6">
-                        <div class="text-sm leading-5">
-                            <x-ui.link href="/auth/reset-password" class="font-medium text-gray-600 transition duration-150 ease-in-out hover:text-gray-500 focus:outline-none focus:underline">
-                                Forgot your password?
-                            </x-ui.link>
-                        </div>
-                    </div>
-
-                    <div class="mt-6">
-                        <span class="block w-full rounded-md shadow-sm">
-                            <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-gray-600 border border-transparent rounded-md hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:ring-indigo active:bg-gray-700">
-                                Confirm password
-                            </button>
-                        </span>
-                    </div>
-                </form>
+                        <x-ui.button type="primary" submit="true">Confirm password</x-ui.button>
+                    </form>
+                @endvolt
             </div>
         </div>
     </div>

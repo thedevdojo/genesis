@@ -10,7 +10,7 @@ middleware(['redirect-to-dashboard']);
 <x-layouts.app>
 
     @volt('home')
-        <div class="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center min-h-screen pt-6 sm:pt-0 dark:bg-gray-900" x-cloak>
             <div class="sm:mx-auto sm:w-full sm:max-w-md">
                 <x-ui.link href="/">
                     <x-logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
@@ -30,20 +30,20 @@ middleware(['redirect-to-dashboard']);
                 </div>
             </div>
 
-            <div x-data="{ showMoreInfo: $persist(true).as('genesis.show-more-info') }" class="mt-8 overflow-hidden border rounded-md shadow-sm border-gray-200/70 sm:mx-auto sm:w-full sm:max-w-md">
-                <div class="flex px-4 py-8 space-x-5 bg-white border-b border-gray-200/70 sm:rounded-t-lg sm:px-10">
-
-                    <x-ui.button type="secondary" tag="a" href="https://github.com/thedevdojo/genesis" target="_blank" class="px-5 py-2.5 text-sm text-center font-medium bg-gray-600 text-white/90 duration-200 ease-out rounded hover:text-white">View the Docs</x-ui.button>
-                    <x-ui.button type="primary" tag="a" href="https://github.com/thedevdojo/genesis" target="_blank" class="px-5 py-2.5 text-sm text-center font-medium bg-gray-800 hover:bg-gray-900 text-white rounded text-white/90 duration-200 ease-out hover:text-white">View Github Repo</x-ui.button>
+            <div x-data="{ showMoreInfo: $persist(true).as('genesis.show-more-info') }" class="mt-5 overflow-hidden sm:mt-8 sm:border sm:shadow-sm sm:rounded-md border-gray-200/70 sm:mx-auto sm:w-full sm:max-w-md">
+                <div class="flex flex-col px-8 py-4 space-y-3 border-b sm:py-8 sm:space-y-0 sm:space-x-5 sm:flex-row sm:bg-white border-gray-200/70 sm:rounded-t-lg sm:px-10">
+            
+                    <x-ui.button type="secondary" tag="a" href="https://github.com/thedevdojo/genesis" target="_blank">View the Docs</x-ui.button>
+                    <x-ui.button type="primary" tag="a" href="https://github.com/thedevdojo/genesis" target="_blank">View Github Repo</x-ui.button>
                 </div>
 
-                <div @click="showMoreInfo=!showMoreInfo" class="flex items-center justify-between w-full px-10 py-3 text-xs font-medium text-left text-gray-400 border-b cursor-pointer hover:bg-gray-100/40 group bg-white/30 border-gray-200/70">
+                <div @click="showMoreInfo=!showMoreInfo" class="flex items-center justify-between w-full px-10 py-3 text-xs font-medium text-left text-gray-400 border-b cursor-pointer hover:bg-gray-100/40 group sm:bg-white/30 border-gray-200/70">
                     <p><span x-show="showMoreInfo">Hide</span><span x-show="!showMoreInfo" x-cloak>Show</span> additional info</p>
                     <svg
                         :class="{ '-rotate-180' : !showMoreInfo }"
                         class="w-4 h-4 ml-1 duration-300 ease-out opacity-50 group-hover:opacity-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" x-cloak><path fill-rule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z" clip-rule="evenodd" /></svg>
                 </div>
-                <div x-show="showMoreInfo" class="bg-gray-200 bg-opacity-25" x-collapse>
+                <div x-show="showMoreInfo" class="sm:bg-opacity-25 sm:bg-gray-200" x-collapse>
                     <div class="col-span-2 p-6 pb-0 lg:pb-0 lg:p-8">
                          <p class="text-xs leading-relaxed text-left text-gray-500 -translate-y-2">
                             The Genesis starter kit gives you a jumpstart on creating your app! Bundled with all these awesome technologies.
@@ -160,9 +160,9 @@ middleware(['redirect-to-dashboard']);
 
 
                 </div>
-                <div class="col-span-2 p-6 bg-white/30 lg:px-8 lx:py-5">
+                <div class="col-span-2 px-10 py-6 bg-white/30 sm:px-10 sm:py-5">
                          <p class="text-xs leading-relaxed text-left text-gray-500">
-                            Hit the ground running with built-in features like <x-ui.text-link href="#_">authentication</x-ui.text-link>, <x-ui.text-link href="#_">components</x-ui.text-link>, and more.
+                            Hit the ground running with the Genesis starter kit, which contains <x-ui.text-link href="#_">authentication</x-ui.text-link>, <x-ui.text-link href="#_">dashboard</x-ui.text-link>, <x-ui.text-link href="#_">user profiles</x-ui.text-link>, and  <x-ui.text-link href="#_">UI components</x-ui.text-link>.
                         </p>
                     </div>
 

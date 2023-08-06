@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +16,7 @@ class RedirectToDashboard
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::guest()) {
+        if (! Auth::guest()) {
             return redirect('/dashboard');
         }
 

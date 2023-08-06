@@ -23,7 +23,7 @@ $authenticate = function(){
 
 <x-layouts.app>
 
-    <div class="flex flex-col items-center justify-center w-screen h-screen">
+    <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
         
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <Link href="/"><Logo class="w-auto h-12 mx-auto text-gray-800" /></Link>
@@ -35,7 +35,7 @@ $authenticate = function(){
             </div>
         </div>
 
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="w-full mt-8 sm:mx-auto sm:max-w-md">
             <div class="px-4 py-8 bg-white border shadow-sm sm:rounded-lg border-gray-200/60 sm:px-10">
                 @volt('auth.login')
                     <form wire:submit="authenticate" class="space-y-6">

@@ -21,6 +21,8 @@ $register = function(){
         'password' => Hash::make($this->password),
     ]);
 
+    // need to wait for folio paged based routes to add the following event 👇
+    // https://github.com/laravel/folio/pull/54
     event(new Registered($user));
 
     Auth::login($user, true);
@@ -32,7 +34,7 @@ $register = function(){
 
 <x-layouts.app>
 
-    <div class="flex flex-col items-center justify-center w-screen h-screen">
+    <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
         
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
@@ -46,7 +48,7 @@ $register = function(){
         </div>
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="px-4 py-8 bg-white border shadow-sm sm:rounded-lg border-gray-200/60 sm:px-10">
+            <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white sm:border sm:rounded-lg border-gray-200/60">
                 @volt('auth.register')
                     <form wire:submit="register" class="space-y-6">
                         <x-ui.input label="Name" type="name" id="name" name="name" wire:model="name" />

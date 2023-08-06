@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Auth\Events\Login;
 use function Laravel\Folio\{middleware};
 use function Livewire\Volt\{state, rules};
 
@@ -15,6 +17,8 @@ $authenticate = function(){
 
         return;
     }
+    
+    event(new Login(auth()->guard('web'), User::where('email', $this->email)->first(), $this->remember));
 
     return redirect()->intended('/');
 }
@@ -23,7 +27,7 @@ $authenticate = function(){
 
 <x-layouts.app>
 
-    <div class="flex flex-col items-center justify-center w-screen h-screen">
+    <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
         
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
@@ -38,7 +42,7 @@ $authenticate = function(){
         </div>
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="px-4 py-8 bg-white border shadow-sm sm:rounded-lg border-gray-200/60 sm:px-10">
+            <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white sm:border sm:rounded-lg border-gray-200/60">
                 @volt('auth.login')
                     <form wire:submit="authenticate" class="space-y-6">
                         

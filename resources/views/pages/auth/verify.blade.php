@@ -1,19 +1,22 @@
 <?php
 
+    use Illuminate\Auth\Events\Verified;
     use Illuminate\Support\Facades\Auth;
     use function Laravel\Folio\{middleware};
 
     middleware(['auth', 'throttle:6,1']);
 
     $resend = function(){
-        if (Auth::user()->hasVerifiedEmail()) {
+        $user = auth()->user();
+        if ($user->hasVerifiedEmail()) {
             redirect('/');
         }
 
-        Auth::user()->sendEmailVerificationNotification();
+        $user->sendEmailVerificationNotification();
 
+        event(new Verified($user));
+        
         $this->dispatch('resent');
-
         session()->flash('resent');
     }
 
@@ -21,7 +24,7 @@
 
 <x-layouts.app>
 
-    <div class="flex flex-col items-center justify-center w-screen h-screen">
+    <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
                 <x-logo class="w-auto h-16 mx-auto text-gray-800" />
@@ -33,9 +36,9 @@
 
             <div class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">
                 Or
-                <x-ui.link href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="font-medium text-gray-600 transition duration-150 ease-in-out hover:text-gray-500 focus:outline-none focus:underline">
+                <x-ui.text-link href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     sign out
-                </x-ui.link>
+                </x-ui.text-link>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
@@ -46,7 +49,7 @@
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 
             @volt('auth.verify')
-                <div class="px-4 py-8 bg-white border shadow-sm sm:rounded-lg border-gray-200/60 sm:px-10">
+                <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white sm:border sm:rounded-lg border-gray-200/60">
                     @if (session('resent'))
                         <div class="flex items-center px-4 py-3 mb-6 text-sm text-white bg-green-500 rounded shadow" role="alert">
                             <svg class="w-4 h-4 mr-3 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -57,12 +60,8 @@
                         </div>
                     @endif
 
-                    <div class="text-sm text-gray-700">
-                        <p>Before proceeding, please check your email for a verification link.</p>
-
-                        <p class="mt-3">
-                            If you did not receive the email, <a wire:click="resend" class="text-gray-700 transition duration-150 ease-in-out cursor-pointer hover:text-gray-600 focus:outline-none focus:underline">click here to request another</a>.
-                        </p>
+                    <div class="text-sm leading-6 text-gray-700">
+                        <p>Before proceeding, please check your email for a verification link. If you did not receive the email, <a wire:click="resend" class="text-gray-700 underline transition duration-150 ease-in-out cursor-pointer hover:text-gray-600 focus:outline-none focus:underline">click here to request another</a>.</p>
                     </div>
                 </div>
             @endvolt

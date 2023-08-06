@@ -9,7 +9,7 @@ middleware(['auth', 'verified']);
 
 <x-layouts.dashboard>
     <x-slot name="header">
-        <h2 class="text-sm font-medium leading-tight text-gray-600 dark:text-gray-200">
+        <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
