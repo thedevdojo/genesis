@@ -6,21 +6,18 @@
 <a href="https://packagist.org/packages/devdojo/genesis"><img src="https://img.shields.io/packagist/l/devdojo/genesis" alt="License"></a>
 </p>
 
-## About Laravel
+## About Genesis
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Genesis is a Laravel Starter Kit that's built similar to the Breeze or the Tallstack Preset. It utilizes single-file Volt and Folio files to make the application easy to understand and configure. Genesis is built with the following:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [TailwindCSS](https://tailwindcss.com)
+- [AlpineJS](https://alpinejs.dev)
+- [Laravel](https://laravel.com)
+- [Livewire](https://livewire.laravel.com)
+- [Folio](https://github.com/laravel/folio)
+- [Volt](https://github.com/livewire/volt)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+Learn how to install and configure Geneses below.
 
 ## Installation
 
