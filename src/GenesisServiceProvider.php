@@ -15,9 +15,11 @@ class GenesisServiceProvider extends ServiceProvider
     public function boot()
     {
         UiCommand::macro('genesis', function ($command) {
-            $command->info('TALL preset scaffolding installed successfully.');
+            GenesisPreset::install();
+            $command->info('Genesis starter kit installed successfully.');
+            
             //dd('rad');
-            // GenesisPreset::install();
+            //GenesisPreset::install();
         });
         /*
          * Optional methods to load your package assets
