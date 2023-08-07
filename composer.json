@@ -31,7 +31,8 @@
         "illuminate/support": "^10.0",
         "laravel/ui": "^4.2",
         "livewire/livewire": "dev-main",
-        "livewire/volt": "^1.0@beta"
+        "livewire/volt": "dev-main",
+        "laravel/folio": "dev-main"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5.10"
