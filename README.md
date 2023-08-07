@@ -21,10 +21,16 @@ Learn how to install and configure Geneses below.
 
 ## Installation
 
-You can install the package via composer:
+This preset is intended to be installed into a fresh [Laravel application](https://laravel.com). After creating a new Laravel application you can install Genesis with the following commands:
 
 ```bash
-composer require devdojo/genesis
+composer require livewire/livewire "^3.0@beta" # Or ensure Livewire v3.x is installed...
+composer require livewire/volt "^1.0@beta"
+composer require laravel/ui
+composer devdojo/genesis
+php artisan ui genesis
+npm install
+npm run dev
 ```
 
 ## Usage
