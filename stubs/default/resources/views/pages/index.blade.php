@@ -116,7 +116,7 @@ middleware(['redirect-to-dashboard']);
                 </div>
                 <div class="col-span-2 px-10 py-6 bg-white/30 sm:px-10 sm:py-5">
                     <p class="text-xs leading-relaxed text-left text-gray-500">
-                        Hit the ground running with the Genesis starter kit, which contains <x-ui.text-link href="#_">authentication</x-ui.text-link>, <x-ui.text-link href="#_">dashboard</x-ui.text-link>, <x-ui.text-link href="#_">user profiles</x-ui.text-link>, and <x-ui.text-link href="#_">UI components</x-ui.text-link>.
+                        Hit the ground running with the Genesis starter kit, which contains <x-ui.text-link href="https://github.com/thedevdojo/genesis#authentication-pages" target="_blank">authentication</x-ui.text-link>, <x-ui.text-link href="https://github.com/thedevdojo/genesis#dashboard-page" target="_blank">dashboard</x-ui.text-link>, <x-ui.text-link href="https://github.com/thedevdojo/genesis#edit-profile-page" target="_blank">user profiles</x-ui.text-link>, and <x-ui.text-link href="https://github.com/thedevdojo/genesis#ui-components" target="_blank">UI components</x-ui.text-link>.
                     </p>
                 </div>
             </div>
