@@ -38,7 +38,7 @@ $register = function(){
         
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
-                <x-logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
+                <x-ui.logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
             </x-ui.link>
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-800">Create a new account</h2>
             <div class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">

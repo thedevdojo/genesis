@@ -27,7 +27,7 @@
     <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="/">
-                <x-logo class="w-auto h-16 mx-auto text-gray-800" />
+                <x-ui.logo class="w-auto h-16 mx-auto text-gray-800" />
             </x-ui.link>
 
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-700">
