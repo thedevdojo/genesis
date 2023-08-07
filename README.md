@@ -116,6 +116,46 @@ To learn more about this file, visit the documentation in the [Wiki here](https:
 
 This page displays the Genesis Readme file. It simply fetches the README.md file that you are reading right now and displays it in the dashboard.
 
+## Layouts
+
+Currently there are two layouts which are located inside of `resources/views/components/layouts`:
+
+1. **app.blade.php** - This is the main layout for your application
+2. **dashboard.blade.php** - This is the dashboard layout which also extends the app layout.
+
+You can use these layouts as follows:
+
+```html
+<!-- App Layout -->
+<x-layouts.app>
+    <!-- content here... -->
+</x-layouts.app>
+
+<!-- Dashboard Layout -->
+<x-layouts.dashboard>
+    <!-- content here... -->
+</x-layouts.dashboard>
+```
+
+## UI Components
+
+We are also providing a handful of Blade Components that you can use in your new application which are located inside of `resources/views/components/ui`. These components include:
+
+- **button.blade.php**
+- **checkbox.blade.php**
+- **input.blade.php**
+- **link.blade.php**
+- **logo.blade.php**
+- **modal.blade.php**
+- **nav.blade.php**
+- **placeholder.blade.php**
+- **text-link.blade.php**
+
+These elements are pretty self-explanatory; however, you may want to look into how each one works so that way you can get the most out of it.
+
+> Updating the logo throughout your application is as easy as updating the **logo.blade.php** component with your logo SVG or image.
+
+
 ### Testing
 
 Genesis has some basic tests to test out the authentication functionality. You can check those tests by running the following command:
