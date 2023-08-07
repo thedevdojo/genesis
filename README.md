@@ -83,7 +83,7 @@ This will redirect an authenticated user to the dashboard when they try and visi
 
 All the authentication files are located inside of the `resources/views/pages/auth` folder. These files are mapped to routes thanks to Folio. Here are the current authentication routes:
 
-1. [login.blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Login-Page) - The User Login Page
+1. [login.blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Login-Page)
 2. [register.blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Register-Page)
 3. [verify.blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Verify-Page)
 4. [password/confirm.blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Confirm-Page)
