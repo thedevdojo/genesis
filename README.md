@@ -8,7 +8,7 @@
 
 ## About Genesis
 
-Genesis is a Laravel Starter Kit that utilizes the Tallstack as well as single-file Volt and Folio files. This starter kit includes Authentication, User Dashboard, User Profile, and easy to use UI Components.
+Genesis is a Laravel Starter Kit that utilizes the Tallstack as well as single-file Volt and Folio files. This starter kit contains Authentication, User Dashboard, User Profile, and a set of UI Components.
 
 <p><img src="https://cdn.devdojo.com/images/august2023/genesis-cover.png" alt="genesis cover" /></p>
 
