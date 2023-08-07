@@ -4,6 +4,7 @@ namespace Devdojo\Genesis;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Artisan;
 use Laravel\Ui\Presets\Preset;
 
 class GenesisPreset extends Preset
@@ -26,9 +27,6 @@ class GenesisPreset extends Preset
 
     public static function install()
     {
-
-
-        
         static::updatePackages();
 
         $filesystem = new Filesystem();
@@ -43,6 +41,9 @@ class GenesisPreset extends Preset
         static::updateFile(base_path('app/Http/Middleware/Authenticate.php'), function ($file) {
             return str_replace("route('login')", "'/auth/login'", $file);
         });
+        // Run the Folio and volt install commands
+        Artisan::call('folio:install');
+        Artisan::call('volt:install');
     }
 
     protected static function updatePackageArray(array $packages)
