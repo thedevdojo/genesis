@@ -46,11 +46,75 @@ php artisan migrate
 
 Visit your application homepage and you should be good to go 🤘
 
-## Authentication
+## Routes in your application
 
-```php
-// Usage description here
+Currently Genesis creates 10 routes including the homepage, authentication, dashboard view, and a few others. You can see all the routes currently in your application by using the `php artisan folio:list` command:
+
+```bash
+  GET       / ................................................ index.blade.php
+  GET       /auth/login ................................. auth/login.blade.php
+  GET       /auth/password/confirm ........... auth/password/confirm.blade.php
+  GET       /auth/password/reset ............... auth/password/reset.blade.php
+  GET       /auth/password/{token} ........... auth/password/[token].blade.php
+  GET       /auth/register ........................... auth/register.blade.php
+  GET       /auth/verify ............................... auth/verify.blade.php
+  GET       /dashboard ............................. dashboard/index.blade.php
+  GET       /learn ..................................... learn/index.blade.php
+  GET       /profile/edit ............................. profile/edit.blade.php
+
+                                                           Showing [10] routes
 ```
+
+Let's cover each of the pages provided by Genesis.
+
+## Home Page
+
+The homepage is located at `resources/views/pages/index.blade.php`. This file as well as all the other pages are utilizing Page-based routing thanks to Folio.
+
+This file contains a middleware `redirect-to-dashboard` which is registered at the top of the file:
+
+```
+middleware(['redirect-to-dashboard']);
+```
+
+This will redirect an authenticated user to the dashboard when they try and visit the homepage. You can simply remove this line if you do not wich to redirect the authenticated user.
+
+## Authentication Pages
+
+All the authentication files are located inside of the `resources/views/pages/auth` folder. These files are mapped to routes thanks to Folio. Here are the current authentication routes:
+
+1. [login.blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Login-Page) - The User Login Page
+2. [register.blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Register-Page)
+3. [verify.blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Verify-Page)
+4. [password/confirm.blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Confirm-Page)
+5. [password/reset.blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Reset-Page)
+6. [password/[token].blade.php](https://github.com/thedevdojo/genesis/wiki/Auth-Token-Page)
+
+## Dashboard Page
+
+The dashboard page is very minimal which makes it very easy for you to customize. You'll notice that this page has the following middleware:
+
+```
+middleware(['auth', 'verified']);
+```
+
+You will probably want to add this middleware to many of your application pages where you want to make sure that the user is authenticated and verified.
+
+## Edit Profile Page
+
+The edit profile page is located at `resources/views/profile/edit`, and it can also be loaded by visiting `url.com/profile/edit`. This file contains the same middleware as the dashboard page, which means that users must be authenticated and verified before visiting.
+
+This page has three different sections
+
+1. Update profile section where users can update the name and email in their profile.
+2. Update password section where users can update their password.
+3. Delete profile section where users can delete their profile.
+
+To learn more about this file, visit the documentation in the [Wiki here](https://github.com/thedevdojo/genesis/wiki/Profile-Edit-Page).
+
+## Learn Page
+
+This page displays the Genesis Readme file. It simply fetches the README.md file that you are reading right now and displays it in the dashboard.
 
 ### Testing
 
@@ -60,27 +124,16 @@ Genesis has some basic tests to test out the authentication functionality. You c
 ./vendor/bin/pest
 ```
 
-### Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-### Security
-
-If you discover any security related issues, please email tony@devdojo.com instead of using the issue tracker.
+Every test inside the `tests/Feature` folder has a test file that corresponds to each page in the `resources/views/pages` folder.
 
 ## Credits
 
--   [Tony Lea](https://github.com/devdojo)
--   [All Contributors](../../contributors)
+-   [Tony Lea](https://twitter.com/tnylea)
+-   [TALL Stack](https://tallstack.dev)
+-   [TALL Stack Preset](https://github.com/laravel-frontend-presets/tall)
+-   [Laravel Breeze](https://github.com/laravel/breeze)
+-   [Laravel Package Boilerplate](https://laravelpackageboilerplate.com)
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-## Laravel Package Boilerplate
-
-This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).
