@@ -1,5 +1,5 @@
 <p align="center"><a href="https://github.com/thedevdojo/genesis" target="_blank"><img src="https://raw.githubusercontent.com/thedevdojo/genesis/main/art/logo2.svg?logo=true" width="300" alt="Laravel Logo"></a></p>
-<p align="center">
+<p align="center" class="flex mx-auto space-x-2">
 <a href="https://github.com/thedevdojo/genesis/actions"><img src="https://github.com/thedevdojo/genesis/actions/workflows/main.yml/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/devdojo/genesis"><img src="https://img.shields.io/packagist/dt/devdojo/genesis" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/devdojo/genesis"><img src="https://img.shields.io/packagist/v/devdojo/genesis" alt="Latest Stable Version"></a>
