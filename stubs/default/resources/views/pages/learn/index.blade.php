@@ -22,10 +22,10 @@ state(['readme' => $res->body()])
     </x-slot>
 
     @volt('learn')
-        <div class="max-w-7xl w-full relative sm:px-10 mx-auto">
-        <p class="leading-none sm:block hidden translate-y-5 text-sm font-medium text-gray-500">This page is pulled from the <a href="https://github.com/thedevdojo/genesis" target="_blank" class="underline">Genesis Readme Repository</a>.</p>
-        <article class="prose prose-sm prose-md lg:prose-lg w-full flex max-w-7xl flex-col justify-center bg-white sm:my-10 p-10 rounded-md border border-gray-200/60 shadow-sm mx-auto">
-            {!! str_replace('align="center"', 'align="left"', Str::markdown($readme)) !!}
+        <div class="relative w-full mx-auto max-w-7xl sm:px-10">
+        <p class="hidden text-sm font-medium leading-none text-gray-500 translate-y-5 sm:block">This page is pulled from the <a href="https://github.com/thedevdojo/genesis" target="_blank" class="underline">Genesis Readme Repository</a>.</p>
+        <article class="flex flex-col justify-center w-full p-10 mx-auto prose-sm prose bg-white border rounded-md shadow-sm prose-md lg:prose-lg max-w-7xl sm:my-10 border-gray-200/60">
+            {!! Str::markdown($readme) !!}
         </article>
         </div>
     @endvolt

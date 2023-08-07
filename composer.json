@@ -30,7 +30,7 @@
         "php": "^8.1",
         "illuminate/support": "^10.0",
         "laravel/ui": "^4.2",
-        "livewire/livewire": "^3.0@beta",
+        "livewire/livewire": "^3.0@beta.6",
         "livewire/volt": "^1.0@beta",
         "laravel/folio": "^1.0@beta"
     },
