@@ -6,9 +6,11 @@
 <a href="https://packagist.org/packages/devdojo/genesis"><img src="https://img.shields.io/packagist/l/devdojo/genesis" alt="License"></a>
 </p>
 
+<p><img src="https://cdn.devdojo.com/images/august2023/genesis-cover.jpeg" alt="genesis cover" /></p>
+
 ## About Genesis
 
-Genesis is a Laravel Starter Kit that's built similar to the Breeze or the Tallstack Preset. It utilizes single-file Volt and Folio files to make the application easy to understand and configure. Genesis is built with the following:
+Genesis is a Laravel Starter Kit that utilizes the Tallstack as well as single-file Volt and Folio files. Genesis is built with the following:
 
 - [TailwindCSS](https://tailwindcss.com)
 - [AlpineJS](https://alpinejs.dev)
