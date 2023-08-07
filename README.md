@@ -6,8 +6,6 @@
 <a href="https://packagist.org/packages/devdojo/genesis"><img src="https://img.shields.io/packagist/l/devdojo/genesis" alt="License"></a>
 </p>
 
-<p><img src="https://cdn.devdojo.com/images/august2023/genesis-cover.png" alt="genesis cover" /></p>
-
 ## About Genesis
 
 Genesis is a Laravel Starter Kit that utilizes the Tallstack as well as single-file Volt and Folio files. Genesis is built with the following:
@@ -18,6 +16,8 @@ Genesis is a Laravel Starter Kit that utilizes the Tallstack as well as single-f
 - [Livewire](https://livewire.laravel.com)
 - [Folio](https://github.com/laravel/folio)
 - [Volt](https://github.com/livewire/volt)
+
+<p><img src="https://cdn.devdojo.com/images/august2023/genesis-cover.png" alt="genesis cover" /></p>
 
 Learn how to install and configure Geneses below.
 
