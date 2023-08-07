@@ -30,8 +30,13 @@ This preset is intended to be installed into a fresh [Laravel application](https
 ```bash
 composer require livewire/livewire "^3.0@beta" # Or ensure Livewire v3.x is installed...
 composer require livewire/volt "^1.0@beta"
+composer require laravel/folio:^1.0@beta
 composer require laravel/ui
-composer devdojo/genesis
+composer require devdojo/genesis dev-main
+
+php artisan folio:install
+php artisan volt:install
+
 php artisan ui genesis
 npm install
 npm run dev
