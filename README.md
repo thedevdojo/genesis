@@ -8,11 +8,11 @@
 
 ## About Genesis
 
-Genesis is a Laravel Starter Kit that utilizes the Tallstack as well as single-file Volt and Folio files. This starter kit contains Authentication, User Dashboard, User Profile, and a set of UI Components.
+Genesis is a [Laravel](https://laravel.com) Starter Kit that utilizes the [TALL Stack](https://tallstack.dev) as well as single-file [Volt](https://github.com/livewire/volt) and [Folio](https://github.com/laravel/folio) files. This starter kit contains [Authentication](#authentication-pages), [User Dashboard](#dashboard-page), [Edit Profile](#edit-profile-page), and a set of [UI Components](#ui-components).
 
 <p><img src="https://cdn.devdojo.com/images/august2023/genesis-cover.png" alt="genesis cover" /></p>
 
-It will be beneficial to have a good understanding of the following technologies (which Genesis is built with):
+It will be beneficial to have a good understanding of the following technologies (which Genesis is built upon):
 
 - [TailwindCSS](https://tailwindcss.com)
 - [AlpineJS](https://alpinejs.dev)
@@ -69,7 +69,7 @@ Let's cover each of the pages provided by Genesis.
 
 ## Home Page
 
-The homepage is located at `resources/views/pages/index.blade.php`. This file as well as all the other pages are utilizing Page-based routing thanks to Folio.
+The homepage (screenshot shown above 👆) is located at `resources/views/pages/index.blade.php`. This file as well as all the other pages are utilizing Page-based routing thanks to Folio.
 
 This file contains a middleware `redirect-to-dashboard` which is registered at the top of the file:
 
@@ -125,6 +125,10 @@ Genesis has some basic tests to test out the authentication functionality. You c
 ```
 
 Every test inside the `tests/Feature` folder has a test file that corresponds to each page in the `resources/views/pages` folder.
+
+## Troubleshooting
+
+There may be times where you'll see Line numbers printed out in the view causing a weird layout and output. You'll want to run `php artisan view:clear`. This is probably due to the fact that Folio and Volt are still in Beta 😉
 
 ## Credits
 
