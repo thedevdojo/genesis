@@ -41,6 +41,7 @@ class GenesisPreset extends Preset
         static::updateFile(base_path('app/Http/Middleware/Authenticate.php'), function ($file) {
             return str_replace("route('login')", "'/auth/login'", $file);
         });
+        
         // Run the Folio and volt install commands
         Artisan::call('folio:install');
         Artisan::call('volt:install');

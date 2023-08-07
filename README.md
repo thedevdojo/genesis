@@ -27,7 +27,7 @@ Learn how to install and configure Geneses below.
 
 This preset is intended to be installed into a fresh [Laravel application](https://laravel.com).
 
-> Currently Folio, Volt, and Livewire are still in Beta, so for that reason you'll need to set your *minimum-stability* to *dev*, in your composer.json. Find the following line inside of your Laravel application root. `"minimum-stability": "stable",` and replace with `"minimum-stability": "dev",`
+> Currently Folio, Volt, and Livewire are still in Beta, so for that reason you'll need to set your *minimum-stability* to *dev*, by finding the following line inside of your `composer.json` file `"minimum-stability": "stable",` and replace with `"minimum-stability": "dev",`
 
 After creating a new Laravel application (and updating the minimum-stability) you can install Genesis with the following commands:
 
@@ -38,7 +38,15 @@ npm install
 npm run dev
 ```
 
-## Usage
+Finally, you'll want to connect a database inside of your application `.env` file and run the following migrations:
+
+```
+php artisan migrate
+```
+
+Visit your application homepage and you should be good to go 🤘
+
+## Authentication
 
 ```php
 // Usage description here
@@ -46,8 +54,10 @@ npm run dev
 
 ### Testing
 
+Genesis has some basic tests to test out the authentication functionality. You can check those tests by running the following command:
+
 ```bash
-composer test
+./vendor/bin/pest
 ```
 
 ### Changelog
