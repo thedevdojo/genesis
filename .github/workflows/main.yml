@@ -56,7 +56,7 @@ jobs:
           ls -la
 
       - name: PWD
-        run pwd
+        run: pwd
 
       - name: Execute tests
         run: |
