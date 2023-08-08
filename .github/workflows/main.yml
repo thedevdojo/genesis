@@ -35,10 +35,6 @@ jobs:
       run: |
         cd ../app
         sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/' composer.json
-    - name: Install all dependencies
-      run: |
-        cd ../app
-        composer install --no-interaction --prefer-dist --optimize-autoloader
     - name: Install genesis
       run: |
         cd ../app
@@ -47,6 +43,10 @@ jobs:
       run: |
         composer config --no-plugins allow-plugins.pestphp/pest-plugin true
         composer require pestphp/pest --dev --with-all-dependencies
+    - name: Install all dependencies
+      run: |
+        cd ../app
+        composer install --no-interaction --prefer-dist --optimize-autoloader
     - name: Install preset
       run: |
         cd ../app
