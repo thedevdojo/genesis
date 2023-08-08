@@ -47,3 +47,13 @@ jobs:
         cd ../app
         php artisan ui genesis
 
+    - name: List contents
+      run: |
+        cd ../app
+        ls -la
+
+    - name: Execute Tests
+      run: |
+         cd ../app
+         vendor/bin/pest
+
