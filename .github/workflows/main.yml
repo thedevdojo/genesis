@@ -22,25 +22,33 @@ jobs:
 
       - name: Setup Laravel
         run: |
-          composer create-project laravel/laravel:10
+          composer create-project laravel/laravel:10 ../app --prefer-dist
 
       - name: Change stability to dev
         run: |
+          cd ../app
           sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/' composer.json
 
       - name: Install Genesis
         run: |
+          cd ../app
           composer require devdojo/genesis dev-main
           php artisan ui genesis
 
       - name: Install NPM dependencies
-        run: npm i
+        run: |
+          cd ../app
+          npm i
 
       - name: Compile assets
-        run: npm run build
+        run: |
+          cd ../app
+          npm run build
 
       - name: Execute tests
-        run: vendor/bin/pest
+        run: |
+          cd ../app
+          vendor/bin/pest
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ":memory:"
