@@ -41,7 +41,7 @@ jobs:
         composer require devdojo/genesis dev-main
     - name: Install all dependencies
       run: |
-        composer install --no-interaction --prefer-dist --optimize-autoloader
+        composer install --no-interaction --prefer-dist --optimize-autoloader --dev
     - name: Install preset
       run: |
         cd ../app
