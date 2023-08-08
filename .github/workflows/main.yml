@@ -44,12 +44,12 @@ jobs:
         composer require pestphp/pest --dev --no-plugins
     - name: Install preset
       run: |
-        cd ../app
+        cd ../app/vendor
         php artisan ui genesis
 
     - name: List contents
       run: |
-        cd ../app
+        cd ../app/vendor/bin
         ls -la
 
     - name: Execute Tests
