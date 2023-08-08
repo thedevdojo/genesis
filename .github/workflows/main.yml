@@ -2,67 +2,69 @@ name: tests
 
 on:
   push:
+    branches:
+      - master
+      - '*.x'
   pull_request:
   schedule:
     - cron: '0 0 * * *'
 
 jobs:
-  run:
-    runs-on: ubuntu-latest
+  stub-tests:
+    runs-on: ubuntu-22.04
+
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        php: [8.1]
-        laravel: [10.0]
-    name: P${{ matrix.php }} - L${{ matrix.laravel }}
+        stack: [blade, react, vue, api]
+        laravel: [10]
+        args: ["", --pest]
+        include:
+          - stack: vue
+            args: --ssr --typescript
+            laravel: 10
+          - stack: react
+            args: --ssr --typescript
+            laravel: 10
+
+    name: Test Stubs - Laravel ${{ matrix.laravel }} - ${{ matrix.stack }} ${{ matrix.args }}
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Cache dependencies
-      uses: actions/cache@v1
-      with:
-        path: ~/.composer/cache/files
-        key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php }}
-        extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite
-        coverage: none
-    - name: Create Laravel app
-      run: composer create-project laravel/laravel=${{ matrix.laravel }} ../app --prefer-dist
-    - name: Change stability to dev
-      run: |
-        cd ../app
-        sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/' composer.json
-    - name: Composer JSON
-      run: |
-        cd ../app
-        cat composer.json
-    - name: Install genesis
-      run: |
-        cd ../app
-        composer require devdojo/genesis dev-main
-    - name: Install Pest
-      run: |
-        composer config --no-interaction allow-plugins.pestphp/pest-plugin true
-        composer require pestphp/pest --dev --with-all-dependencies
-    - name: Install all dependencies
-      run: |
-        cd ../app
-        composer install --no-interaction --prefer-dist --optimize-autoloader
-    - name: Install preset
-      run: |
-        cd ../app
-        php artisan ui genesis
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          extensions: dom, curl, libxml, mbstring, zip
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+          coverage: none
 
-    - name: List contents
-      run: |
-        cd ../app/vendor/bin
-        ls -la
+      - name: Setup Laravel
+        run: |
+          composer create-project laravel/laravel:^${{ matrix.laravel }} .
+          composer require devdojo/genesis:@dev --no-interaction --no-update
+          composer config repositories.genesis '{"type": "path", "url": "genesis"}' --file composer.json
 
-    - name: Execute Tests
-      run: |
-         cd ../app
-         vendor/pestphp/pest/bin/pest
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          path: 'genesis'
 
+      - name: Install Genesis
+        run: |
+          composer update "devdojo/genesis" --prefer-dist --no-interaction --no-progress -W
+          php artisan ui genesis
+
+      - name: Install NPM dependencies
+        if: matrix.stack != 'api'
+        run: npm i
+
+      - name: Compile assets
+        if: matrix.stack != 'api'
+        run: npm run build
+
+      - name: Execute tests
+        run: ${{ matrix.args == '--pest' && 'vendor/bin/pest' || 'vendor/bin/phpunit' }}
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ":memory:"
