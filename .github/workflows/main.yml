@@ -64,5 +64,5 @@ jobs:
     - name: Execute Tests
       run: |
          cd ../app
-         vendor/bin/pest
+         vendor/pestphp/pest/bin/pest
 
