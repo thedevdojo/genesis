@@ -50,10 +50,17 @@ jobs:
           cd ../app
           npm run build
 
+      - name: List Vendor Bin
+        run: |
+          cd ../app/vendor/bin
+          ls -la
+
+      - name: PWD
+        run pwd
+
       - name: Execute tests
         run: |
-          cd ../app
-          vendor/bin/pest
+          ../app/vendor/bin/pest
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ":memory:"
