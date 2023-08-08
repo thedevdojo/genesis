@@ -39,6 +39,9 @@ jobs:
       run: |
         cd ../app
         composer require devdojo/genesis dev-main
+    - name: Install Pest
+      run: |
+        composer require pestphp/pest --dev --with-all-dependencies
     - name: Install preset
       run: |
         cd ../app
