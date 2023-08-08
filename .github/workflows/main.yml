@@ -7,38 +7,22 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  stub-tests:
-    runs-on: ubuntu-22.04
-
-    strategy:
-      fail-fast: true
-      matrix:
-        stack: [blade, react, vue, api]
-        laravel: [10]
-        args: ["", --pest]
-        include:
-          - stack: vue
-            args: --ssr --typescript
-            laravel: 10
-          - stack: react
-            args: --ssr --typescript
-            laravel: 10
-
-    name: Test Stubs - Laravel ${{ matrix.laravel }} - ${{ matrix.stack }} ${{ matrix.args }}
-
+  tests:
+    name: Run tests
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+ 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
-          extensions: dom, curl, libxml, mbstring, zip
-          ini-values: error_reporting=E_ALL
-          tools: composer:v2
+          php-version: '8.2'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
           coverage: none
 
       - name: Setup Laravel
         run: |
-          composer create-project laravel/laravel:^${{ matrix.laravel }} .
+          composer create-project laravel/laravel:10
           composer require devdojo/genesis:@dev --no-interaction --no-update
           composer config repositories.genesis '{"type": "path", "url": "genesis"}' --file composer.json
 
@@ -47,24 +31,18 @@ jobs:
           cd ../app
           sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/' composer.json
 
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          path: 'genesis'
 
       - name: Install Genesis
         run: php artisan ui genesis
 
       - name: Install NPM dependencies
-        if: matrix.stack != 'api'
         run: npm i
 
       - name: Compile assets
-        if: matrix.stack != 'api'
         run: npm run build
 
       - name: Execute tests
-        run: ${{ matrix.args == '--pest' && 'vendor/bin/pest' || 'vendor/bin/phpunit' }}
+        run: vendor/bin/pest
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ":memory:"
