@@ -52,7 +52,7 @@ jobs:
 
       - name: List Vendor Bin
         run: |
-          cd ../app/vendor/bin
+          cd ../app/vendor/pestphp/pest
           ls -la
 
       - name: PWD
