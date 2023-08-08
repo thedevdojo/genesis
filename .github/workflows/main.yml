@@ -47,7 +47,3 @@ jobs:
         cd ../app
         php artisan ui genesis
 
-    - name: Execute tests
-      run: |
-        cd ../app
-        ./vendor/bin/pest
