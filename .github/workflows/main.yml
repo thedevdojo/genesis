@@ -42,15 +42,18 @@ jobs:
           composer require devdojo/genesis:@dev --no-interaction --no-update
           composer config repositories.genesis '{"type": "path", "url": "genesis"}' --file composer.json
 
+      - name: Change stability to dev
+        run: |
+          cd ../app
+          sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/' composer.json
+
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           path: 'genesis'
 
       - name: Install Genesis
-        run: |
-          composer update "devdojo/genesis" --prefer-dist --no-interaction --no-progress -W
-          php artisan ui genesis
+        run: php artisan ui genesis
 
       - name: Install NPM dependencies
         if: matrix.stack != 'api'
