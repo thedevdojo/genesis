@@ -39,10 +39,18 @@ jobs:
       run: |
         cd ../app
         composer require devdojo/genesis dev-main
+    - name: Install all dependencies
+      run: |
+        composer install --no-interaction --prefer-dist --optimize-autoloader
     - name: Install preset
       run: |
         cd ../app
         php artisan ui genesis
+
+    - name: List contents
+      run: |
+        cd ../app/vendor/bin
+        ls -la
 
     - name: Execute tests
       run: |
