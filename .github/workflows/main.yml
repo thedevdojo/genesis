@@ -35,6 +35,11 @@ jobs:
           composer require devdojo/genesis dev-main
           php artisan ui genesis
 
+      - name: Install Pest
+        run: |
+          composer config --no-interaction allow-plugins.pestphp/pest-plugin true
+          composer require pestphp/pest --with-all-dependencies
+
       - name: Install NPM dependencies
         run: |
           cd ../app
