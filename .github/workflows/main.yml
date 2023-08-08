@@ -35,7 +35,11 @@ jobs:
       run: |
         cd ../app
         sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/' composer.json
-    - name: Install dependencies
+    - name: Install all dependencies
+      run: |
+        cd ../app
+        composer install --no-interaction --prefer-dist --optimize-autoloader
+    - name: Install genesis
       run: |
         cd ../app
         composer require devdojo/genesis dev-main
