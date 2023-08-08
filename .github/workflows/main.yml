@@ -44,7 +44,7 @@ jobs:
         composer require pestphp/pest --dev --no-plugins
     - name: Install preset
       run: |
-        cd ../app/vendor
+        cd ../app
         php artisan ui genesis
 
     - name: List contents
