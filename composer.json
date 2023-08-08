@@ -35,6 +35,7 @@
         "laravel/folio": "^1.0@beta"
     },
     "require-dev": {
+        "pestphp/pest": "^1.23",
         "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
@@ -53,7 +54,10 @@
 
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {
