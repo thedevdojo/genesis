@@ -25,9 +25,7 @@ jobs:
           composer create-project laravel/laravel:10
 
       - name: Change stability to dev
-        run: |
-          cd ../app
-          sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/' composer.json
+        run: sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/' composer.json
 
       - name: Install Genesis
         run: |
