@@ -50,4 +50,4 @@ jobs:
     - name: Execute tests
       run: |
         cd ../app
-        vendor/bin/pest
+        ./vendor/bin/pest
