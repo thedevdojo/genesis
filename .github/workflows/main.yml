@@ -37,6 +37,7 @@ jobs:
 
       - name: Install Pest
         run: |
+          cd ../app
           composer config --no-interaction allow-plugins.pestphp/pest-plugin true
           composer require pestphp/pest --with-all-dependencies
 
