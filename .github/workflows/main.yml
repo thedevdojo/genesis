@@ -61,7 +61,8 @@ jobs:
 
       - name: Execute tests
         run: |
-          ../app/vendor/bin/pest
+          cd ../app
+          ./vendor/bin/pest
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: ":memory:"
