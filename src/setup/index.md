@@ -1,0 +1,3 @@
+# Welcome to the Genesis Setup
+
+Genesis has already been installed and you have a jump start on building your new app with <a href="https://github.com/thedevdojo/genesis#authentication-pages" target="_blank">authentication pages</a>, <a href="https://github.com/thedevdojo/genesis#dashboard-page">a dashboard page</a>, and more; however, you may be interested in taking it a step further and adding even more features. This is we'll do just that.

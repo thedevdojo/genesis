@@ -29,7 +29,7 @@ middleware(['redirect-to-dashboard']);
             <div x-data="{ showMoreInfo: $persist(true).as('genesis.show-more-info') }" class="mt-5 overflow-hidden sm:mt-8 sm:border sm:shadow-sm sm:rounded-md border-gray-200/70 sm:mx-auto sm:w-full sm:max-w-md">
                 <div class="flex flex-col px-8 py-4 space-y-3 border-b sm:py-8 sm:space-y-0 sm:space-x-5 sm:flex-row sm:bg-white border-gray-200/70 sm:rounded-t-lg sm:px-10">
                     <x-ui.button type="secondary" tag="a" href="https://github.com/thedevdojo/genesis" target="_blank">View the Docs</x-ui.button>
-                    <x-ui.button type="primary" tag="a" href="https://github.com/thedevdojo/genesis" target="_blank">View Github Repo</x-ui.button>
+                    <x-ui.button type="primary" tag="a" href="/setup" target="_blank">Continue Setup</x-ui.button>
                 </div>
 
                 <div @click="showMoreInfo=!showMoreInfo" class="flex items-center justify-between w-full px-10 py-3 text-xs font-medium text-left text-gray-400 border-b cursor-pointer hover:bg-gray-100/40 group sm:bg-white/30 border-gray-200/70">
