@@ -46,6 +46,7 @@ php artisan migrate
 
 Visit your application homepage and you should be good to go 🤘
 
+
 ## Routes in your application
 
 Currently Genesis creates 10 routes including the homepage, authentication, dashboard view, and a few others. You can see all the routes currently in your application by using the `php artisan folio:list` command:
@@ -169,6 +170,44 @@ Every test inside the `tests/Feature` folder has a test file that corresponds to
 ## Troubleshooting
 
 There may be times where you'll see Line numbers printed out in the view causing a weird layout and output. You'll want to run `php artisan view:clear`. This is probably due to the fact that Folio and Volt are still in Beta 😉
+
+
+#### NPM errors
+
+If you are seeing an error on http://localhost:5173 try:
+```bash
+npm upgrade 
+```
+
+#### Laravel installer issues.
+
+APP_URL will be set differently according to how you install laravel.  Some might use the laravel installer some may use composer.  Vite will is serving on http://localhost:5173 while other parts of the app are using http://[::1]:5173. 
+
+For best results try this:
+
+```bash
+composer create-project --prefer-dist laravel/laravel genesis-app
+```
+
+then change your APP_URL in your .env:
+
+```.env
+APP_URL=http://127.0.0.1:8000
+```
+
+then start the npm server and laravel servers:
+
+```bash
+npm run dev
+```
+```
+php artisan serve
+```
+
+
+
+
+
 
 ## Credits
 
