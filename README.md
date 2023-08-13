@@ -46,6 +46,12 @@ php artisan migrate
 
 Visit your application homepage and you should be good to go 🤘
 
+( If you are seeing an error on http://localhost:5173 try: )
+```bash
+npm upgrade 
+```
+
+
 ## Routes in your application
 
 Currently Genesis creates 10 routes including the homepage, authentication, dashboard view, and a few others. You can see all the routes currently in your application by using the `php artisan folio:list` command:
