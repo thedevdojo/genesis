@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Password;
+use function Laravel\Folio\name;
 use function Livewire\Volt\{state, rules};
 
+name('auth.password.reset');
 state(['email' => null, 'emailSentMessage' => false]);
 rules(['email' => 'required|email']);
 
@@ -28,7 +30,7 @@ $sendResetPasswordLink = function(){
 
     <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <x-ui.link href="/">
+            <x-ui.link href="{{ route('index') }}">
                 <x-ui.logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
             </x-ui.link>
 
@@ -37,7 +39,7 @@ $sendResetPasswordLink = function(){
             </h2>
             <div class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">
                 <span>Or</span>
-                <x-ui.text-link href="/auth/login">return to login</x-ui.text-link>
+                <x-ui.text-link href="{{ route('login') }}">return to login</x-ui.text-link>
             </div>
         </div>
 

@@ -1,8 +1,9 @@
 <?php
 
-use function Laravel\Folio\{middleware};
+use function Laravel\Folio\{middleware, name};
 use function Livewire\Volt\{state, rules};
 
+name('index');
 middleware(['redirect-to-dashboard']);
 
 ?>
@@ -12,7 +13,7 @@ middleware(['redirect-to-dashboard']);
     @volt('home')
         <div class="flex flex-col items-center justify-center min-h-screen pt-6 sm:pt-0 dark:bg-gray-900" x-cloak>
             <div class="sm:mx-auto sm:w-full sm:max-w-md">
-                <x-ui.link href="/">
+                <x-ui.link href="{{ route('index') }}">
                     <x-ui.logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
                 </x-ui.link>
 
@@ -20,9 +21,9 @@ middleware(['redirect-to-dashboard']);
                     Welcome to Genesis
                 </h1>
                 <div class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">
-                    <x-ui.text-link href="/auth/login">Login</x-ui.text-link>
+                    <x-ui.text-link href="{{ route('login') }}">Login</x-ui.text-link>
                     or
-                    <x-ui.text-link href="/auth/register">create a new account</x-ui.text-link>
+                    <x-ui.text-link href="{{ route('register') }}">create a new account</x-ui.text-link>
                 </div>
             </div>
 

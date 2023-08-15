@@ -2,8 +2,10 @@
 
     namespace App\Http\Livewire\Auth\Passwords;
 
+    use function Laravel\Folio\name;
     use function Livewire\Volt\{state, rules};
 
+    name('auth.password.confirm');
     state(['password' => '']);
     rules(['password' => 'required|current_password']);
 
@@ -19,7 +21,7 @@
 <x-layouts.app>
     <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <x-ui.link href="/">
+            <x-ui.link href="{{ route('index') }}">
                 <x-ui.logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
             </x-ui.link>
 
@@ -37,7 +39,7 @@
                     <form wire:submit="confirm" class="space-y-6">
                         <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
                         <div class="flex items-center justify-end text-sm">
-                            <x-ui.text-link href="/auth/password/reset">Forgot your password?</x-ui.text-link>
+                            <x-ui.text-link href="{{ route('auth.password.reset') }}">Forgot your password?</x-ui.text-link>
                         </div>
                         <x-ui.button type="primary" submit="true">Confirm password</x-ui.button>
                     </form>

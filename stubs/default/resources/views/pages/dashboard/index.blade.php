@@ -1,8 +1,9 @@
 <?php
 
-use function Laravel\Folio\{middleware};
+use function Laravel\Folio\{middleware, name};
 //use function Livewire\Volt\{state};
 
+name('dashboard');
 middleware(['auth', 'verified']);
 
 ?>
