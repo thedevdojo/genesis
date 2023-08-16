@@ -5,9 +5,9 @@
     use function Laravel\Folio\name;
     use function Livewire\Volt\{state, rules};
 
-    name('auth.password.confirm');
     state(['password' => '']);
     rules(['password' => 'required|current_password']);
+    name('password.confirm');
 
     $confirm = function(){
         $this->validate();
@@ -39,7 +39,7 @@
                     <form wire:submit="confirm" class="space-y-6">
                         <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
                         <div class="flex items-center justify-end text-sm">
-                            <x-ui.text-link href="{{ route('auth.password.reset') }}">Forgot your password?</x-ui.text-link>
+                            <x-ui.text-link href="{{ route('password.request') }}">Forgot your password?</x-ui.text-link>
                         </div>
                         <x-ui.button type="primary" submit="true">Confirm password</x-ui.button>
                     </form>
