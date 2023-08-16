@@ -19,7 +19,7 @@ test('a user must confirm their password before visiting a protected page', func
     $this->be($user);
 
     $this->get('/must-be-confirmed')
-        ->assertRedirect(route('password.confirm')));
+        ->assertRedirect(route('password.confirm'));
 });
 
 test('a user must enter a password to confirm it', function () {
