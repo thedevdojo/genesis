@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Password;
 use function Livewire\Volt\{state, rules};
+use function Laravel\Folio\name;
 
 state(['email' => null, 'emailSentMessage' => false]);
 rules(['email' => 'required|email']);
-
-
+name('password.request');
 
 $sendResetPasswordLink = function(){
     $this->validate();

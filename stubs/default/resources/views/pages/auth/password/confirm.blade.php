@@ -3,9 +3,11 @@
     namespace App\Http\Livewire\Auth\Passwords;
 
     use function Livewire\Volt\{state, rules};
+    use function Laravel\Folio\name;
 
     state(['password' => '']);
     rules(['password' => 'required|current_password']);
+    name('password.confirm');
 
     $confirm = function(){
         $this->validate();

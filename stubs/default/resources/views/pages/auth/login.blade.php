@@ -2,12 +2,13 @@
 
 use App\Models\User;
 use Illuminate\Auth\Events\Login;
-use function Laravel\Folio\{middleware};
+use function Laravel\Folio\{middleware, name};
 use function Livewire\Volt\{state, rules};
 
 middleware(['guest']);
 state(['email' => '', 'password' => '', 'remember' => false]);
 rules(['email' => 'required|email', 'password' => 'required']);
+name('login');
 
 $authenticate = function(){
     $this->validate();
@@ -17,11 +18,11 @@ $authenticate = function(){
 
         return;
     }
-    
+
     event(new Login(auth()->guard('web'), User::where('email', $this->email)->first(), $this->remember));
 
     return redirect()->intended('/');
-}
+};
 
 ?>
 
