@@ -30,8 +30,7 @@ class GenesisPreset extends Preset
         $filesystem->copyDirectory(__DIR__ . '/../stubs/default', base_path());
         
         static::updateFile(base_path('app/Http/Kernel.php'), function ($file) {
-            $updatedFile = str_replace("'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,", "'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,\n\t\t'redirect-to-dashboard' => \App\Http\Middleware\RedirectToDashboard::class,", $file);
-            return str_replace("'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,", "'password.confirm' => \App\Http\Middleware\RequirePassword::class,", $updatedFile);
+            return str_replace("'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,", "'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,\n\t\t'redirect-to-dashboard' => \App\Http\Middleware\RedirectToDashboard::class,", $file);
         });
         
         // Run the Folio and volt install commands
