@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Password;
 use function Laravel\Folio\name;
 use function Livewire\Volt\{state, rules};
 
-name('auth.password.reset');
 state(['email' => null, 'emailSentMessage' => false]);
 rules(['email' => 'required|email']);
+name('password.request');
 
 
 

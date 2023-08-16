@@ -4,8 +4,8 @@
     use Illuminate\Support\Facades\Auth;
     use function Laravel\Folio\{middleware, name};
 
-    name('auth.verify');
     middleware(['auth', 'throttle:6,1']);
+    name('verification.notice');
 
     $resend = function(){
         $user = auth()->user();

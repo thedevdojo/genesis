@@ -5,10 +5,10 @@ use Illuminate\Auth\Events\Login;
 use function Laravel\Folio\{middleware, name};
 use function Livewire\Volt\{state, rules};
 
-name('login');
 middleware(['guest']);
 state(['email' => '', 'password' => '', 'remember' => false]);
 rules(['email' => 'required|email', 'password' => 'required']);
+name('login');
 
 $authenticate = function(){
     $this->validate();
@@ -52,7 +52,7 @@ $authenticate = function(){
 
                         <div class="flex items-center justify-between mt-6 text-sm leading-5">
                             <x-ui.checkbox label="Remember me" id="remember" name="remember" wire:model="remember" />
-                            <x-ui.text-link href="{{ route('auth.password.reset') }}">Forgot your password?</x-ui.text-link>
+                            <x-ui.text-link href="{{ route('password.request') }}">Forgot your password?</x-ui.text-link>
                         </div>
 
                         <x-ui.button type="primary" submit="true">Sign in</x-ui.button>

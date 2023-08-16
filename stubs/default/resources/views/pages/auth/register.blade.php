@@ -8,10 +8,10 @@ use Illuminate\Auth\Events\Registered;
 use function Laravel\Folio\{middleware, name};
 use function Livewire\Volt\{state, rules};
 
-name('register');
 middleware(['guest']);
 state(['name' => '', 'email' => '', 'password' => '', 'passwordConfirmation' => '']);
 rules(['name' => 'required', 'email' => 'required|email|unique:users', 'password' => 'required|min:8|same:passwordConfirmation']);
+name('register');
 
 $register = function(){
     $this->validate();

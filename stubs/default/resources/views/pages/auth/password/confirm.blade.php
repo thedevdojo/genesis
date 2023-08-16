@@ -5,9 +5,9 @@
     use function Laravel\Folio\name;
     use function Livewire\Volt\{state, rules};
 
-    name('auth.password.confirm');
     state(['password' => '']);
     rules(['password' => 'required|current_password']);
+    name('password.confirm');
 
     $confirm = function(){
         $this->validate();

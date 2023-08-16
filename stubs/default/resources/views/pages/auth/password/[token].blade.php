@@ -9,9 +9,9 @@ use Illuminate\Auth\Events\PasswordReset;
 use function Laravel\Folio\name;
 use function Livewire\Volt\{state, rules, mount};
 
-name('auth.password.token');
 state(['token', 'email', 'password', 'passwordConfirmation']);
 rules(['token' => 'required', 'email' => 'required|email', 'password' => 'required|min:8|same:passwordConfirmation']);
+name('password.reset');
 
 mount(function ($token){
     $this->email = request()->query('email', '');
