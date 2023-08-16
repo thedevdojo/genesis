@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Http;
 
-use function Laravel\Folio\{middleware};
+use function Laravel\Folio\{middleware, name};
 use function Livewire\Volt\{with, state, rules, mount};
+
+name('learn');
 middleware(['auth', 'verified']);
 
 $res = Http::get('https://raw.githubusercontent.com/thedevdojo/genesis/main/README.md');

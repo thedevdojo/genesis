@@ -17,7 +17,7 @@ test('an authenticated user can log out', function () {
 
 test('an unauthenticated user can not log out', function () {
     $this->post(route('logout'))
-        ->assertRedirect('/auth/login');
+        ->assertRedirect(route('login'));
 
     expect(Auth::check())->toBeFalse();
 });

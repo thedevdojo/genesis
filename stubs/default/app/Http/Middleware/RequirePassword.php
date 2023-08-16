@@ -73,7 +73,7 @@ class RequirePassword
                 ], 423);
             }
 
-            return redirect('/auth/password/confirm');
+            return redirect()->route('auth.password.confirm');
             // return $this->responseFactory->redirectGuest(
             //     $this->urlGenerator->route($redirectToRoute ?: 'password.confirm')
             // );

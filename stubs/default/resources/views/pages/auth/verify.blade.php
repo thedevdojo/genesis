@@ -2,8 +2,9 @@
 
     use Illuminate\Auth\Events\Verified;
     use Illuminate\Support\Facades\Auth;
-    use function Laravel\Folio\{middleware};
+    use function Laravel\Folio\{middleware, name};
 
+    name('auth.verify');
     middleware(['auth', 'throttle:6,1']);
 
     $resend = function(){
@@ -26,7 +27,7 @@
 
     <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <x-ui.link href="/">
+            <x-ui.link href="{{ route('index') }}">
                 <x-ui.logo class="w-auto h-16 mx-auto text-gray-800" />
             </x-ui.link>
 

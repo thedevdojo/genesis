@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
-use function Laravel\Folio\{middleware};
+use function Laravel\Folio\{middleware, name};
 use function Livewire\Volt\{with, state, rules, mount};
 use Illuminate\Validation\Rule;
 
+name('profile.edit');
 middleware(['auth', 'verified']);
 rules(['new_password' => 'required|confirmed|min:6']);
 
