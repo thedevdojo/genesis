@@ -28,7 +28,7 @@ $authenticate = function(){
 
 <x-layouts.app>
 
-    <div class="flex flex-col items-stretch justify-center w-screen h-screen sm:items-center">
+    <div class="flex flex-col items-stretch justify-center w-screen min-h-screen sm:py-6 sm:items-center">
         
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="{{ route('index') }}">
