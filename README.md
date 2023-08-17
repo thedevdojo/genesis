@@ -21,7 +21,7 @@ It will be beneficial to have a good understanding of the following technologies
 - [Folio](https://github.com/laravel/folio)
 - [Volt](https://github.com/livewire/volt)
 
-Learn how to install and configure Geneses below.
+Learn how to install and configure Genesis below.
 
 ## Installation
 
