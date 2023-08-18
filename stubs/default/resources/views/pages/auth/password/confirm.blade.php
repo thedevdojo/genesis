@@ -20,9 +20,14 @@
 
 <x-layouts.app>
     <div class="flex flex-col items-stretch justify-center w-screen min-h-screen sm:py-6 sm:items-center">
+
+        <div class="fixed right-0 top-0 mt-4 mr-5">
+            <x-ui.light-dark-switch></x-ui.light-dark-switch>
+        </div>
+
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="{{ route('index') }}">
-                <x-ui.logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
+                <x-ui.logo class="w-auto h-10 mx-auto text-gray-700 dark:text-gray-100 fill-current" />
             </x-ui.link>
 
             <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-800">

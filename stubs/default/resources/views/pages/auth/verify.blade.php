@@ -25,22 +25,26 @@
 
 <x-layouts.app>
 
-    <div class="flex flex-col items-stretch justify-center w-screen min-h-screen sm:py-6 sm:items-center">
+    <div class="flex flex-col items-stretch justify-center w-screen min-h-screen sm:py-6 sm:items-center dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900">
+
+        <div class="fixed right-0 top-0 mt-4 mr-5">
+            <x-ui.light-dark-switch></x-ui.light-dark-switch>
+        </div>
+
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="{{ route('index') }}">
-                <x-ui.logo class="w-auto h-16 mx-auto text-gray-800" />
+                <x-ui.logo class="w-auto h-10 mx-auto text-gray-700 dark:text-gray-100 fill-current" />
             </x-ui.link>
 
-            <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-700">
+            <h2 class="mt-6 text-2xl font-extrabold leading-9 text-center text-gray-700 dark:text-gray-200">
                 Verify your email address
             </h2>
 
-            <div class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">
-                Or
-                <x-ui.text-link href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <div class="mt-2 text-sm leading-5 text-center text-gray-600 dark:text-gray-400 space-x-0.5">
+                <span>Or</span>
+                <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 cursor-pointer underline hover:text-gray-800">
                     sign out
-                </x-ui.text-link>
-
+                </button>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
@@ -50,7 +54,7 @@
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 
             @volt('auth.verify')
-                <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white sm:border sm:rounded-lg border-gray-200/60">
+                <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white dark:sm:bg-gray-950/50 dark:border-gray-200/10 sm:border sm:rounded-lg border-gray-200/60">
                     @if (session('resent'))
                         <div class="flex items-center px-4 py-3 mb-6 text-sm text-white bg-green-500 rounded shadow" role="alert">
                             <svg class="w-4 h-4 mr-3 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -61,8 +65,8 @@
                         </div>
                     @endif
 
-                    <div class="text-sm leading-6 text-gray-700">
-                        <p>Before proceeding, please check your email for a verification link. If you did not receive the email, <a wire:click="resend" class="text-gray-700 underline transition duration-150 ease-in-out cursor-pointer hover:text-gray-600 focus:outline-none focus:underline">click here to request another</a>.</p>
+                    <div class="text-sm leading-6 text-gray-700 dark:text-gray-400">
+                        <p>Before proceeding, please check your email for a verification link. If you did not receive the email, <a wire:click="resend" class="text-gray-700 dark:text-gray-300 underline transition duration-150 ease-in-out cursor-pointer hover:text-gray-600 focus:outline-none focus:underline">click here to request another</a>.</p>
                     </div>
                 </div>
             @endvolt

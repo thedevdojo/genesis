@@ -28,16 +28,21 @@ $sendResetPasswordLink = function(){
 
 <x-layouts.app>
 
-    <div class="flex flex-col items-stretch justify-center w-screen min-h-screen sm:py-6 sm:items-center">
+    <div class="flex flex-col items-stretch justify-center w-screen min-h-screen sm:py-6 sm:items-center dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900">
+
+        <div class="fixed right-0 top-0 mt-4 mr-5">
+            <x-ui.light-dark-switch></x-ui.light-dark-switch>
+        </div>
+
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="{{ route('index') }}">
-                <x-ui.logo class="w-auto h-12 mx-auto text-gray-800 fill-current" />
+                <x-ui.logo class="w-auto h-10 mx-auto text-gray-700 dark:text-gray-100 fill-current" />
             </x-ui.link>
 
-            <h2 class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-800">
+            <h2 class="mt-5 text-2xl font-extrabold leading-9 text-center text-gray-800 dark:text-gray-200">
                 Reset password
             </h2>
-            <div class="mt-2 text-sm leading-5 text-center text-gray-600 max-w">
+            <div class="text-sm leading-5 text-center text-gray-600 dark:text-gray-400 space-x-0.5">
                 <span>Or</span>
                 <x-ui.text-link href="{{ route('login') }}">return to login</x-ui.text-link>
             </div>
@@ -45,18 +50,18 @@ $sendResetPasswordLink = function(){
 
         @volt('auth.password.reset')
             <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white sm:border sm:rounded-lg border-gray-200/60">
+                <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white dark:sm:bg-gray-950/50 dark:border-gray-200/10 sm:border sm:rounded-lg border-gray-200/60">
                     @if ($emailSentMessage)
-                        <div class="p-4 rounded-md bg-green-50">
+                        <div class="p-4 rounded-md bg-green-50 dark:bg-green-600">
                             <div class="flex">
                                 <div class="flex-shrink-0">
-                                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg class="w-5 h-5 text-green-400 dark:text-white" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                     </svg>
                                 </div>
 
                                 <div class="ml-3">
-                                    <p class="text-sm font-medium leading-5 text-green-800">
+                                    <p class="text-sm font-medium leading-5 text-green-800 dark:text-green-200">
                                         {{ $emailSentMessage }}
                                     </p>
                                 </div>
