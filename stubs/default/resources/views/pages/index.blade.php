@@ -11,9 +11,9 @@ middleware(['redirect-to-dashboard']);
 <x-layouts.app>
 
     @volt('home')
-        <div class="flex flex-col items-center justify-center min-h-screen py-6 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900" x-cloak>
+        <div class="flex flex-col items-center justify-center min-h-screen py-10" x-cloak>
 
-            <div class="fixed right-0 top-0 mt-4 mr-5">
+            <div class="fixed right-0 top-0 w-10 h-10 rounded-full overflow-hidden mt-4 mr-4">
                 <x-ui.light-dark-switch></x-ui.light-dark-switch>
             </div>
 

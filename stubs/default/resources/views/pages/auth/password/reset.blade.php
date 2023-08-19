@@ -28,9 +28,9 @@ $sendResetPasswordLink = function(){
 
 <x-layouts.app>
 
-    <div class="flex flex-col items-stretch justify-center w-screen min-h-screen sm:py-6 sm:items-center dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900">
+    <div class="flex flex-col items-stretch justify-center w-screen min-h-screen py-10 sm:items-center">
 
-        <div class="fixed right-0 top-0 mt-4 mr-5">
+        <div class="fixed right-0 top-0 w-10 h-10 rounded-full overflow-hidden mt-4 mr-4">
             <x-ui.light-dark-switch></x-ui.light-dark-switch>
         </div>
 

@@ -101,7 +101,7 @@ $destroy = function(Request $request)
             <div class="mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8">
                 
                 {{-- Update Profile Section --}}
-                <section class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
+                <section class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
                     <div class="max-w-xl">
                         <header>
                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Profile Information') }}</h2>
@@ -121,7 +121,7 @@ $destroy = function(Request $request)
                 {{-- End Update Profile Information --}}
 
                 {{-- Update Password Section --}}
-                <section class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
+                <section class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
                     <div class="max-w-xl">
                         <header>
                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Update Password') }}</h2>
@@ -143,7 +143,7 @@ $destroy = function(Request $request)
                 </section>
                 {{-- End Update Password Section --}}
 
-                <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
+                <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
                     <div class="max-w-xl">
 
                         {{-- Delete User Form --}}
