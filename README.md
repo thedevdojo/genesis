@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/thedevdojo/genesis" target="_blank"><img src="https://raw.githubusercontent.com/thedevdojo/genesis/main/art/logo2.svg?logo=true" width="300" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://github.com/thedevdojo/genesis" target="_blank"><img src="https://raw.githubusercontent.com/thedevdojo/genesis/main/art/logo2.svg?logo=true" width="300" alt="Genesis Logo"></a></p>
 <p align="center" class="flex mx-auto space-x-2">
 <a href="https://github.com/thedevdojo/genesis/actions"><img src="https://github.com/thedevdojo/genesis/actions/workflows/main.yml/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/devdojo/genesis"><img src="https://img.shields.io/packagist/dt/devdojo/genesis" alt="Total Downloads"></a>
@@ -11,6 +11,10 @@
 Genesis is a [Laravel](https://laravel.com) Starter Kit that utilizes the [TALL Stack](https://tallstack.dev) as well as single-file [Volt](https://github.com/livewire/volt) and [Folio](https://github.com/laravel/folio) files. This starter kit contains [Authentication](#authentication-pages), [User Dashboard](#dashboard-page), [Edit Profile](#edit-profile-page), and a set of [UI Components](#ui-components).
 
 <p><img src="https://cdn.devdojo.com/images/august2023/genesis-cover.png" alt="genesis cover" /></p>
+
+> 🆕 New Darkmode support just added 🌙
+
+https://github.com/thedevdojo/genesis/assets/601261/03f362dd-643a-408c-b32a-5b93bee79b8f
 
 It will be beneficial to have a good understanding of the following technologies (which Genesis is built upon):
 

@@ -3,7 +3,6 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
 use Livewire\Volt\Volt;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
