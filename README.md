@@ -12,6 +12,10 @@ Genesis is a [Laravel](https://laravel.com) Starter Kit that utilizes the [TALL 
 
 <p><img src="https://cdn.devdojo.com/images/august2023/genesis-cover.png" alt="genesis cover" /></p>
 
+> 🆕 New Darkmode support just added 🌙
+
+https://github.com/thedevdojo/genesis/assets/601261/03f362dd-643a-408c-b32a-5b93bee79b8f
+
 It will be beneficial to have a good understanding of the following technologies (which Genesis is built upon):
 
 - [TailwindCSS](https://tailwindcss.com)
