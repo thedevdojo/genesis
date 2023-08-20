@@ -1,6 +1,6 @@
 <button 
     x-data="{
-        darkMode: false,
+        darkMode: $persist(false).as('dark_mode'),
         toggleDarkMode(){
             document.documentElement.classList.toggle('dark');
             if(document.documentElement.classList.contains('dark')){

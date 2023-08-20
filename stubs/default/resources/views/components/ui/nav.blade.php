@@ -8,12 +8,12 @@
             </a>
 
             <!-- Navigation -->
-            <div :class="{ 'absolute left-0' : open, 'relative' : !open }" class="flex flex-col justify-start w-full sm:relative sm:flex-row sm:justify-between">
+            <div :class="{ 'absolute left-0' : open, 'relative' : !open }" class="flex flex-col justify-start w-full sm:relative sm:flex-row sm:justify-between" x-cloak>
                 @php
                     $navLinks = ['Dashboard' => 'dashboard', 'Learn More' => 'learn'];
                 @endphp
                 <!-- Navigation Links -->
-                <div :class="{'block bg-white relative z-50 w-full h-auto px-4 py-5 left-0 mt-16': open, 'hidden': ! open}" class="items-center space-y-3 sm:space-x-3 sm:space-y-0 sm:mt-0 sm:bg-transparent sm:p-0 sm:relative sm:flex sm:-my-px sm:ml-8" x-cloak>
+                <div :class="{'block bg-white dark:bg-gray-900 relative z-50 w-full h-auto px-4 py-5 left-0 mt-16': open, 'hidden': ! open}" class="items-center space-y-3 sm:space-x-3 sm:space-y-0 sm:mt-0 sm:bg-transparent sm:p-0 sm:relative sm:flex sm:-my-px sm:ml-8" x-cloak>
                     @foreach($navLinks as $title => $route)
                         <a href="{{ route($route) }}"
                             :class="{ 'block w-full': open, '': ! open }"
@@ -24,13 +24,13 @@
                 </div>
 
                 <div class="flex items-center">
-                    <div class="sm:block hidden w-9 h-[32px] rounded-md overflow-hidden">
+                    <div class="sm:block hidden w-9 h-[32px] rounded-md overflow-hidden" x-cloak>
                         <x-ui.light-dark-switch></x-ui.light-dark-switch>
                     </div>
 
                     <!-- User Dropdown -->
                     <div x-data="{ dropdownOpen: false }"
-                        :class="{ 'block z-50 w-full p-4 border-t border-gray-100 bg-white' : open, 'hidden': ! open }"
+                        :class="{ 'block z-50 w-full p-4 border-t border-gray-100 bg-white dark:bg-gray-900 dark:border-gray-800' : open, 'hidden': ! open }"
                         class="relative flex-shrink-0 sm:p-0 sm:flex sm:w-auto sm:bg-transparent sm:items-center sm:ml-1.5"
                         x-cloak
                     >
@@ -58,9 +58,14 @@
                         </div>
                     </div>
 
-                    <!-- Hamburger -->
-                    <div :class="{ 'right-4' : open, 'right-0' : !open }" class="absolute top-0 flex items-center mt-3 sm:right-0 sm:hidden">
-                        <button @click="open = ! open" class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400">
+                    
+
+                    <!-- Mobile Switch and Hamburger -->
+                    <div :class="{ 'right-4' : open, 'right-0' : !open }" class="absolute top-0 flex items-center mt-3 space-x-2 sm:right-0 sm:hidden">
+                        <div class="block w-10 h-10 rounded-md overflow-hidden" x-cloak>
+                            <x-ui.light-dark-switch></x-ui.light-dark-switch>
+                        </div>
+                        <button @click="open = ! open" class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400">
                             <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                 <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                                 <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
