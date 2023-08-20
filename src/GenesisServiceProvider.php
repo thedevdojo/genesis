@@ -2,8 +2,6 @@
 
 namespace Devdojo\Genesis;
 
-use Devdojo\Genesis\GenesisPreset;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Ui\UiCommand;
 

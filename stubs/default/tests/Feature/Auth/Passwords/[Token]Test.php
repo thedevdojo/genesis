@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Livewire\Livewire;
 use Livewire\Volt\Volt;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
@@ -22,7 +21,7 @@ test('can view password reset page', function () {
         'created_at' => Carbon::now(),
     ]);
 
-    $this->get('/auth/password/' . $token . '/?email=' . $user->email)
+    $this->get('/auth/password/'.$token.'/?email='.$user->email)
         ->assertSuccessful()
         ->assertSee($user->email);
 });
