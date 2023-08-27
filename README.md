@@ -31,9 +31,7 @@ Learn how to install and configure Genesis below.
 
 This preset is intended to be installed into a fresh [Laravel application](https://laravel.com).
 
-> Currently Folio, Volt, and Livewire are still in Beta, so for that reason you'll need to set your *minimum-stability* to *dev*, by finding the following line inside of your `composer.json` file `"minimum-stability": "stable",` and replace with `"minimum-stability": "dev",`
-
-After creating a new Laravel application (and updating the minimum-stability) you can install Genesis with the following commands:
+After creating a new Laravel application you can install Genesis with the following commands:
 
 ```bash
 composer require devdojo/genesis dev-main
