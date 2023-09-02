@@ -80,7 +80,7 @@ This file contains a middleware `redirect-to-dashboard` which is registered at t
 middleware(['redirect-to-dashboard']);
 ```
 
-This will redirect an authenticated user to the dashboard when they try and visit the homepage. You can simply remove this line if you do not wich to redirect the authenticated user.
+This will redirect an authenticated user to the dashboard when they try and visit the homepage. You can simply remove this line if you do not wish to redirect the authenticated user.
 
 ## Authentication Pages
 
