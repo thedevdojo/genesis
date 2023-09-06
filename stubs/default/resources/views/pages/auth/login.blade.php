@@ -29,10 +29,6 @@ $authenticate = function(){
 <x-layouts.main>
 
     <div class="flex flex-col items-stretch justify-center w-screen min-h-screen py-10 sm:items-center">
-    
-        <div class="fixed top-0 right-0 w-10 h-10 mt-4 mr-4 overflow-hidden rounded-full">
-            <x-ui.light-dark-switch></x-ui.light-dark-switch>
-        </div>
 
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="{{ route('home') }}">
@@ -59,7 +55,7 @@ $authenticate = function(){
                             <x-ui.text-link href="{{ route('password.request') }}">Forgot your password?</x-ui.text-link>
                         </div>
 
-                        <x-ui.button type="primary" submit="true">Sign in</x-ui.button>
+                        <x-ui.button type="primary" rounded="md" submit="true">Sign in</x-ui.button>
                     </form>
                 @endvolt
             </div>

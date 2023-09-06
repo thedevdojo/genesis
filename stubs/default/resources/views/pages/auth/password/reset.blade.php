@@ -30,13 +30,9 @@ $sendResetPasswordLink = function(){
 
     <div class="flex flex-col items-stretch justify-center w-screen min-h-screen py-10 sm:items-center">
 
-        <div class="fixed right-0 top-0 w-10 h-10 rounded-full overflow-hidden mt-4 mr-4">
-            <x-ui.light-dark-switch></x-ui.light-dark-switch>
-        </div>
-
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="{{ route('home') }}">
-                <x-ui.logo class="w-auto h-10 mx-auto text-gray-700 dark:text-gray-100 fill-current" />
+                <x-ui.logo class="w-auto h-10 mx-auto text-gray-700 fill-current dark:text-gray-100" />
             </x-ui.link>
 
             <h2 class="mt-5 text-2xl font-extrabold leading-9 text-center text-gray-800 dark:text-gray-200">
@@ -70,7 +66,7 @@ $sendResetPasswordLink = function(){
                     @else
                         <form wire:submit="sendResetPasswordLink" class="space-y-6">
                             <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
-                            <x-ui.button type="primary" submit="true">Send password reset link</x-ui.button>
+                            <x-ui.button type="primary" rounded="md" submit="true">Send password reset link</x-ui.button>
                         </form>
                     @endif
                 </div>

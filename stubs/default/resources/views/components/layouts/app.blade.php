@@ -1,6 +1,6 @@
 <x-layouts.main>
     
-    <x-ui.nav />
+    <x-ui.app.header />
 
     <!-- Page Heading -->
     @if (isset($header))

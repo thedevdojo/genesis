@@ -27,13 +27,9 @@
 
     <div class="flex flex-col items-stretch justify-center w-screen min-h-screen py-10 sm:items-center">
 
-        <div class="fixed right-0 top-0 w-10 h-10 rounded-full overflow-hidden mt-4 mr-4">
-            <x-ui.light-dark-switch></x-ui.light-dark-switch>
-        </div>
-
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <x-ui.link href="{{ route('home') }}">
-                <x-ui.logo class="w-auto h-10 mx-auto text-gray-700 dark:text-gray-100 fill-current" />
+                <x-ui.logo class="w-auto h-10 mx-auto text-gray-700 fill-current dark:text-gray-100" />
             </x-ui.link>
 
             <h2 class="mt-6 text-2xl font-extrabold leading-9 text-center text-gray-700 dark:text-gray-200">
@@ -42,7 +38,7 @@
 
             <div class="mt-2 text-sm leading-5 text-center text-gray-600 dark:text-gray-400 space-x-0.5">
                 <span>Or</span>
-                <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 cursor-pointer underline hover:text-gray-800">
+                <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-gray-500 underline cursor-pointer dark:text-gray-400 dark:hover:text-gray-300 hover:text-gray-800">
                     sign out
                 </button>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -66,7 +62,7 @@
                     @endif
 
                     <div class="text-sm leading-6 text-gray-700 dark:text-gray-400">
-                        <p>Before proceeding, please check your email for a verification link. If you did not receive the email, <a wire:click="resend" class="text-gray-700 dark:text-gray-300 underline transition duration-150 ease-in-out cursor-pointer hover:text-gray-600 focus:outline-none focus:underline">click here to request another</a>.</p>
+                        <p>Before proceeding, please check your email for a verification link. If you did not receive the email, <a wire:click="resend" class="text-gray-700 underline transition duration-150 ease-in-out cursor-pointer dark:text-gray-300 hover:text-gray-600 focus:outline-none focus:underline">click here to request another</a>.</p>
                     </div>
                 </div>
             @endvolt
