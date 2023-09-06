@@ -8,7 +8,7 @@ middleware(['auth', 'verified']);
 
 ?>
 
-<x-layouts.dashboard>
+<x-layouts.app>
     <x-slot name="header">
         <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
             {{ __('Dashboard') }}
@@ -26,4 +26,4 @@ middleware(['auth', 'verified']);
             </div>
         </div>
     @endvolt
-</x-layouts.dashboard>
+</x-layouts.app>

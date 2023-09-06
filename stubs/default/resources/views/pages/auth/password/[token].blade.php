@@ -51,7 +51,7 @@ $resetPassword = function(){
 
 ?>
 
-<x-layouts.app>
+<x-layouts.main>
     <div class="flex flex-col items-stretch justify-center w-screen min-h-screen py-10 sm:items-center">
 
         <div class="fixed right-0 top-0 w-10 h-10 rounded-full overflow-hidden mt-4 mr-4">
@@ -59,7 +59,7 @@ $resetPassword = function(){
         </div>
 
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <x-ui.link href="{{ route('index') }}">
+            <x-ui.link href="{{ route('home') }}">
                 <x-ui.logo class="w-auto h-10 mx-auto text-gray-700 dark:text-gray-100 fill-current" />
             </x-ui.link>
             <h2 class="mt-5 text-2xl font-extrabold leading-9 text-center text-gray-800 dark:text-gray-200">Reset password</h2>
@@ -77,4 +77,4 @@ $resetPassword = function(){
             </div>
         </div>
     </div>
-</x-layouts.app>
+</x-layouts.main>
