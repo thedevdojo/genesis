@@ -88,7 +88,7 @@ $destroy = function(Request $request)
 ?>
 
 
-<x-layouts.dashboard>
+<x-layouts.app>
 
     <x-slot name="header">
         <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
@@ -193,4 +193,4 @@ $destroy = function(Request $request)
         </div>
     @endvolt
 
-</x-layouts.dashboard>
+</x-layouts.app>

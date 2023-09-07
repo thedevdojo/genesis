@@ -19,7 +19,7 @@ state(['readme' => $res->body()])
     .dark img[alt="Genesis Logo"]{ filter: invert(1); }
 </style>
 
-<x-layouts.dashboard>
+<x-layouts.app>
 
     <x-slot name="header">
         <h2 class="text-lg font-semibold leading-tight text-gray-800 dark:text-gray-200">
@@ -35,4 +35,4 @@ state(['readme' => $res->body()])
             </article>
         </div>
     @endvolt
-</x-layouts.dashboard>
+</x-layouts.app>
