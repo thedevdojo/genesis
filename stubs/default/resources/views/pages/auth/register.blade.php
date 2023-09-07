@@ -22,8 +22,6 @@ $register = function(){
         'password' => Hash::make($this->password),
     ]);
 
-    // need to wait for folio paged based routes to add the following event 👇
-    // https://github.com/laravel/folio/pull/54
     event(new Registered($user));
 
     Auth::login($user, true);
