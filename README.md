@@ -49,10 +49,11 @@ Visit your application homepage and you should be good to go 🤘
 
 ## Routes in your application
 
-Currently Genesis creates 10 routes including the homepage, authentication, dashboard view, and a few others. You can see all the routes currently in your application by using the `php artisan folio:list` command:
+Currently Genesis creates 11 routes including the homepage, authentication, dashboard view, and a few others. You can see all the routes currently in your application by using the `php artisan folio:list` command:
 
 ```bash
   GET       / ................................................ index.blade.php
+  GET       /about ........................................... about.blade.php
   GET       /auth/login ................................. auth/login.blade.php
   GET       /auth/password/confirm ........... auth/password/confirm.blade.php
   GET       /auth/password/reset ............... auth/password/reset.blade.php
@@ -63,7 +64,7 @@ Currently Genesis creates 10 routes including the homepage, authentication, dash
   GET       /learn ..................................... learn/index.blade.php
   GET       /profile/edit ............................. profile/edit.blade.php
 
-                                                           Showing [10] routes
+                                                           Showing [11] routes
 ```
 
 Let's cover each of the pages provided by Genesis.
@@ -79,6 +80,10 @@ middleware(['redirect-to-dashboard']);
 ```
 
 This will redirect an authenticated user to the dashboard when they try and visit the homepage. You can simply remove this line if you do not wich to redirect the authenticated user.
+
+# About Page
+
+This is a simple about page that you can feel free to remove or use in your application. This page also contains the **ui/marketing/breadcrumbs.blade.php** component which can also be used on any other marketing page.
 
 ## Authentication Pages
 
@@ -150,17 +155,24 @@ You can use these layouts as follows:
 
 We are also providing a handful of Blade Components that you can use in your new application which are located inside of `resources/views/components/ui`. These components include:
 
-- **button.blade.php**
-- **checkbox.blade.php**
-- **input.blade.php**
-- **link.blade.php**
-- **logo.blade.php**
-- **modal.blade.php**
-- **nav.blade.php**
-- **placeholder.blade.php**
-- **text-link.blade.php**
+- **button**
+- **checkbox**
+- **input**
+- **light-dark-switch**
+- **link**
+- **logo**
+- **modal**
+- **nav-link**
+- **placeholder**
+- **text-link**
 
-These elements are pretty self-explanatory; however, you may want to look into how each one works so that way you can get the most out of it.
+There are also two folders inside the UI components which include **app** and **marketing**. Each of which correspond to the available **app** and **marketing** layout. Here are the components available in those folders:
+
+-- **app.header**
+-- **marketing.header**
+-- **marketing.breadcrumbs**
+
+All these components are pretty self-explanatory; however, you may want to look into how each one works so that way you can get the most out of it.
 
 > Updating the logo throughout your application is as easy as updating the **logo.blade.php** component with your logo SVG or image.
 

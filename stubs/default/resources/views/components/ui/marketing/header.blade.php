@@ -19,6 +19,7 @@
                 <nav class="flex flex-col w-full p-6 space-y-2 bg-white md:p-0 md:flex-row md:space-x-2 md:space-y-0 md:w-auto md:bg-transparent md:flex">
                     <x-ui.nav-link href="/">Home</x-ui.nav-link>
                     <x-ui.nav-link href="/about">About</x-ui.nav-link>
+                    <x-ui.nav-link href="/power-ups">Power-ups</x-ui.nav-link>
                     {{-- <x-ui.nav-link href="/features">Features</x-ui.nav-link> --}}
                 </nav>
             </div>
