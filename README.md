@@ -119,10 +119,11 @@ This page displays the Genesis Readme file. It simply fetches the README.md file
 
 ## Layouts
 
-Currently there are two layouts which are located inside of `resources/views/components/layouts`:
+Within Genesis there are three layouts, located inside of `resources/views/components/layouts`:
 
-1. **app.blade.php** - This is the main layout for your application
-2. **dashboard.blade.php** - This is the dashboard layout which also extends the app layout.
+1. **app.blade.php** - This is the layout for any pages inside associated with your application (user must be authenticated)
+2. **marketing.blade.php** - This is the layout used for pages like your homepage, blog, and any other marketing pages. 
+3. **main.blade.php** - This is the layout that contains the main HTML structure of your website. Both the **app** and **marketing** template inherit from this main template.
 
 You can use these layouts as follows:
 
@@ -132,11 +133,18 @@ You can use these layouts as follows:
     <!-- content here... -->
 </x-layouts.app>
 
-<!-- Dashboard Layout -->
-<x-layouts.dashboard>
+<!-- Marketing Layout -->
+<x-layouts.marketing>
     <!-- content here... -->
-</x-layouts.dashboard>
+</x-layouts.marketing>
+
+<!-- Main Layout -->
+<x-layouts.main>
+    <!-- content here... -->
+</x-layouts.main>
 ```
+
+> There may be times when you want to use the **Main Layout** for a page. These might be use-cases where you don't need the **app** or **marketing** header/footer content. For instance, the **auth** pages inherit the **main** layout
 
 ## UI Components
 
