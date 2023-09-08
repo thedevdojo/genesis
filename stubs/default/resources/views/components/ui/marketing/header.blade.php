@@ -20,7 +20,7 @@
                     <x-ui.nav-link href="/">Home</x-ui.nav-link>
                     <x-ui.nav-link href="/genesis/about">About</x-ui.nav-link>
                     @if(view()->exists('pages.blog.index'))
-                        <x-ui.nav-link href="{{ route('blog') }}">Blog</x-ui.nav-link>
+                        <x-ui.nav-link href="/blog">Blog</x-ui.nav-link>
                     @endif
                     <x-ui.nav-link href="/genesis/power-ups">Power-ups</x-ui.nav-link>
                 </nav>

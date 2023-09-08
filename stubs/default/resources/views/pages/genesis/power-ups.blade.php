@@ -42,6 +42,7 @@ $fetchPowerup = protect(function($repo){
 
 $install = function($repo){
     Artisan::call('powerup:install ' . $repo);
+    Artisan::call('migrate');
 };
 
 ?>
