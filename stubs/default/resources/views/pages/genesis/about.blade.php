@@ -1,9 +1,8 @@
 <?php
 
-use function Laravel\Folio\{middleware, name};
+use function Laravel\Folio\{name};
 
-name('home');
-middleware(['redirect-to-dashboard']);
+name('genesis.about');
 
 ?>
 
