@@ -19,6 +19,9 @@
                 <nav class="flex flex-col w-full p-6 space-y-2 bg-white md:p-0 md:flex-row md:space-x-2 md:space-y-0 md:w-auto md:bg-transparent md:flex">
                     <x-ui.nav-link href="/">Home</x-ui.nav-link>
                     <x-ui.nav-link href="/genesis/about">About</x-ui.nav-link>
+                    @if(view()->exists('pages.blog.index'))
+                        <x-ui.nav-link href="{{ route('blog') }}">Blog</x-ui.nav-link>
+                    @endif
                     <x-ui.nav-link href="/genesis/power-ups">Power-ups</x-ui.nav-link>
                 </nav>
             </div>

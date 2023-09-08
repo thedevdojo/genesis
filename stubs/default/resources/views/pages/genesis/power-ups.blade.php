@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Artisan;
 use function Laravel\Folio\{name};
 use function Livewire\Volt\{protect, mount, state};
 
@@ -40,19 +41,8 @@ $fetchPowerup = protect(function($repo){
 });
 
 $install = function($repo){
-    $this->downloadPowerUp($repo);
+    Artisan::call('powerup:install ' . $repo);
 };
-
-$downloadPowerUp = function($repo){
-    $zipballURL = "https://github.com/$repo/zipball/master";
-    dd($zipballURL);
-    
-};
-
-private function cleanTheTempFolder(){
-        $file = new Filesystem;
-        $file->cleanDirectory(storage_path('app/powerup-tmp/'));
-    }
 
 ?>
 
