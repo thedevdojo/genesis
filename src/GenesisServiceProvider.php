@@ -16,6 +16,18 @@ class GenesisServiceProvider extends ServiceProvider
             GenesisPreset::install();
             $command->info('Genesis starter kit installed successfully.');
         });
+
+        if ($this->app->runningInConsole()) {
+
+            // Registering package commands.
+            $this->commands([
+                // \Foundationapp\PowerUps\Console\Commands\PowerUpList::class,
+                // \Foundationapp\PowerUps\Console\Commands\PowerUpEnable::class,
+                // \Foundationapp\PowerUps\Console\Commands\PowerUpDisable::class,
+                \Devdojo\Genesis\Console\Commands\PowerUpInstall::class,
+            ]);
+
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Filesystem\Filesystem;
 use function Laravel\Folio\{name};
 use function Livewire\Volt\{protect, mount, state};
 
@@ -37,6 +38,21 @@ $fetchPowerup = protect(function($repo){
 
     return [];
 });
+
+$install = function($repo){
+    $this->downloadPowerUp($repo);
+};
+
+$downloadPowerUp = function($repo){
+    $zipballURL = "https://github.com/$repo/zipball/master";
+    dd($zipballURL);
+    
+};
+
+private function cleanTheTempFolder(){
+        $file = new Filesystem;
+        $file->cleanDirectory(storage_path('app/powerup-tmp/'));
+    }
 
 ?>
 
@@ -116,7 +132,7 @@ $fetchPowerup = protect(function($repo){
                                 </ul>
                             </div>
                             <div class="fixed bottom-0 right-0 z-30 w-full max-w-md p-4 bg-white border-t border-gray-200 dark:border-gray-800 dark:bg-gray-900">
-                                <x-ui.button type="success" rounded="md">
+                                <x-ui.button wire:click="install('{{ $powerup->repo }}')" type="success" rounded="md">
                                     <svg class="w-5 h-5 mr-1.5 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" class="signal-icon-wrapper" stroke="none"><path d="M18.2502 20.25C19.3548 20.25 20.2502 19.3546 20.2502 18.25L20.2501 9.45157C20.2501 8.99742 20.0955 8.5568 19.8118 8.20217L16.8505 4.50059C16.4709 4.02617 15.8963 3.75 15.2888 3.75L5.75 3.75C4.64543 3.75 3.75 4.64543 3.75 5.75V18.25C3.75 19.3546 4.64543 20.25 5.75 20.25H18.2502Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.25 8C12.6715 8 11.0903 8 8.75041 8C8.19813 8 7.75 7.55228 7.75 7L7.75 4.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.75 20.25V14.5C7.75 13.6716 8.42157 13 9.25 13H14.75C15.5784 13 16.25 13.6716 16.25 14.5V20.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
                                     <span>Install Power-up</span>
                                 </x-ui.button>
