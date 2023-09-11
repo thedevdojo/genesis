@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use function Laravel\Folio\{name};
 use function Livewire\Volt\{protect, mount, state};
 
-state(['powerups' => []]);
+state([ 'powerups' => [] ]);
 
 name('genesis.power-ups');
 
@@ -18,31 +18,40 @@ mount(function () {
 });
 
 $fetchPowerup = protect(function($repo){
-        // Fetch the JSON file using the Laravel HTTP client
+    // Fetch the JSON file using the Laravel HTTP client
     $response = Http::get('https://raw.githubusercontent.com/' . $repo . '/main/powerup.json');
     
     // Check if the request was successful
     if ($response->successful()) {
         // Decode the JSON response
-        $powerup = $response->json();
-        return (object)[
-            'name' => $powerup['name'],
-            'description' => $powerup['description'],
-            'cover' => $powerup['cover'],
-            'includes' => $powerup['includes'],
-            'pages' => $powerup['pages'],
-            'models' => $powerup['models'],
-            'tables' => $powerup['tables'],
-            'repo' => $repo,
-        ];
+        $powerup = (object)$response->json();
+        $powerup->repo = $repo;
+        return $powerup;
     }
 
     return [];
 });
 
-$install = function($repo){
+$install = function($repo, $index){
+
     Artisan::call('powerup:install ' . $repo);
-    Artisan::call('migrate');
+
+    $run = $this->powerups[$index]->run_after_install;
+    if(isset($run['commands'])){
+        foreach($run['commands'] as $command){
+            Artisan::call( $command );
+        }
+    }
+
+    if(isset($run['factories'])){
+        foreach($run['factories'] as $factory){
+            $model = $factory['model'];
+            $count = $factory['count'];
+            call_user_func("{$model}::factory", $count)->create();
+        }
+    }
+    
+    $this->dispatch('toast', message: 'Successfully installed Power-Up.', data: [ 'position' => 'top-right', 'type' => 'success' ]);
 };
 
 ?>
@@ -57,9 +66,15 @@ $install = function($repo){
         <x-ui.marketing.page-header title="Power-Ups" description="Power-ups offer additional features to help you supercharge the beginning of your application journey." />
 
         <div class="w-full max-w-6xl px-8 mx-auto">
-            <div class="grid w-full grid-cols-3 gap-8">
 
-                @foreach($powerups as $powerup)
+            <div class="relative w-full p-6 pl-12 text-yellow-700 border border-yellow-200 rounded-lg dark:border-transparent dark:bg-yellow-500 dark:text-white bg-yellow-50">
+                <svg class="absolute w-5 h-5 -translate-x-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
+                <div class="text-sm opacity-80 dark:opacity-100">Before deploying to production you will want to remove the `pages/genesis` folder. These power-ups should only be installed with a new local app.</div>
+            </div>
+            
+            <div class="grid w-full grid-cols-3 gap-8 mt-8">
+
+                @foreach($powerups as $index => $powerup)
 
                     <x-ui.slide-over title="{{ $powerup->name }}" name="power-up-details" focusable>
                         <x-slot:trigger>
@@ -123,8 +138,11 @@ $install = function($repo){
                                 </ul>
                             </div>
                             <div class="fixed bottom-0 right-0 z-30 w-full max-w-md p-4 bg-white border-t border-gray-200 dark:border-gray-800 dark:bg-gray-900">
-                                <x-ui.button wire:click="install('{{ $powerup->repo }}')" type="success" rounded="md">
-                                    <svg class="w-5 h-5 mr-1.5 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" class="signal-icon-wrapper" stroke="none"><path d="M18.2502 20.25C19.3548 20.25 20.2502 19.3546 20.2502 18.25L20.2501 9.45157C20.2501 8.99742 20.0955 8.5568 19.8118 8.20217L16.8505 4.50059C16.4709 4.02617 15.8963 3.75 15.2888 3.75L5.75 3.75C4.64543 3.75 3.75 4.64543 3.75 5.75V18.25C3.75 19.3546 4.64543 20.25 5.75 20.25H18.2502Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.25 8C12.6715 8 11.0903 8 8.75041 8C8.19813 8 7.75 7.55228 7.75 7L7.75 4.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.75 20.25V14.5C7.75 13.6716 8.42157 13 9.25 13H14.75C15.5784 13 16.25 13.6716 16.25 14.5V20.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                                <x-ui.button wire:click="install('{{ $powerup->repo }}', '{{ $index }}')" type="success" rounded="md">
+                                    <span class="mr-1.5">
+                                        <svg wire:loading class="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                        <svg wire:loading.remove class="w-5 h-5 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="none" class="signal-icon-wrapper" stroke="none"><path d="M18.2502 20.25C19.3548 20.25 20.2502 19.3546 20.2502 18.25L20.2501 9.45157C20.2501 8.99742 20.0955 8.5568 19.8118 8.20217L16.8505 4.50059C16.4709 4.02617 15.8963 3.75 15.2888 3.75L5.75 3.75C4.64543 3.75 3.75 4.64543 3.75 5.75V18.25C3.75 19.3546 4.64543 20.25 5.75 20.25H18.2502Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.25 8C12.6715 8 11.0903 8 8.75041 8C8.19813 8 7.75 7.55228 7.75 7L7.75 4.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.75 20.25V14.5C7.75 13.6716 8.42157 13 9.25 13H14.75C15.5784 13 16.25 13.6716 16.25 14.5V20.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                                    </span>
                                     <span>Install Power-up</span>
                                 </x-ui.button>
                             </div>
