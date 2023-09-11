@@ -15,6 +15,7 @@ mount(function () {
     foreach($powerups as $powerup){
         $this->powerups[] = $this->fetchPowerup($powerup);
     }
+    
 });
 
 $fetchPowerup = protect(function($repo){
@@ -34,8 +35,7 @@ $fetchPowerup = protect(function($repo){
 
 $install = function($repo, $index){
 
-$this->dispatch('toast', message: 'Successfully installed Power-Up.', data: [ 'position' => 'top-right', 'type' => 'success' ]);
-    /* Artisan::call('powerup:install ' . $repo);
+    Artisan::call('powerup:install ' . $repo);
 
     $run = $this->powerups[$index]->run_after_install;
     if(isset($run['commands'])){
@@ -50,9 +50,11 @@ $this->dispatch('toast', message: 'Successfully installed Power-Up.', data: [ 'p
             $count = $factory['count'];
             call_user_func("{$model}::factory", $count)->create();
         }
-    } */
-    
-    
+    }
+
+    session()->flash('power-up-install', 'success');
+
+    return redirect()->to('/genesis/power-ups');
 };
 
 ?>
@@ -72,6 +74,13 @@ $this->dispatch('toast', message: 'Successfully installed Power-Up.', data: [ 'p
                 <svg class="absolute w-5 h-5 -translate-x-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
                 <div class="text-sm opacity-80 dark:opacity-100">Before deploying to production you will want to remove the `pages/genesis` folder. These power-ups should only be installed with a new local app.</div>
             </div>
+
+            @if (session()->has('power-up-install'))
+                <div class="relative w-full p-6 pl-12 mt-8 text-green-700 border border-green-200 rounded-lg dark:border-transparent dark:bg-green-500 dark:text-white bg-green-50">
+                    <svg class="absolute w-5 h-5 -translate-x-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="text-sm opacity-80 dark:opacity-100">Successfully Installed Power-Up</div>
+                </div>
+            @endif
             
             <div class="grid w-full grid-cols-3 gap-8 mt-8">
 
