@@ -2,23 +2,27 @@
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use function Laravel\Folio\{name};
 use function Livewire\Volt\{protect, mount, state};
 
-state([ 'powerups' => [] ]);
+state([ 'powerups' => [], 'powerupsJSON' => null ]);
 
 name('genesis.power-ups');
 
 mount(function () {
-    $powerups = json_decode(file_get_contents( public_path('/genesis/power-ups.json')));
-    foreach($powerups as $powerup){
-        $this->powerups[] = $this->fetchPowerup($powerup);
+    $this->powerupsJSON = json_decode(file_get_contents( public_path('/genesis/power-ups.json')));
+    //dd($powerups);
+    foreach($this->powerupsJSON as $powerup){
+        $repo = key($powerup);
+        $installed = $powerup->{$repo};
+        $this->powerups[] = $this->fetchPowerup($repo, $installed);
     }
     
 });
 
-$fetchPowerup = protect(function($repo){
+$fetchPowerup = protect(function($repo, $installed){
     // Fetch the JSON file using the Laravel HTTP client
     $response = Http::get('https://raw.githubusercontent.com/' . $repo . '/main/powerup.json');
     
@@ -27,6 +31,7 @@ $fetchPowerup = protect(function($repo){
         // Decode the JSON response
         $powerup = (object)$response->json();
         $powerup->repo = $repo;
+        $powerup->installed = $installed;
         return $powerup;
     }
 
@@ -34,6 +39,19 @@ $fetchPowerup = protect(function($repo){
 });
 
 $install = function($repo, $index){
+
+    // Write the updated JSON file
+    foreach($this->powerupsJSON as $powerUpIndex => $powerup){
+        if(key($powerup) == $repo){
+            $this->powerupsJSON[$powerUpIndex]->{$repo} = true;
+        }
+    }
+
+    // Specify the file path in the public directory
+    $filePath = public_path('/genesis/power-ups.json');
+
+    // Write the JSON data to the file
+    File::put($filePath, json_encode($this->powerupsJSON, JSON_PRETTY_PRINT));
 
     Artisan::call('powerup:install ' . $repo);
 
@@ -78,7 +96,7 @@ $install = function($repo, $index){
             @if (session()->has('power-up-install'))
                 <div class="relative w-full p-6 pl-12 mt-8 text-green-700 border border-green-200 rounded-lg dark:border-transparent dark:bg-green-500 dark:text-white bg-green-50">
                     <svg class="absolute w-5 h-5 -translate-x-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <div class="text-sm opacity-80 dark:opacity-100">Successfully Installed Power-Up</div>
+                    <div class="text-sm opacity-80 dark:opacity-100">Successfully Installed Power-Up. Please restart your asset watcher to in order to include updated classes and styles.</div>
                 </div>
             @endif
             
@@ -95,7 +113,15 @@ $install = function($repo, $index){
                                         <span class="flex items-center justify-center text-lg">📝</span>
                                         <span>{{ $powerup->name }}</span>
                                     </span>
-                                    <p class="block pt-1.5 pb-4 text-sm text-left line-clamp-2 text-slate-800/60 dark:text-white/50">{{ $powerup->description }}</p>
+                                    <p class="block pt-1.5 pb-3 text-sm text-left line-clamp-2 text-slate-800/60 dark:text-white/50">{{ $powerup->description }}</p>
+                                    @if($powerup->installed)
+                                        <div class="flex items-center justify-start pb-3">
+                                            <span class="flex items-center w-auto px-2 py-1 text-xs text-white bg-green-500 rounded-md">
+                                                <svg class="w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                                <span>Installed</span>
+                                            </span>
+                                        </div>
+                                    @endif
                                     <x-ui.button type="secondary" rounded="md">View Details</x-ui.button>
                                 </span>
                             </div>
@@ -161,10 +187,13 @@ $install = function($repo, $index){
                     
                 @endforeach
 
+                
+
                 <div class="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-dashed rounded-md border-gray-200/70 dark:border-slate-700 dark:bg-gray-800/50 dark:text-gray-400">
                     More Power-ups coming soon.
                 </div>
-                
+
+
             </div>
         </div>    
 
