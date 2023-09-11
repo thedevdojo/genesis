@@ -161,13 +161,10 @@ $install = function($repo, $index){
                     
                 @endforeach
 
-                
-
                 <div class="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-dashed rounded-md border-gray-200/70 dark:border-slate-700 dark:bg-gray-800/50 dark:text-gray-400">
                     More Power-ups coming soon.
                 </div>
-
-
+                
             </div>
         </div>    
 
