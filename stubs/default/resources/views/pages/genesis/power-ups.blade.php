@@ -34,7 +34,8 @@ $fetchPowerup = protect(function($repo){
 
 $install = function($repo, $index){
 
-    Artisan::call('powerup:install ' . $repo);
+$this->dispatch('toast', message: 'Successfully installed Power-Up.', data: [ 'position' => 'top-right', 'type' => 'success' ]);
+    /* Artisan::call('powerup:install ' . $repo);
 
     $run = $this->powerups[$index]->run_after_install;
     if(isset($run['commands'])){
@@ -49,9 +50,9 @@ $install = function($repo, $index){
             $count = $factory['count'];
             call_user_func("{$model}::factory", $count)->create();
         }
-    }
+    } */
     
-    $this->dispatch('toast', message: 'Successfully installed Power-Up.', data: [ 'position' => 'top-right', 'type' => 'success' ]);
+    
 };
 
 ?>
