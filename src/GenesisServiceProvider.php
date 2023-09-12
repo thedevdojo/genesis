@@ -22,7 +22,7 @@ class GenesisServiceProvider extends ServiceProvider
             // \Foundationapp\PowerUps\Console\Commands\PowerUpList::class,
             // \Foundationapp\PowerUps\Console\Commands\PowerUpEnable::class,
             // \Foundationapp\PowerUps\Console\Commands\PowerUpDisable::class,
-            \Devdojo\Genesis\Console\Commands\PowerUpInstall::class,
+            \Devdojo\Genesis\Console\Commands\PowerupInstall::class,
         ]);
 
     }
