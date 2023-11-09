@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/thedevdojo/genesis/main/art/logo-light.svg">
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/thedevdojo/genesis/main/art/logo.svg">
-    <img alt="Genesis Logo" src="https://raw.githubusercontent.com/thedevdojo/genesis/main/art/logo.svg">
+    <img alt="Genesis Logo" width="240" src="https://raw.githubusercontent.com/thedevdojo/genesis/main/art/logo.svg">
   </picture></a></p>
 <p align="center" class="flex mx-auto space-x-2">
 <a href="https://github.com/thedevdojo/genesis/actions"><img src="https://github.com/thedevdojo/genesis/actions/workflows/main.yml/badge.svg" alt="Build Status"></a>
