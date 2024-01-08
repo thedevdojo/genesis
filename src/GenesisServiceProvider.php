@@ -13,7 +13,13 @@ class GenesisServiceProvider extends ServiceProvider
     public function boot()
     {
         UiCommand::macro('genesis', function ($command) {
-            GenesisPreset::install();
+            // Check for the 'class' option within the passed options
+            $useClassFolder = collect($command->option('option'))->contains('class');
+
+            // Determine the stubs directory based on the presence of the 'class' option
+            $stubDirectoryType = $useClassFolder ? 'class' : 'functional';
+            GenesisPreset::install($stubDirectoryType);
+
             $command->info('Genesis starter kit installed successfully.');
         });
 
@@ -24,7 +30,6 @@ class GenesisServiceProvider extends ServiceProvider
             // \Foundationapp\PowerUps\Console\Commands\PowerUpDisable::class,
             \Devdojo\Genesis\Console\Commands\PowerupInstall::class,
         ]);
-
     }
 
     /**
