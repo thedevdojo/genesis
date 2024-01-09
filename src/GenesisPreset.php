@@ -22,21 +22,29 @@ class GenesisPreset extends Preset
         'axios',
     ];
 
-    public static function install()
+    public static function install($useClassFolder = false)
     {
         static::updatePackages();
 
         $filesystem = new Filesystem();
-        $filesystem->copyDirectory(__DIR__.'/../stubs/default', base_path());
+
+        // Selects the 'class' stubs if the $useClassFolder is true, otherwise uses 'default'
+        $stubDirectory = $useClassFolder ? 'class' : 'default';
+        $filesystem->copyDirectory(__DIR__ . "/../stubs/{$stubDirectory}", base_path());
 
         static::updateFile(base_path('app/Http/Kernel.php'), function ($file) {
-            return str_replace("'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,", "'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,\n\t\t'redirect-to-dashboard' => \App\Http\Middleware\RedirectToDashboard::class,", $file);
+            return str_replace(
+                "'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,",
+                "'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,\n\t\t'redirect-to-dashboard' => \App\Http\Middleware\RedirectToDashboard::class,",
+                $file
+            );
         });
 
         // Run the Folio and volt install commands
         Artisan::call('folio:install');
         Artisan::call('volt:install');
     }
+
 
     protected static function updatePackageArray(array $packages)
     {
