@@ -37,7 +37,7 @@ composer require devdojo/genesis dev-main
 php artisan ui genesis
 ```
 
-> If you wish to use the [class-based API](https://livewire.laravel.com/docs/volt#class-based-volt-components), add the `--option=class`. Ex. `php artisan ui genesis --option=class`
+> To use the [class-based API](https://livewire.laravel.com/docs/volt#class-based-volt-components), include `--option=class`. Ex. `php artisan ui genesis --option=class`
 
 Next, be sure to compile your assets:
 
