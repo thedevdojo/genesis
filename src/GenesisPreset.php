@@ -22,14 +22,15 @@ class GenesisPreset extends Preset
         'axios',
     ];
 
-    public static function install($useClassFolder = false)
+    public static function install($stubDirectoryType = 'functional')
     {
         static::updatePackages();
 
         $filesystem = new Filesystem();
 
-        // Selects the 'class' stubs if the $useClassFolder is true, otherwise uses 'default'
-        $stubDirectory = $useClassFolder ? 'class' : 'default';
+        // If the user specified the 'class' option, use the class stubs, otherwise use the functional (default) stubs
+        $stubDirectory = ($stubDirectoryType == 'class') ? 'class' : 'default';
+    
         $filesystem->copyDirectory(__DIR__ . "/../stubs/{$stubDirectory}", base_path());
 
         static::updateFile(base_path('app/Http/Kernel.php'), function ($file) {
