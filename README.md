@@ -35,8 +35,14 @@ After creating a new Laravel application you can install Genesis with the follow
 ```bash
 composer require devdojo/genesis dev-main
 php artisan ui genesis
-npm install
-npm run dev
+```
+
+> If you wish to use the [class-based API](https://livewire.laravel.com/docs/volt#class-based-volt-components), add the `--option=class`. Ex. `php artisan ui genesis --option=class`
+
+Next, be sure to compile your assets:
+
+```
+npm install && npm run dev
 ```
 
 Finally, you'll want to connect a database inside of your application `.env` file and run the following migrations:
