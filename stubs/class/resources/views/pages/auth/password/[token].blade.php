@@ -25,7 +25,7 @@ new class extends Component
     public $password;
     public $passwordConfirmation;
 
-    public function mount()
+    public function mount($token)
     {
         $this->email = request()->query('email', '');
         $this->token = $token;
