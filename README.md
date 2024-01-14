@@ -171,6 +171,7 @@ We are also providing a handful of Blade Components that you can use in your new
 - **modal**
 - **nav-link**
 - **placeholder**
+- **select**
 - **text-link**
 
 There are also two folders inside the UI components which include **app** and **marketing**. Each of which correspond to the available **app** and **marketing** layout. Here are the components available in those folders:
