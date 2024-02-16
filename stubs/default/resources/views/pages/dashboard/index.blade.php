@@ -1,7 +1,6 @@
 <?php
 
 use function Laravel\Folio\{middleware, name};
-//use function Livewire\Volt\{state};
 
 name('dashboard');
 middleware(['auth', 'verified']);
@@ -16,13 +15,11 @@ middleware(['auth', 'verified']);
     </x-slot>
 
     @volt('dashboard')
-        <div class="h-full py-12">
-            <div class="h-full mx-auto max-w-7xl sm:px-6 lg:px-8">
-                
-                <div class="relative min-h-[500px] w-full h-full">
+        <div class="flex flex-col items-stretch flex-1 h-100">
+            <div class="flex flex-col items-stretch flex-1 w-full pb-5 mx-auto h-100 min-h-[500px] max-w-7xl sm:px-6 lg:px-8">
+                <div class="relative flex-1 w-full h-100">
                     <x-ui.placeholder />
                 </div>
-
             </div>
         </div>
     @endvolt
