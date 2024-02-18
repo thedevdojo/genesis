@@ -97,8 +97,8 @@ $destroy = function(Request $request)
     </x-slot>
 
     @volt('profile.edit')
-        <div class="py-12">
-            <div class="mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8">
+        <div class="pb-5">
+            <div class="mx-auto space-y-6">
                 
                 {{-- Update Profile Section --}}
                 <section class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
