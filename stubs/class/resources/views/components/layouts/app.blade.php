@@ -11,6 +11,10 @@
         </header>
     @endif
     
-    {{ $slot }}
+    <div class="mx-auto mt-5 max-w-7xl">
+        <div class="sm:px-6 lg:px-8">
+            {{ $slot }}
+        </div>
+    </div>
 
 </x-layouts.main>
