@@ -33,10 +33,10 @@ class GenesisPreset extends Preset
     
         $filesystem->copyDirectory(__DIR__ . "/../stubs/{$stubDirectory}", base_path());
 
-        static::updateFile(base_path('app/Http/Kernel.php'), function ($file) {
+        static::updateFile(base_path('bootstrap/app.php'), function ($file) {
             return str_replace(
-                "'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,",
-                "'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,\n\t\t'redirect-to-dashboard' => \App\Http\Middleware\RedirectToDashboard::class,",
+                "->withMiddleware(function (Middleware \$middleware) {",
+                "->withMiddleware(function (Middleware \$middleware) {\n\t\t\$middleware->alias([\n\t\t\t'redirect-to-dashboard' => \App\Http\Middleware\RedirectToDashboard::class\n\t\t]);",
                 $file
             );
         });
