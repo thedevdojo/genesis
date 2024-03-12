@@ -45,7 +45,8 @@ Next, be sure to compile your assets:
 npm install && npm run dev
 ```
 
-Finally, you'll want to connect a database inside of your application `.env` file and run the following migrations:
+> [!IMPORTANT]
+> If you used the Laravel installer and chose `sqlite` as your database, the migrations may have already been run. In which case, you're good to go 🎉 Otherwords you'll need to connect a db and run this command 👇
 
 ```
 php artisan migrate
