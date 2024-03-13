@@ -22,7 +22,7 @@ jobs:
 
       - name: Setup Laravel
         run: |
-          composer create-project laravel/laravel:10 ../app --prefer-dist
+          composer create-project laravel/laravel:11 ../app --prefer-dist
 
       - name: Change stability to dev
         run: |
