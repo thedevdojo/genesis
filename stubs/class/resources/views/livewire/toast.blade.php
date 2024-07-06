@@ -48,6 +48,7 @@
             `
         "
         class="relative space-y-5">
+    </div>
     <template x-teleport="body">
         <ul 
             x-data="{ 
