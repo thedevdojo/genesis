@@ -13,7 +13,7 @@
 
 Genesis is a [Laravel](https://laravel.com) Starter Kit that utilizes the [TALL Stack](https://tallstack.dev) as well as single-file [Volt](https://github.com/livewire/volt) and [Folio](https://github.com/laravel/folio) files. This starter kit contains [Authentication](#authentication-pages), [User Dashboard](#dashboard-page), [Edit Profile](#edit-profile-page), and a set of [UI Components](#ui-components).
 
-<p><img src="https://cdn.devdojo.com/images/march2025/genesis.png" alt="genesis cover" /></p>
+<p><img src="https://cdn.devdojo.com/images/march2025/genesis-screenshot.png" alt="genesis cover" /></p>
 
 ## Installation
 
