@@ -20,7 +20,7 @@ A Laravel starter kit built on the **TALL Stack**, along with **Volt** and **Fol
 You can use the [Laravel Installer](https://laravel.com/docs#installing-php) to install Genesis.
 
 ```bash
-laravel new your-project-name --using=devdojo/genesis
+laravel new my-app --using=devdojo/genesis
 ```
 
 Then, run `comopser run dev` to run the asset watcher, and you're good to go!
