@@ -1,11 +1,13 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "devdojo/genesis",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "The Genesis Laravel Starter Kit",
     "keywords": [
         "laravel",
-        "framework"
+        "framework",
+        "starter",
+        "starter-kit"
     ],
     "license": "MIT",
     "require": {

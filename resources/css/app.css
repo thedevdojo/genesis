@@ -1,6 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+
+    *,
+    ::before,
+    ::after {
+        @apply border-gray-200;
+    }
+}
 
 [x-cloak] {
     display: none;
