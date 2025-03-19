@@ -6,6 +6,7 @@
   </picture></a></p>
 <p align="center" class="flex mx-auto space-x-2">
 <a href="https://packagist.org/packages/devdojo/genesis"><img src="https://img.shields.io/packagist/dt/devdojo/genesis" alt="Total Downloads"></a>
+<a href="https://herd.laravel.com/new?starter-kit=devdojo/genesis"><img src="https://img.shields.io/badge/Install%20with%20Herd-f55247?logo=laravel&logoColor=white"></a>
 </p>
 
 ## About Genesis
