@@ -14,7 +14,7 @@
         "php": "^8.2",
         "codeat3/blade-phosphor-icons": "^2.3",
         "laravel/folio": "*",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^11.0|^12.0",
         "laravel/tinker": "^2.10.1",
         "livewire/volt": "^1.7"
     },
