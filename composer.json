@@ -16,7 +16,7 @@
         "laravel/folio": "*",
         "laravel/framework": "^11.0|^12.0",
         "laravel/tinker": "^2.10.1",
-        "livewire/volt": "^1.7"
+        "livewire/volt": "^1.10.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
