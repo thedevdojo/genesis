@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use function Laravel\Folio\{middleware, name};
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
@@ -25,6 +26,9 @@ new class extends Component {
     public $new_password = '';
     public $new_password_confirmation = '';
     public $delete_confirm_password = '';
+
+    public $two_factor_enabled = false;
+    public $api_tokens = [];
 
     public function mount()
     {
@@ -64,6 +68,32 @@ new class extends Component {
         $this->user->fill(['password' => Hash::make($this->new_password), 'remember_token' => Str::random(60)])->save();
 
         $this->reset(['current_password', 'new_password', 'new_password_confirmation']);
+    }
+
+    public function toggleTwoFactor()
+    {
+        $this->two_factor_enabled = !$this->two_factor_enabled;
+        $status = $this->two_factor_enabled ? 'enabled' : 'disabled';
+        $this->dispatch('toast', message: "Two-Factor Authentication {$status}.", data: ['position' => 'top-right', 'type' => 'success']);
+    }
+
+    public function createApiToken()
+    {
+        // Mock token creation
+        $token = 'gtk_' . Str::random(32);
+        $this->api_tokens[] = [
+            'name' => 'New Token',
+            'token' => $token,
+            'last_used' => 'Never',
+        ];
+        $this->dispatch('toast', message: 'API Token created.', data: ['position' => 'top-right', 'type' => 'success']);
+    }
+
+    public function deleteApiToken($index)
+    {
+        unset($this->api_tokens[$index]);
+        $this->api_tokens = array_values($this->api_tokens);
+        $this->dispatch('toast', message: 'API Token deleted.', data: ['position' => 'top-right', 'type' => 'success']);
     }
 
     public function destroy()
@@ -158,6 +188,71 @@ new class extends Component {
                     </div>
                 </section>
                 {{-- End Update Password Section --}}
+
+                {{-- Two Factor Authentication Section --}}
+                <section class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
+                    <div class="max-w-xl">
+                        <header>
+                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Two-Factor Authentication') }}</h2>
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                {{ __('Add additional security to your account using two-factor authentication.') }}
+                            </p>
+                        </header>
+
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                @if($two_factor_enabled)
+                                    {{ __('You have enabled two-factor authentication.') }}
+                                @else
+                                    {{ __('You have not enabled two-factor authentication.') }}
+                                @endif
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                {{ __("When two-factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's Google Authenticator application.") }}
+                            </p>
+                        </div>
+
+                        <div class="mt-6">
+                            @if($two_factor_enabled)
+                                <x-ui.button type="danger" wire:click="toggleTwoFactor">{{ __('Disable') }}</x-ui.button>
+                            @else
+                                <x-ui.button type="primary" wire:click="toggleTwoFactor">{{ __('Enable') }}</x-ui.button>
+                            @endif
+                        </div>
+                    </div>
+                </section>
+                {{-- End Two Factor Authentication Section --}}
+
+                {{-- API Tokens Section --}}
+                <section class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
+                    <div class="max-w-xl">
+                        <header>
+                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('API Tokens') }}</h2>
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                {{ __('Manage API tokens that allow third-party services to access this application on your behalf.') }}
+                            </p>
+                        </header>
+
+                        <div class="mt-6 space-y-6">
+                            @foreach($api_tokens as $index => $token)
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ $token['name'] }}</div>
+                                        <div class="text-xs text-gray-500 dark:text-gray-400">Token: {{ substr($token['token'], 0, 10) }}...</div>
+                                    </div>
+                                    <button wire:click="deleteApiToken({{ $index }})" class="text-sm text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
+                                        {{ __('Delete') }}
+                                    </button>
+                                </div>
+                            @endforeach
+
+                            <div class="flex items-center">
+                                <x-ui.button type="primary" wire:click="createApiToken">{{ __('Create New Token') }}</x-ui.button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                {{-- End API Tokens Section --}}
 
                 <div
                     class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg dark:bg-gray-900/50 dark:border dark:border-gray-200/10">
