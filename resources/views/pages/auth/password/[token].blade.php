@@ -6,11 +6,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 
-use function Laravel\Folio\name;
+use function Laravel\Folio\{middleware, name};
 
 use Livewire\Volt\Component;
 use Livewire\Attributes\Validate;
 
+middleware(['guest']);
 name('password.reset');
 
 new class extends Component
@@ -55,7 +56,7 @@ new class extends Component
         );
 
         if ($response == Password::PASSWORD_RESET) {
-            session()->flash(trans($response));
+            session()->flash('status', trans($response));
 
             return redirect('/');
         }
