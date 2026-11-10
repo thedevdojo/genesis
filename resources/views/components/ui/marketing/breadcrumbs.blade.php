@@ -26,7 +26,7 @@ Example Usage:
             @if(isset($crumb['href']))
                 <li><a href="{{ $crumb['href'] }}" class="inline-flex items-center py-1 font-normal dark:hover:text-neutral-100 focus:outline-none">{{ $crumb['text'] }}</a></li>
             @else
-                <li><span>{{ $crumb['text'] }}</li>
+                <li><span class="active-breadcrumb">{{ $crumb['text'] }}</span></li>
             @endif
         @endforeach
     </ol>
