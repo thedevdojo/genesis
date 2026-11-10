@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 use function Laravel\Folio\{middleware, name};
 use Livewire\Volt\Component;
@@ -14,12 +13,10 @@ new class extends Component
     {
         $user = auth()->user();
         if ($user->hasVerifiedEmail()) {
-            redirect('/');
+            return $this->redirect('/');
         }
 
         $user->sendEmailVerificationNotification();
-
-        event(new Verified($user));
 
         $this->dispatch('resent');
         session()->flash('resent');

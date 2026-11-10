@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Volt\Volt;
 
@@ -80,4 +82,36 @@ test('bad login attempt shows message', function () {
         ->assertHasErrors('email');
 
     expect(Auth::check())->toBeFalse();
+});
+
+test('login is throttled after too many failed attempts', function () {
+    $user = User::factory()->create(['password' => Hash::make('password')]);
+
+    foreach (range(1, 5) as $attempt) {
+        Volt::test('auth.login')
+            ->set('email', $user->email)
+            ->set('password', 'bad-password')
+            ->call('authenticate');
+    }
+
+    Volt::test('auth.login')
+        ->set('email', $user->email)
+        ->set('password', 'password')
+        ->call('authenticate')
+        ->assertHasErrors('email');
+
+    expect(Auth::check())->toBeFalse();
+});
+
+test('a user can login without the login event firing twice', function () {
+    Event::fake([Login::class]);
+
+    $user = User::factory()->create(['password' => Hash::make('password')]);
+
+    Volt::test('auth.login')
+        ->set('email', $user->email)
+        ->set('password', 'password')
+        ->call('authenticate');
+
+    Event::assertDispatchedTimes(Login::class, 1);
 });

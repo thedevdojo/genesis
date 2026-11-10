@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 use function Laravel\Folio\{middleware, name};
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
@@ -23,15 +24,30 @@ new class extends Component
     {
         $this->validate();
 
+        if (RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+            $this->addError('email', trans('auth.throttle', [
+                'seconds' => RateLimiter::availableIn($this->throttleKey()),
+            ]));
+
+            return;
+        }
+
         if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+            RateLimiter::hit($this->throttleKey());
+
             $this->addError('email', trans('auth.failed'));
 
             return;
         }
 
-        event(new Login(auth()->guard('web'), User::where('email', $this->email)->first(), $this->remember));
+        RateLimiter::clear($this->throttleKey());
 
         return redirect()->intended('/');
+    }
+
+    protected function throttleKey(): string
+    {
+        return Str::transliterate(Str::lower($this->email) . '|' . request()->ip());
     }
 };
 

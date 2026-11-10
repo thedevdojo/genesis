@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Password;
-use function Laravel\Folio\name;
+use function Laravel\Folio\{middleware, name};
 use Livewire\Volt\Component;
 use Livewire\Attributes\Validate;
 
+middleware(['guest']);
 name('password.request');
 
 new class extends Component

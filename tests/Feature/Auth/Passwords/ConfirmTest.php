@@ -21,7 +21,14 @@ test('a user must confirm their password before visiting a protected page', func
         ->assertRedirect(route('password.confirm'));
 });
 
+test('a guest can not view the confirm password page', function () {
+    $this->get(route('password.confirm'))
+        ->assertRedirect(route('login'));
+});
+
 test('a user must enter a password to confirm it', function () {
+    $this->be(User::factory()->create());
+
     Volt::test('auth.password.confirm')
         ->call('confirm')
         ->assertHasErrors(['password' => 'required']);
@@ -31,6 +38,8 @@ test('a user must enter their own password to confirm it', function () {
     $user = User::factory()->create([
         'password' => Hash::make('password'),
     ]);
+
+    $this->be($user);
 
     Volt::test('auth.password.confirm')
         ->set('password', 'not-password')

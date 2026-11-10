@@ -1,9 +1,13 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
 use Livewire\Livewire;
 use Livewire\Volt\Volt;
@@ -22,13 +26,34 @@ test('can view verification page', function () {
 });
 
 test('can resend verification email', function () {
-    $user = User::factory()->create();
+    Notification::fake();
+    Event::fake([Verified::class]);
+
+    $user = User::factory()->unverified()->create();
 
     Livewire::actingAs($user);
 
     Volt::test('auth.verify')
         ->call('resend')
         ->assertDispatched('resent');
+
+    Notification::assertSentTo($user, VerifyEmail::class);
+    Event::assertNotDispatched(Verified::class);
+});
+
+test('a verified user is redirected instead of being sent another email', function () {
+    Notification::fake();
+
+    $user = User::factory()->create();
+
+    Livewire::actingAs($user);
+
+    Volt::test('auth.verify')
+        ->call('resend')
+        ->assertRedirect('/')
+        ->assertNotDispatched('resent');
+
+    Notification::assertNothingSent();
 });
 
 test('can verify', function () {
