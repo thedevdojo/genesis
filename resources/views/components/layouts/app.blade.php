@@ -13,6 +13,12 @@
     
     <div class="mx-auto mt-5 max-w-7xl">
         <div class="sm:px-6 lg:px-8">
+            @if (session('status'))
+                <div class="p-4 mb-5 text-sm font-medium text-green-800 rounded-md bg-green-50 dark:bg-green-600 dark:text-white">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             {{ $slot }}
         </div>
     </div>

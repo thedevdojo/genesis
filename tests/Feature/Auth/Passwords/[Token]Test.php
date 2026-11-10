@@ -5,6 +5,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Livewire\Volt\Volt;
 
@@ -103,4 +104,20 @@ test('password matches password confirmation', function () {
         ->set('passwordConfirmation', 'not-new-password')
         ->call('resetPassword')
         ->assertHasErrors(['password' => 'same']);
+});
+
+test('user sees a status message after resetting their password', function () {
+    $user = User::factory()->create();
+
+    $token = Password::broker()->createToken($user);
+
+    Volt::test('auth.password.token', ['token' => $token])
+        ->set('email', $user->email)
+        ->set('password', 'new-password')
+        ->set('passwordConfirmation', 'new-password')
+        ->call('resetPassword')
+        ->assertRedirect(route('dashboard'));
+
+    $this->get(route('dashboard'))
+        ->assertSee(trans(Password::PASSWORD_RESET));
 });

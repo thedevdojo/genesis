@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Auth\Events\Lockout;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
@@ -85,6 +86,8 @@ test('bad login attempt shows message', function () {
 });
 
 test('login is throttled after too many failed attempts', function () {
+    Event::fake([Lockout::class]);
+
     $user = User::factory()->create(['password' => Hash::make('password')]);
 
     foreach (range(1, 5) as $attempt) {
@@ -101,6 +104,8 @@ test('login is throttled after too many failed attempts', function () {
         ->assertHasErrors('email');
 
     expect(Auth::check())->toBeFalse();
+
+    Event::assertDispatched(Lockout::class);
 });
 
 test('a user can login without the login event firing twice', function () {

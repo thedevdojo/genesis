@@ -58,7 +58,7 @@ new class extends Component
         if ($response == Password::PASSWORD_RESET) {
             session()->flash('status', trans($response));
 
-            return redirect('/');
+            return redirect()->route('dashboard');
         }
 
         $this->addError('email', trans($response));
