@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use function Laravel\Folio\{middleware, name};
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
@@ -21,7 +22,7 @@ new class extends Component {
     public $email = '';
     public $current_password = '';
 
-    #[Validate('required|confirmed|min:6')]
+    #[Validate('required|confirmed|min:8')]
     public $new_password = '';
     public $new_password_confirmation = '';
     public $delete_confirm_password = '';
@@ -36,7 +37,7 @@ new class extends Component {
     public function updateProfile()
     {
         $validated = $this->validate([
-            'name' => 'required|string|min:3',
+            'name' => 'required|string|max:255',
             'email' => 'required|min:3|email|max:255|unique:users,email,' . $this->user->id . ',id',
         ]);
 
@@ -60,8 +61,8 @@ new class extends Component {
             return;
         }
 
-        $this->dispatch('toast', message: 'Successfully updated password.', data: ['position' => 'top-right', 'type' => 'success']);
         $this->user->fill(['password' => Hash::make($this->new_password), 'remember_token' => Str::random(60)])->save();
+        $this->dispatch('toast', message: 'Successfully updated password.', data: ['position' => 'top-right', 'type' => 'success']);
 
         $this->reset(['current_password', 'new_password', 'new_password_confirmation']);
     }

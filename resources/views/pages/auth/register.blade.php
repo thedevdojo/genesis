@@ -13,10 +13,10 @@ name('register');
 
 new class extends Component
 {
-    #[Validate('required')]
+    #[Validate('required|string|max:255')]
     public $name = '';
 
-    #[Validate('required|email|unique:users')]
+    #[Validate('required|email|max:255|unique:users')]
     public $email = '';
 
     #[Validate('required|min:8|same:passwordConfirmation')]

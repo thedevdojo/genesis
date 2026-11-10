@@ -104,3 +104,15 @@ test('password matches password confirmation', function () {
         ->call('register')
         ->assertHasErrors(['password' => 'same']);
 });
+
+test('name and email can not be longer than 255 characters', function () {
+    Volt::test('auth.register')
+        ->set('name', str_repeat('a', 256))
+        ->set('email', str_repeat('a', 250).'@example.com')
+        ->set('password', 'password')
+        ->set('passwordConfirmation', 'password')
+        ->call('register')
+        ->assertHasErrors(['name' => 'max', 'email' => 'max']);
+
+    expect(User::count())->toBe(0);
+});
