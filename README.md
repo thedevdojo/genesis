@@ -172,10 +172,10 @@ All these components are pretty self-explanatory; however, you may want to look 
 
 ### Testing
 
-Genesis has some basic tests to test out the authentication functionality. You can check those tests by running the following command:
+Genesis has some basic tests to test out the authentication functionality. The tests use [Pest](https://pestphp.com) and run against an in-memory SQLite database, so your local database is never touched. You can run them with the following command:
 
 ```bash
-./vendor/bin/pest
+composer test
 ```
 
 Every test inside the `tests/Feature` folder has a test file that corresponds to each page in the `resources/views/pages` folder.
