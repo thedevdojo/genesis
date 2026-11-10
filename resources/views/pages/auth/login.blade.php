@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
@@ -25,6 +26,8 @@ new class extends Component
         $this->validate();
 
         if (RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+            event(new Lockout(request()));
+
             $this->addError('email', trans('auth.throttle', [
                 'seconds' => RateLimiter::availableIn($this->throttleKey()),
             ]));
