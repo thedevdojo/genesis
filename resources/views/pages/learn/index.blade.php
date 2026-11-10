@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 use function Laravel\Folio\{middleware, name};
 use Livewire\Volt\Component;
@@ -13,7 +14,8 @@ new class extends Component {
 
     public function mount()
     {
-        $this->readme = Http::get('https://raw.githubusercontent.com/thedevdojo/genesis/main/README.md')->body();
+        // The README that ships with the app, so the docs match the installed version and nothing is fetched at runtime
+        $this->readme = File::exists(base_path('README.md')) ? File::get(base_path('README.md')) : '';
     }
 };
 
@@ -35,7 +37,7 @@ new class extends Component {
 
     @volt('learn')
         <div class="relative w-full mx-auto">
-            <p class="hidden text-sm font-medium leading-none text-gray-500 translate-y-5 sm:block">This page is pulled from the <a href="https://github.com/thedevdojo/genesis" target="_blank" class="underline">Genesis Readme Repository</a>.</p>
+            <p class="hidden text-sm font-medium leading-none text-gray-500 translate-y-5 sm:block">This page shows your project's <code>README.md</code>. The latest version is on the <a href="https://github.com/thedevdojo/genesis" target="_blank" class="underline">Genesis repository</a>.</p>
             <article class="flex flex-col justify-center w-full max-w-full p-10 mx-auto prose-sm prose bg-white border rounded-md shadow-sm prose-md dark:prose-invert lg:prose-lg sm:my-10 border-gray-200/60 dark:bg-gray-900/50 dark:border-gray-200/10">
                 {!! Str::markdown($readme) !!}
             </article>
