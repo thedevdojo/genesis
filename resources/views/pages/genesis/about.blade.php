@@ -26,7 +26,7 @@ new class extends Component
             </div>
         </div>
 
-        <div class="grid max-w-2xl grid-cols-1 gap-2 mx-auto mt-4 bg-opacity-25 lg:pt-0 md:grid-cols-2 lg:gap-4 lg:gap-y-1">
+        <div class="grid max-w-2xl grid-cols-1 gap-2 mx-auto mt-4 lg:pt-0 md:grid-cols-2 lg:gap-4 lg:gap-y-1">
             <div>
                 <a href="https://laravel.com/docs" target="_blank" class="relative flex items-center px-4 py-3 mt-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-900/80 dark:hover:bg-gray-900 dark:border-gray-500/20 group gap-x-2.5 hover:bg-white">
                     <span class="flex items-center justify-center flex-none w-8 h-8">

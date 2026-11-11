@@ -65,8 +65,8 @@ new class extends Component
 
                 <div class="text-sm leading-6 text-gray-700 dark:text-gray-400">
                     <p>Before proceeding, please check your email for a verification link. If you did not receive the
-                        email, <a wire:click="resend" class="text-gray-700 underline transition duration-150 ease-in-out cursor-pointer dark:text-gray-300 hover:text-gray-600 focus:outline-none focus:underline">click
-                            here to request another</a>.</p>
+                        email, <button type="button" wire:click="resend" class="text-gray-700 underline transition duration-150 ease-in-out cursor-pointer dark:text-gray-300 hover:text-gray-600 focus:outline-none focus:underline">click
+                            here to request another</button>.</p>
                 </div>
             </div>
             @endvolt
