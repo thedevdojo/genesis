@@ -4,16 +4,10 @@ use App\Models\User;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-function breadcrumbList(string $html): DOMElement
-{
-    $dom = new DOMDocument;
-    @$dom->loadHTML($html);
-
-    return (new DOMXPath($dom))->query('//nav[@aria-label="Breadcrumb"]/ol')->item(0);
-}
-
 test('the breadcrumb list only contains list items', function () {
-    $ol = breadcrumbList($this->get('/genesis/about')->assertOk()->getContent());
+    $dom = new DOMDocument;
+    @$dom->loadHTML($this->get('/genesis/about')->assertOk()->getContent());
+    $ol = (new DOMXPath($dom))->query('//nav[@aria-label="Breadcrumb"]/ol')->item(0);
 
     $children = collect(iterator_to_array($ol->childNodes))
         ->filter(fn ($node) => $node instanceof DOMElement)
