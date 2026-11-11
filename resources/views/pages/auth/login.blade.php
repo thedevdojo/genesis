@@ -45,7 +45,7 @@ new class extends Component
 
         RateLimiter::clear($this->throttleKey());
 
-        return redirect()->intended('/');
+        return redirect()->intended(route('dashboard'));
     }
 
     protected function throttleKey(): string

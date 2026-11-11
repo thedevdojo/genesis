@@ -50,7 +50,7 @@ test('a verified user is redirected instead of being sent another email', functi
 
     Volt::test('auth.verify')
         ->call('resend')
-        ->assertRedirect('/')
+        ->assertRedirect(route('dashboard'))
         ->assertNotDispatched('resent');
 
     Notification::assertNothingSent();
@@ -69,7 +69,7 @@ test('can verify', function () {
     ]);
 
     $this->get($url)
-        ->assertRedirect(route('home'));
+        ->assertRedirect(route('dashboard'));
 
     expect($user->hasVerifiedEmail())->toBeTrue();
 });

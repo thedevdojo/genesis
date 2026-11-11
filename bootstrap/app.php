@@ -14,7 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
 		$middleware->alias([
 			'redirect-to-dashboard' => \App\Http\Middleware\RedirectToDashboard::class
 		]);
-        //
+
+        // Folio page names aren't visible to the guest middleware's Route::has('dashboard') check
+        $middleware->redirectUsersTo('/dashboard');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

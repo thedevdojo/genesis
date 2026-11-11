@@ -18,7 +18,7 @@ new class extends Component
 
         session()->put('auth.password_confirmed_at', time());
 
-        return redirect()->intended('/');
+        return redirect()->intended(route('dashboard'));
     }
 };
 
