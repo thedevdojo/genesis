@@ -76,7 +76,9 @@ test('the remember me checkbox can be reached by keyboard', function () {
     $html = Blade::render('<x-ui.checkbox label="Remember me" id="remember" name="remember" wire:model="remember" />');
 
     expect($html)->toContain('class="sr-only peer"')
-        ->not->toContain('class="hidden peer"');
+        ->not->toContain('class="hidden peer"')
+        // peer-* only matches the input's siblings, so the ring goes on the label and targets the box
+        ->toMatch('/<label[^>]*peer-focus-visible:\[&amp;_\.custom-checkbox\]:ring-2/');
 });
 
 test('the resend verification link is a button', function () {

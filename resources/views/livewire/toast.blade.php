@@ -50,7 +50,6 @@
     </div>
     <template x-teleport="body">
         <ul
-            role="status"
             aria-live="polite"
             x-data="{ 
                 toasts: [],
