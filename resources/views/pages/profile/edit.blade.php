@@ -47,7 +47,14 @@ new class extends Component {
             return;
         }
 
-        $this->user->fill(['email' => $this->email, 'name' => $this->name])->save();
+        $this->user->fill(['email' => $this->email, 'name' => $this->name]);
+
+        // a new address has to be verified again, like in Breeze
+        if ($this->user->isDirty('email')) {
+            $this->user->email_verified_at = null;
+        }
+
+        $this->user->save();
 
         $this->dispatch('toast', message: 'Successfully updated profile.', data: ['position' => 'top-right', 'type' => 'success']);
     }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 use function Laravel\Folio\{middleware, name};
 use Livewire\Volt\Component;
 
@@ -15,6 +16,15 @@ new class extends Component
         if ($user->hasVerifiedEmail()) {
             return $this->redirect(route('dashboard'));
         }
+
+        // the page's throttle middleware doesn't apply to Livewire requests
+        $key = 'verification-resend:'.$user->getKey();
+        if (RateLimiter::tooManyAttempts($key, 6)) {
+            $this->addError('resend', trans('auth.throttle', ['seconds' => RateLimiter::availableIn($key)]));
+
+            return;
+        }
+        RateLimiter::hit($key, 60);
 
         $user->sendEmailVerificationNotification();
 
@@ -62,6 +72,12 @@ new class extends Component
                     <p>A fresh verification link has been sent to your email address.</p>
                 </div>
                 @endif
+
+                @error('resend')
+                <div class="px-4 py-3 mb-6 text-sm text-white bg-red-500 rounded shadow" role="alert">
+                    <p>{{ $message }}</p>
+                </div>
+                @enderror
 
                 <div class="text-sm leading-6 text-gray-700 dark:text-gray-400">
                     <p>Before proceeding, please check your email for a verification link. If you did not receive the
