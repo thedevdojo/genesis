@@ -73,3 +73,30 @@ test('can verify', function () {
 
     expect($user->hasVerifiedEmail())->toBeTrue();
 });
+
+test('a verification link for a different email is rejected', function () {
+    $user = User::factory()->unverified()->create();
+
+    $url = URL::temporarySignedRoute('verification.verify', Carbon::now()->addMinutes(60), [
+        'id' => $user->getKey(),
+        'hash' => sha1('someone-else@example.com'),
+    ]);
+
+    $this->actingAs($user)->get($url)->assertForbidden();
+
+    expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
+});
+
+test('a verification link for another user is rejected', function () {
+    $user = User::factory()->unverified()->create();
+    $other = User::factory()->unverified()->create();
+
+    $url = URL::temporarySignedRoute('verification.verify', Carbon::now()->addMinutes(60), [
+        'id' => $other->getKey(),
+        'hash' => sha1($other->getEmailForVerification()),
+    ]);
+
+    $this->actingAs($user)->get($url)->assertForbidden();
+
+    expect($other->fresh()->hasVerifiedEmail())->toBeFalse();
+});

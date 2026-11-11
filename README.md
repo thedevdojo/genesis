@@ -45,7 +45,6 @@ Currently Genesis creates 11 routes including the homepage, authentication, dash
 
 ```bash
   GET       / ................................................ index.blade.php
-  GET       /about ........................................... about.blade.php
   GET       /auth/login ................................. auth/login.blade.php
   GET       /auth/password/confirm ........... auth/password/confirm.blade.php
   GET       /auth/password/reset ............... auth/password/reset.blade.php
@@ -53,6 +52,7 @@ Currently Genesis creates 11 routes including the homepage, authentication, dash
   GET       /auth/register ........................... auth/register.blade.php
   GET       /auth/verify ............................... auth/verify.blade.php
   GET       /dashboard ............................. dashboard/index.blade.php
+  GET       /genesis/about ........................... genesis/about.blade.php
   GET       /learn ..................................... learn/index.blade.php
   GET       /profile/edit ............................. profile/edit.blade.php
 
@@ -73,9 +73,9 @@ middleware(['redirect-to-dashboard']);
 
 This will redirect an authenticated user to the dashboard when they try and visit the homepage. You can simply remove this line if you do not wish to redirect the authenticated user.
 
-# About Page
+## About Page
 
-This is a simple about page that you can feel free to remove or use in your application. This page also contains the **ui/marketing/breadcrumbs.blade.php** component which can also be used on any other marketing page.
+This is a simple about page, located at `resources/views/pages/genesis/about.blade.php`, that you can feel free to remove or use in your application. This page also contains the **ui/marketing/breadcrumbs.blade.php** component which can also be used on any other marketing page.
 
 ## Authentication Pages
 
@@ -100,7 +100,7 @@ You will probably want to add this middleware to many of your application pages 
 
 ## Edit Profile Page
 
-The edit profile page is located at `resources/views/profile/edit`, and it can also be loaded by visiting `url.com/profile/edit`. This file contains the same middleware as the dashboard page, which means that users must be authenticated and verified before visiting.
+The edit profile page is located at `resources/views/pages/profile/edit.blade.php`, and it can also be loaded by visiting `url.com/profile/edit`. This file contains the same middleware as the dashboard page, which means that users must be authenticated and verified before visiting.
 
 This page has three different sections
 
@@ -112,7 +112,7 @@ To learn more about this file, visit the documentation in the [Wiki here](https:
 
 ## Learn Page
 
-This page displays the Genesis Readme file. It simply fetches the README.md file that you are reading right now and displays it in the dashboard.
+This page displays your project's `README.md`, the file you are reading right now. It reads the local file, so it always matches the version you have installed.
 
 ## Layouts
 
@@ -147,6 +147,7 @@ You can use these layouts as follows:
 
 We are also providing a handful of Blade Components that you can use in your new application which are located inside of `resources/views/components/ui`. These components include:
 
+- **badge**
 - **button**
 - **checkbox**
 - **input**
@@ -156,14 +157,15 @@ We are also providing a handful of Blade Components that you can use in your new
 - **modal**
 - **nav-link**
 - **placeholder**
-- **select**
+- **slide-over**
 - **text-link**
 
 There are also two folders inside the UI components which include **app** and **marketing**. Each of which correspond to the available **app** and **marketing** layout. Here are the components available in those folders:
 
--- **app.header**
--- **marketing.header**
--- **marketing.breadcrumbs**
+- **app.header**
+- **marketing.header**
+- **marketing.breadcrumbs**
+- **marketing.page-header**
 
 All these components are pretty self-explanatory; however, you may want to look into how each one works so that way you can get the most out of it.
 
@@ -178,11 +180,11 @@ Genesis has some basic tests to test out the authentication functionality. The t
 composer test
 ```
 
-Every test inside the `tests/Feature` folder has a test file that corresponds to each page in the `resources/views/pages` folder.
+The tests live in the `tests/Feature` folder, with the authentication tests in `tests/Feature/Auth`.
 
 ## Troubleshooting
 
-There may be times where you'll see Line numbers printed out in the view causing a weird layout and output. You'll want to run `php artisan view:clear`. This is probably due to the fact that Folio and Volt are still in Beta 😉
+There may be times where you'll see Line numbers printed out in the view causing a weird layout and output. You'll want to run `php artisan view:clear` to clear the compiled views.
 
 
 #### NPM errors
@@ -194,12 +196,12 @@ npm upgrade
 
 #### Laravel installer issues.
 
-APP_URL will be set differently according to how you install laravel.  Some might use the laravel installer some may use composer.  Vite will is serving on http://localhost:5173 while other parts of the app are using http://[::1]:5173. 
+APP_URL will be set differently according to how you install laravel.  Some might use the laravel installer some may use composer.  Vite is serving on http://localhost:5173 while other parts of the app are using http://[::1]:5173. 
 
-For best results try this:
+For best results, install with:
 
 ```bash
-composer create-project --prefer-dist laravel/laravel genesis-app
+composer create-project devdojo/genesis genesis-app
 ```
 
 then change your APP_URL in your .env:
@@ -232,4 +234,4 @@ php artisan serve
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). See the `license` field in `composer.json`.

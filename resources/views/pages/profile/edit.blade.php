@@ -81,12 +81,8 @@ new class extends Component {
 
         $user->delete();
 
-        request()
-            ->session()
-            ->invalidate();
-        request()
-            ->session()
-            ->regenerateToken();
+        session()->invalidate();
+        session()->regenerateToken();
 
         return Redirect::to('/');
     }
