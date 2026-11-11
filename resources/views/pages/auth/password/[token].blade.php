@@ -81,9 +81,9 @@ new class extends Component
             <div class="px-10 py-0 sm:py-8 sm:shadow-sm sm:bg-white dark:sm:bg-gray-950/50 dark:border-gray-200/10 sm:border sm:rounded-lg border-gray-200/60">
                 @volt('auth.password.token')
                 <form wire:submit="resetPassword" class="space-y-6">
-                    <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
-                    <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
-                    <x-ui.input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" />
+                    <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" autocomplete="email" />
+                    <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" autocomplete="new-password" autofocus />
+                    <x-ui.input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" wire:model="passwordConfirmation" autocomplete="new-password" />
                     <x-ui.button type="primary" rounded="md" submit="true">Reset password</x-ui.button>
                 </form>
                 @endvolt

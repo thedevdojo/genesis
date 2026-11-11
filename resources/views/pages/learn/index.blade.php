@@ -21,12 +21,6 @@ new class extends Component {
 
 ?>
 
-<style>
-    .dark img[alt="Genesis Logo"] {
-        filter: invert(1);
-    }
-</style>
-
 <x-layouts.app>
 
     <x-slot name="header">
@@ -38,7 +32,7 @@ new class extends Component {
     @volt('learn')
         <div class="relative w-full mx-auto">
             <p class="hidden text-sm font-medium leading-none text-gray-500 translate-y-5 sm:block">This page shows your project's <code>README.md</code>. The latest version is on the <a href="https://github.com/thedevdojo/genesis" target="_blank" class="underline">Genesis repository</a>.</p>
-            <article class="flex flex-col justify-center w-full max-w-full p-10 mx-auto prose-sm prose bg-white border rounded-md shadow-sm prose-md dark:prose-invert lg:prose-lg sm:my-10 border-gray-200/60 dark:bg-gray-900/50 dark:border-gray-200/10">
+            <article class="dark:[&_img[alt='Genesis_Logo']]:invert flex flex-col justify-center w-full max-w-full p-10 mx-auto prose-sm prose bg-white border rounded-md shadow-sm prose-md dark:prose-invert lg:prose-lg sm:my-10 border-gray-200/60 dark:bg-gray-900/50 dark:border-gray-200/10">
                 {!! Str::markdown($readme) !!}
             </article>
         </div>

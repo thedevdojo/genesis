@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
@@ -47,7 +48,19 @@ new class extends Component {
             return;
         }
 
-        $this->user->fill(['email' => $this->email, 'name' => $this->name])->save();
+        $this->user->fill(['email' => $this->email, 'name' => $this->name]);
+
+        // a new address has to be verified again, like in Breeze
+        $emailChanged = $this->user->isDirty('email');
+        if ($emailChanged) {
+            $this->user->email_verified_at = null;
+        }
+
+        $this->user->save();
+
+        if ($emailChanged && $this->user instanceof MustVerifyEmail) {
+            $this->user->sendEmailVerificationNotification();
+        }
 
         $this->dispatch('toast', message: 'Successfully updated profile.', data: ['position' => 'top-right', 'type' => 'success']);
     }
@@ -114,9 +127,9 @@ new class extends Component {
                                 {{ __("Update your account's profile information and email address.") }}</p>
                         </header>
                         <form wire:submit="updateProfile" class="mt-6 space-y-6">
-                            <x-ui.input label="Name" type="text" id="name" name="name" wire:model="name" />
+                            <x-ui.input label="Name" type="text" id="name" name="name" wire:model="name" autocomplete="name" />
                             <x-ui.input label="Email address" type="email" id="email" name="email"
-                                wire:model="email" />
+                                wire:model="email" autocomplete="email" />
                             <div class="flex items-start">
                                 <div>
                                     <x-ui.button type="primary" submit="true">{{ __('Update') }}</x-ui.button>
@@ -140,11 +153,11 @@ new class extends Component {
                         <form wire:submit="updatePassword" class="mt-6 space-y-6">
 
                             <x-ui.input label="Current Password" type="password" id="current_password"
-                                name="current_password" wire:model="current_password" />
+                                name="current_password" wire:model="current_password" autocomplete="current-password" />
                             <x-ui.input label="New Password" type="password" id="new_password" name="new_password"
-                                wire:model="new_password" />
+                                wire:model="new_password" autocomplete="new-password" />
                             <x-ui.input label="Confirm New Password" type="password" id="new_password_confirmation"
-                                name="new_password_confirmation" wire:model="new_password_confirmation" />
+                                name="new_password_confirmation" wire:model="new_password_confirmation" autocomplete="new-password" />
 
                             <div class="flex items-start">
                                 <div>
@@ -189,7 +202,7 @@ new class extends Component {
                                     </p>
 
                                     <x-ui.input label="Password" type="password" id="delete_confirm_password"
-                                        name="delete_confirm_password" wire:model="delete_confirm_password" />
+                                        name="delete_confirm_password" wire:model="delete_confirm_password" autocomplete="current-password" />
 
                                     <div class="flex justify-end mt-6">
                                         <div>

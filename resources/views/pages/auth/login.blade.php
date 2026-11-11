@@ -78,8 +78,8 @@ new class extends Component
                 @volt('auth.login')
                 <form wire:submit="authenticate" class="space-y-6">
 
-                    <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
-                    <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" />
+                    <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" autocomplete="email" autofocus />
+                    <x-ui.input label="Password" type="password" id="password" name="password" wire:model="password" autocomplete="current-password" />
 
                     <div class="flex items-center justify-between mt-6 text-sm leading-5">
                         <x-ui.checkbox label="Remember me" id="remember" name="remember" wire:model="remember" />

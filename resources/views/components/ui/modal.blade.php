@@ -46,7 +46,9 @@ $maxWidth = [
             x-on:keydown.escape.window="showModal = false"
             x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
             x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
-            x-show="showModal" 
+            x-show="showModal"
+            role="dialog"
+            aria-modal="true"
             class="fixed top-0 left-0 z-[99] flex items-center justify-center w-screen h-screen" x-cloak>
 
             <div x-show="showModal" 
@@ -56,7 +58,7 @@ $maxWidth = [
                 x-transition:leave="ease-in duration-300"
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
-                @click="showModal=false" class="absolute inset-0 w-full h-full bg-black bg-opacity-40"></div>
+                @click="showModal=false" class="absolute inset-0 w-full h-full bg-black/40"></div>
             <div x-show="showModal"
                 x-trap.inert.noscroll="showModal"
                 x-transition:enter="ease-out duration-300"
@@ -67,7 +69,7 @@ $maxWidth = [
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 class="relative w-full bg-white dark:bg-gray-900 dark:border dark:border-white/10 {{ $maxWidth }} sm:rounded-lg">
                 {{ $slot }}
-                <button @click="showModal=false" class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full dark:text-gray-500 hover:text-gray-800 dark:hover:text-gray-100 dark:hover:bg-gray-800 hover:bg-gray-50">
+                <button type="button" @click="showModal=false" aria-label="Close" class="absolute top-0 right-0 flex items-center justify-center w-8 h-8 mt-5 mr-5 text-gray-600 rounded-full dark:text-gray-500 hover:text-gray-800 dark:hover:text-gray-100 dark:hover:bg-gray-800 hover:bg-gray-50">
                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>  
                 </button>
 

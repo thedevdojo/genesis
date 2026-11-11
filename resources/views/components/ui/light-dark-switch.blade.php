@@ -13,6 +13,9 @@
         }
     }" 
     @click="toggleDarkMode()"
+    type="button"
+    aria-label="Toggle dark mode"
+    :aria-pressed="darkMode.toString()"
     x-init="
         if(document.documentElement.classList.contains('dark')){ darkMode=true; }
     "

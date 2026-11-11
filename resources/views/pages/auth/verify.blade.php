@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 use function Laravel\Folio\{middleware, name};
 use Livewire\Volt\Component;
 
@@ -15,6 +16,15 @@ new class extends Component
         if ($user->hasVerifiedEmail()) {
             return $this->redirect(route('dashboard'));
         }
+
+        // the page's throttle middleware doesn't apply to Livewire requests
+        $key = 'verification-resend:'.$user->getKey();
+        if (RateLimiter::tooManyAttempts($key, 6)) {
+            $this->addError('resend', 'Too many requests. Please try again in '.RateLimiter::availableIn($key).' seconds.');
+
+            return;
+        }
+        RateLimiter::hit($key, 60);
 
         $user->sendEmailVerificationNotification();
 
@@ -63,10 +73,16 @@ new class extends Component
                 </div>
                 @endif
 
+                @error('resend')
+                <div class="px-4 py-3 mb-6 text-sm text-white bg-red-500 rounded shadow" role="alert">
+                    <p>{{ $message }}</p>
+                </div>
+                @enderror
+
                 <div class="text-sm leading-6 text-gray-700 dark:text-gray-400">
                     <p>Before proceeding, please check your email for a verification link. If you did not receive the
-                        email, <a wire:click="resend" class="text-gray-700 underline transition duration-150 ease-in-out cursor-pointer dark:text-gray-300 hover:text-gray-600 focus:outline-none focus:underline">click
-                            here to request another</a>.</p>
+                        email, <button type="button" wire:click="resend" class="text-gray-700 underline transition duration-150 ease-in-out cursor-pointer dark:text-gray-300 hover:text-gray-600 focus:outline-none focus:underline">click
+                            here to request another</button>.</p>
                 </div>
             </div>
             @endvolt
