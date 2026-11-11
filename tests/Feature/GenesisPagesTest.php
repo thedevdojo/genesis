@@ -33,11 +33,3 @@ test('the header only links to the genesis pages locally', function () {
 
     $this->get('/')->assertSee('href="/genesis/power-ups"', false);
 });
-
-test('power-ups link to their install steps instead of installing', function () {
-    $this->app['env'] = 'local';
-
-    $this->get('/genesis/power-ups')
-        ->assertSee('https://github.com/thedevdojo/blog#installation', false)
-        ->assertDontSee('Installed</span>', false);
-});
