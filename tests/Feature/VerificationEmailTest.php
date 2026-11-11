@@ -19,7 +19,9 @@ test('resending the verification email is rate limited', function () {
         $page->call('resend')->assertHasNoErrors();
     }
 
-    $page->call('resend')->assertHasErrors('resend');
+    $page->call('resend')
+        ->assertHasErrors('resend')
+        ->assertSee('Too many requests. Please try again in');
 
     Notification::assertSentToTimes($user, VerifyEmail::class, 6);
 });

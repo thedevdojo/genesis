@@ -20,7 +20,7 @@ new class extends Component
         // the page's throttle middleware doesn't apply to Livewire requests
         $key = 'verification-resend:'.$user->getKey();
         if (RateLimiter::tooManyAttempts($key, 6)) {
-            $this->addError('resend', trans('auth.throttle', ['seconds' => RateLimiter::availableIn($key)]));
+            $this->addError('resend', 'Too many requests. Please try again in '.RateLimiter::availableIn($key).' seconds.');
 
             return;
         }
