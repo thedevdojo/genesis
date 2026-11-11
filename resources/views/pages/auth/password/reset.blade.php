@@ -72,7 +72,7 @@ new class extends Component
                 </div>
                 @else
                 <form wire:submit="sendResetPasswordLink" class="space-y-6">
-                    <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" />
+                    <x-ui.input label="Email address" type="email" id="email" name="email" wire:model="email" autocomplete="email" autofocus />
                     <x-ui.button type="primary" rounded="md" submit="true">Send password reset link</x-ui.button>
                 </form>
                 @endif

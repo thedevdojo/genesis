@@ -16,7 +16,6 @@
         }" 
         x-init="
             window.addEventListener('toast', function(event){
-                console.log(event);
                 event.stopPropagation();
                 toast(event.detail.message, event.detail.data);
             })
@@ -50,7 +49,9 @@
         class="relative space-y-5">
     </div>
     <template x-teleport="body">
-        <ul 
+        <ul
+            role="status"
+            aria-live="polite"
             x-data="{ 
                 toasts: [],
                 toastsHovered: false,
@@ -420,13 +421,15 @@
                         <template x-if="toast.html">
                             <div x-html="toast.html"></div>
                         </template>
-                        <span 
+                        <button
+                            type="button"
+                            aria-label="Dismiss notification"
                             @click="burnToast(toast.id)"
-                            class="absolute right-0 p-1.5 mr-2.5 text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800 duration-100 ease-in-out rounded-full opacity-0 cursor-pointer hover:bg-gray-50 hover:text-gray-500"
+                            class="absolute right-0 p-1.5 mr-2.5 text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800 duration-100 ease-in-out rounded-full opacity-0 focus-visible:opacity-100 cursor-pointer hover:bg-gray-50 hover:text-gray-500"
                             :class="{ 'top-1/2 -translate-y-1/2' : !toast.description && !toast.html, 'top-0 mt-2.5' : (toast.description || toast.html), 'opacity-100' : toastHovered, 'opacity-0' : !toastHovered }"
                         >
                             <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </span>
+                        </button>
                     </span>
                 </li>
             </template>

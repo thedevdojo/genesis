@@ -28,7 +28,7 @@ $maxWidth = [
             x-show="slideOverOpen"
             @keydown.window.escape="slideOverOpen=false"
             class="relative z-[99]">
-            <div x-show="slideOverOpen" x-transition.opacity.duration.600ms @click="slideOverOpen = false" class="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-70"></div>
+            <div x-show="slideOverOpen" x-transition.opacity.duration.600ms @click="slideOverOpen = false" class="fixed inset-0 bg-black/40 dark:bg-black/70"></div>
             <div class="fixed inset-0 overflow-hidden">
                 <div class="absolute inset-0 overflow-hidden">
                     <div class="fixed inset-y-0 right-0 flex max-w-full pl-10">
@@ -36,9 +36,11 @@ $maxWidth = [
                             x-on:open-slide-over.window="$event.detail == '{{ $name }}' ? slideOverOpen = true : null"
                             x-on:close.stop="slideOverOpen = false"
                             x-on:keydown.escape.window="slideOverOpen = false"
-                            x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
-                            x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
-                            x-show="slideOverOpen" 
+                            x-show="slideOverOpen"
+                            x-trap.inert.noscroll="slideOverOpen"
+                            role="dialog"
+                            aria-modal="true"
+                            aria-label="{{ $title }}"
                             @click.away="slideOverOpen = false"
                             x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700" 
                             x-transition:enter-start="translate-x-full" 
@@ -52,7 +54,7 @@ $maxWidth = [
                                     <div class="flex items-start justify-between pb-1">
                                         <h2 class="text-base font-semibold leading-6 text-gray-900 dark:text-gray-200">{{ $title }}</h2>
                                         <div class="flex items-center h-auto ml-3">
-                                            <button @click="slideOverOpen=false" class="absolute top-0 right-0 z-30 flex items-center justify-center px-3 py-2 mt-4 mr-5 space-x-1 text-xs font-medium uppercase border rounded-md border-neutral-200 dark:border-gray-700/70 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-gray-700/70">
+                                            <button type="button" @click="slideOverOpen=false" class="absolute top-0 right-0 z-30 flex items-center justify-center px-3 py-2 mt-4 mr-5 space-x-1 text-xs font-medium uppercase border rounded-md border-neutral-200 dark:border-gray-700/70 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-gray-700/70">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
                                                 <span>Close</span>
                                             </button>
