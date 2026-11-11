@@ -78,7 +78,7 @@ test('the remember me checkbox can be reached by keyboard', function () {
     expect($html)->toContain('class="sr-only peer"')
         ->not->toContain('class="hidden peer"')
         // peer-* only matches the input's siblings, so the ring goes on the label and targets the box
-        ->toMatch('/<label[^>]*peer-focus-visible:\[&amp;_\.custom-checkbox\]:ring-2/');
+        ->toMatch('/<label[^>]*peer-focus-visible:\[&_\.custom-checkbox\]:ring-2/');
 });
 
 test('the resend verification link is a button', function () {
