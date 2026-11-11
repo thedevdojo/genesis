@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
@@ -50,11 +51,16 @@ new class extends Component {
         $this->user->fill(['email' => $this->email, 'name' => $this->name]);
 
         // a new address has to be verified again, like in Breeze
-        if ($this->user->isDirty('email')) {
+        $emailChanged = $this->user->isDirty('email');
+        if ($emailChanged) {
             $this->user->email_verified_at = null;
         }
 
         $this->user->save();
+
+        if ($emailChanged && $this->user instanceof MustVerifyEmail) {
+            $this->user->sendEmailVerificationNotification();
+        }
 
         $this->dispatch('toast', message: 'Successfully updated profile.', data: ['position' => 'top-right', 'type' => 'success']);
     }
