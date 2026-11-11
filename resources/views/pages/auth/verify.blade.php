@@ -13,7 +13,7 @@ new class extends Component
     {
         $user = auth()->user();
         if ($user->hasVerifiedEmail()) {
-            return $this->redirect('/');
+            return $this->redirect(route('dashboard'));
         }
 
         $user->sendEmailVerificationNotification();
