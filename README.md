@@ -141,6 +141,14 @@ You can use these layouts as follows:
 </x-layouts.main>
 ```
 
+To set the page title, pass a `title` to any of the layouts. If you leave it out, it falls back to your `APP_NAME`:
+
+```html
+<x-layouts.app title="Dashboard">
+    <!-- content here... -->
+</x-layouts.app>
+```
+
 > There may be times when you want to use the **Main Layout** for a page. These might be use-cases where you don't need the **app** or **marketing** header/footer content. For instance, the **auth** pages inherit the **main** layout
 
 ## UI Components

@@ -1,4 +1,4 @@
-<x-layouts.main>
+<x-layouts.main :title="$title ?? null">
     
     <x-ui.app.header />
 

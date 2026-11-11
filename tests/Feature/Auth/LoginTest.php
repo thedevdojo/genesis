@@ -21,7 +21,7 @@ test('is redirected if already logged in', function () {
     $this->be($user);
 
     $this->get('/auth/login')
-        ->assertRedirect('/home');
+        ->assertRedirect(route('dashboard'));
 });
 
 test('a user can login', function () {
@@ -35,14 +35,14 @@ test('a user can login', function () {
     $this->assertAuthenticatedAs($user);
 });
 
-test('is redirected to home after login', function () {
+test('is redirected to the dashboard after login', function () {
     $user = User::factory()->create(['password' => Hash::make('password')]);
 
     Volt::test('auth.login')
         ->set('email', $user->email)
         ->set('password', 'password')
         ->call('authenticate')
-        ->assertRedirect('/');
+        ->assertRedirect(route('dashboard'));
 });
 
 test('email is required', function () {

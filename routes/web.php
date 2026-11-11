@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('home', '/')->name('home');
+// Kept for old links. The 'home' name belongs to the Folio index page.
+Route::redirect('home', '/');
 
 Route::middleware('auth')->group(function () {
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)

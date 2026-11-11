@@ -19,7 +19,7 @@ test('is redirected if already logged in', function () {
     $this->be($user);
 
     $this->get('auth/register')
-        ->assertRedirect(route('home'));
+        ->assertRedirect(route('dashboard'));
 });
 
 test('a user can register', function () {
@@ -31,7 +31,7 @@ test('a user can register', function () {
         ->set('password', 'password')
         ->set('passwordConfirmation', 'password')
         ->call('register')
-        ->assertRedirect('/');
+        ->assertRedirect(route('dashboard'));
 
     expect(User::whereEmail('genesis@example.com')->exists())->toBeTrue();
     expect(Auth::user()->email)->toEqual('genesis@example.com');
