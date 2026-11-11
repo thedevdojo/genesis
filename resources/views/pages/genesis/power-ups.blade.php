@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Artisan;
 use function Laravel\Folio\{name};
 use Livewire\Volt\Component;
 
@@ -33,39 +30,6 @@ new class extends Component
         }
         return [];
     }
-
-    public function install($repo, $index)
-    {
-        foreach ($this->powerupsJSON as $powerUpIndex => $powerup) {
-            if (key($powerup) == $repo) {
-                $this->powerupsJSON[$powerUpIndex]->{$repo} = true;
-            }
-        }
-
-        $filePath = public_path('/genesis/power-ups.json');
-        File::put($filePath, json_encode($this->powerupsJSON, JSON_PRETTY_PRINT));
-
-        Artisan::call('powerup:install ' . $repo);
-
-        $run = $this->powerups[$index]->run_after_install;
-        if (isset($run['commands'])) {
-            foreach ($run['commands'] as $command) {
-                Artisan::call($command);
-            }
-        }
-
-        if (isset($run['factories'])) {
-            foreach ($run['factories'] as $factory) {
-                $model = $factory['model'];
-                $count = $factory['count'];
-                call_user_func("{$model}::factory", $count)->create();
-            }
-        }
-
-        session()->flash('power-up-install', 'success');
-
-        return redirect()->to('/genesis/power-ups');
-    }
 };
 
 name('genesis.power-ups');
@@ -89,16 +53,6 @@ name('genesis.power-ups');
                 <div class="text-sm opacity-80 dark:opacity-100">Before deploying to production you will want to remove
                     the `pages/genesis` folder. These power-ups should only be installed with a new local app.</div>
             </div>
-
-            @if (session()->has('power-up-install'))
-            <div class="relative w-full p-6 pl-12 mt-8 text-green-700 border border-green-200 rounded-lg dark:border-transparent dark:bg-green-500 dark:text-white bg-green-50">
-                <svg class="absolute w-5 h-5 -translate-x-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <div class="text-sm opacity-80 dark:opacity-100">Successfully Installed Power-Up. Please restart
-                    your asset watcher to in order to include updated classes and styles.</div>
-            </div>
-            @endif
 
             <div class="grid w-full grid-cols-3 gap-8 mt-8">
 
@@ -189,23 +143,9 @@ name('genesis.power-ups');
                             </ul>
                         </div>
                         <div class="fixed bottom-0 right-0 z-30 w-full max-w-md p-4 bg-white border-t border-gray-200 dark:border-gray-800 dark:bg-gray-900">
-                            <x-ui.button wire:click="install('{{ $powerup->repo }}', '{{ $index }}')" type="success" rounded="md">
-                                <span class="mr-1.5">
-                                    <svg wire:loading class="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                        </path>
-                                    </svg>
-                                    <svg wire:loading.remove class="w-5 h-5 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g fill="none" class="signal-icon-wrapper" stroke="none">
-                                            <path d="M18.2502 20.25C19.3548 20.25 20.2502 19.3546 20.2502 18.25L20.2501 9.45157C20.2501 8.99742 20.0955 8.5568 19.8118 8.20217L16.8505 4.50059C16.4709 4.02617 15.8963 3.75 15.2888 3.75L5.75 3.75C4.64543 3.75 3.75 4.64543 3.75 5.75V18.25C3.75 19.3546 4.64543 20.25 5.75 20.25H18.2502Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                            <path d="M15.25 8C12.6715 8 11.0903 8 8.75041 8C8.19813 8 7.75 7.55228 7.75 7L7.75 4.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                            <path d="M7.75 20.25V14.5C7.75 13.6716 8.42157 13 9.25 13H14.75C15.5784 13 16.25 13.6716 16.25 14.5V20.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </g>
-                                    </svg>
-                                </span>
-                                <span>Install Power-up</span>
-                            </x-ui.button>
+                            <a href="https://github.com/{{ $powerup->repo }}#installation" target="_blank" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-500">
+                                View install steps
+                            </a>
                         </div>
                     </div>
                 </x-ui.slide-over>

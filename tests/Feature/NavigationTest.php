@@ -5,6 +5,8 @@ use App\Models\User;
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 test('the breadcrumb list only contains list items', function () {
+    $this->app['env'] = 'local';
+
     $dom = new DOMDocument;
     @$dom->loadHTML($this->get('/genesis/about')->assertOk()->getContent());
     $ol = (new DOMXPath($dom))->query('//nav[@aria-label="Breadcrumb"]/ol')->item(0);
@@ -20,6 +22,8 @@ test('the breadcrumb list only contains list items', function () {
 });
 
 test('the breadcrumbs name the home link and mark the current page', function () {
+    $this->app['env'] = 'local';
+
     $this->get('/genesis/about')
         ->assertOk()
         ->assertSee('<a href="/" aria-label="Home"', false)
