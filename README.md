@@ -230,6 +230,10 @@ php artisan serve
 
 
 
+#### 400 Bad Request in production
+
+Outside local, the app only answers to the host in `APP_URL` (and its subdomains). Make sure `APP_URL` is set to your real domain when deploying, e.g. `APP_URL=https://example.com`, or every request will return a 400.
+
 ## Credits
 
 -   [Tony Lea](https://twitter.com/tnylea)
