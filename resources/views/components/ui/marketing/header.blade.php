@@ -18,11 +18,15 @@
                 
                 <nav id="marketing-menu" class="flex flex-col w-full p-6 space-y-2 bg-white dark:bg-gray-950 md:p-0 md:flex-row md:space-x-2 md:space-y-0 md:w-auto md:bg-transparent md:flex">
                     <x-ui.nav-link href="/">Home</x-ui.nav-link>
-                    <x-ui.nav-link href="/genesis/about">About</x-ui.nav-link>
+                    @if (app()->isLocal())
+                        <x-ui.nav-link href="/genesis/about">About</x-ui.nav-link>
+                    @endif
                     @if(view()->exists('pages.blog.index'))
                         <x-ui.nav-link href="/blog">Blog</x-ui.nav-link>
                     @endif
-                    <x-ui.nav-link href="/genesis/power-ups">Power-ups</x-ui.nav-link>
+                    @if (app()->isLocal())
+                        <x-ui.nav-link href="/genesis/power-ups">Power-ups</x-ui.nav-link>
+                    @endif
                 </nav>
             </div>
         </div>

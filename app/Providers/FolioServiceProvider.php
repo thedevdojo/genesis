@@ -24,6 +24,13 @@ class FolioServiceProvider extends ServiceProvider
             '*' => [
                 //
             ],
+            'genesis/*' => [
+                function ($request, $next) {
+                    abort_unless(app()->isLocal(), 404);
+
+                    return $next($request);
+                },
+            ],
         ]);
     }
 }
