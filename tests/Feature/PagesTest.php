@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
@@ -24,10 +25,17 @@ test('guests are sent to the login page from the dashboard and profile', functio
     $this->get($url)->assertRedirect(route('login'));
 })->with(['/dashboard', '/profile/edit', '/auth/verify']);
 
-test('the power-ups page is gone from the site and the menu', function () {
-    $this->get('/genesis/power-ups')->assertNotFound();
+test('the power-ups page lists the power-ups without fetching anything', function () {
+    Http::preventStrayRequests();
 
+    $this->get('/genesis/power-ups')
+        ->assertOk()
+        ->assertSee('https://github.com/thedevdojo/blog-genesis', false)
+        ->assertDontSee('Install Power-up');
+});
+
+test('the power-ups page is linked from the menu', function () {
     $this->get('/')
         ->assertOk()
-        ->assertDontSee('/genesis/power-ups', false);
+        ->assertSee('/genesis/power-ups', false);
 });

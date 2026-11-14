@@ -41,7 +41,7 @@ Learn how to install and configure Genesis below.
 
 ## Routes in your application
 
-Currently Genesis creates 11 routes including the homepage, authentication, dashboard view, and a few others. You can see all the routes currently in your application by using the `php artisan folio:list` command:
+Currently Genesis creates 12 routes including the homepage, authentication, dashboard view, and a few others. You can see all the routes currently in your application by using the `php artisan folio:list` command:
 
 ```bash
   GET       / ................................................ index.blade.php
@@ -53,10 +53,11 @@ Currently Genesis creates 11 routes including the homepage, authentication, dash
   GET       /auth/verify ............................... auth/verify.blade.php
   GET       /dashboard ............................. dashboard/index.blade.php
   GET       /genesis/about ........................... genesis/about.blade.php
+  GET       /genesis/power-ups ................... genesis/power-ups.blade.php
   GET       /learn ..................................... learn/index.blade.php
   GET       /profile/edit ............................. profile/edit.blade.php
 
-                                                           Showing [11] routes
+                                                           Showing [12] routes
 ```
 
 Let's cover each of the pages provided by Genesis.
@@ -76,6 +77,10 @@ This will redirect an authenticated user to the dashboard when they try and visi
 ## About Page
 
 This is a simple about page, located at `resources/views/pages/genesis/about.blade.php`, that you can feel free to remove or use in your application. This page also contains the **ui/marketing/breadcrumbs.blade.php** component which can also be used on any other marketing page.
+
+## Power-ups Page
+
+Located at `resources/views/pages/genesis/power-ups.blade.php`, this page lists the power-ups you can add to your app, like the [Blog power-up](https://github.com/thedevdojo/blog-genesis). Power-ups are added by hand: copy the files from the power-up's repo into the same paths in your app, then run `php artisan migrate`. The page explains the steps.
 
 ## Authentication Pages
 
