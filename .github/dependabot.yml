@@ -9,10 +9,6 @@ updates:
     cooldown:
       default-days: 3
       semver-major-days: 7
-    ignore:
-      # Pint 1.28 adds rules that flag existing files, and 1.30.5+ needs PHP 8.3
-      - dependency-name: laravel/pint
-        versions: ['>=1.28.0']
     groups:
       composer:
         patterns: ['*']
