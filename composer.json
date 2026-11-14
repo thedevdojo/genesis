@@ -16,7 +16,7 @@
         "laravel/folio": "^1.1",
         "laravel/framework": "^12.0|^13.0",
         "laravel/tinker": "^2.10.1|^3.0",
-        "livewire/livewire": "^3.6",
+        "livewire/livewire": "^4.4",
         "livewire/volt": "^1.10.2"
     },
     "require-dev": {
