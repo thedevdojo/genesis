@@ -11,10 +11,10 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "codeat3/blade-phosphor-icons": "^2.3",
         "laravel/folio": "^1.1",
-        "laravel/framework": "^11.0|^12.0|^13.0",
+        "laravel/framework": "^12.0|^13.0",
         "laravel/tinker": "^2.10.1|^3.0",
         "livewire/livewire": "^3.6",
         "livewire/volt": "^1.10.2"
@@ -79,6 +79,9 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
+        },
+        "platform": {
+            "php": "8.3.0"
         }
     },
     "minimum-stability": "stable",
