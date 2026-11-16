@@ -17,7 +17,7 @@ A Laravel starter kit built on the **TALL Stack**, along with **Volt** and **Fol
 
 ## Installation
 
-Genesis needs PHP 8.3+ and Node 20.19+ or 22.12+ (for Vite 8).
+Genesis needs PHP 8.3+.
 
 You can use the [Laravel Installer](https://laravel.com/docs#installing-php) to install Genesis.
 
