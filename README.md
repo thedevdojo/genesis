@@ -17,6 +17,8 @@ A Laravel starter kit built on the **TALL Stack**, along with **Volt** and **Fol
 
 ## Installation
 
+Genesis needs PHP 8.3+.
+
 You can use the [Laravel Installer](https://laravel.com/docs#installing-php) to install Genesis.
 
 ```bash
@@ -199,12 +201,12 @@ The tests live in the `tests/Feature` folder, with the authentication tests in `
 
 There may be times where you'll see Line numbers printed out in the view causing a weird layout and output. You'll want to run `php artisan view:clear` to clear the compiled views.
 
-
 #### NPM errors
 
-If you are seeing an error on http://localhost:5173 try:
+If you are seeing an error on http://localhost:5173, reinstall the packages from the lock file:
 ```bash
-npm upgrade 
+rm -rf node_modules
+npm install
 ```
 
 #### Laravel installer issues.
@@ -223,19 +225,11 @@ then change your APP_URL in your .env:
 APP_URL=http://127.0.0.1:8000
 ```
 
-then start the npm server and laravel servers:
+then start the app and the asset watcher together:
 
 ```bash
-npm run dev
+composer run dev
 ```
-```
-php artisan serve
-```
-
-
-
-
-
 
 #### 400 Bad Request in production
 
